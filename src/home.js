@@ -1,19 +1,35 @@
 // file home.js
 function home(navigateTo) {
-    const section = document.createElement('section');
-    const title = document.createElement('h2');
-    const button = document.createElement('button');
-  
-    button.textContent = 'login';
-    button.addEventListener('click', () => {
+    const sectionHome = document.createElement('section');
+    sectionHome.setAttribute("class", "containerHome");
+    const welcome = document.createElement('h2');
+    welcome.setAttribute("class", "welcome");
+    const nameSocial = document.createElement('h1');
+    nameSocial.setAttribute("class", "nameSocial");
+    const buttonOne = document.createElement('button');
+    buttonOne.setAttribute("class", "signIn")
+    const buttonTwo = document.createElement('button');
+    buttonTwo.setAttribute("class", "signUp")
+    const img = document.createElement('img');
+    img.setAttribute("class", "logo")
+
+    img.src = "imagen/LogoEnRutados.png";
+    buttonOne.textContent = 'Iniciar sesión';
+    buttonOne.addEventListener('click', () => {
+      navigateTo('/login');
+    });
+
+    buttonTwo.textContent = 'Registrate';
+    buttonTwo.addEventListener('click', () => {
       navigateTo('/login');
     });
   
-    title.textContent = 'Welcome to my project';
+    welcome.textContent = 'Bienvenido';
+    nameSocial.textContent = 'EnRutados';
   
-    section.append(title, button);
+    sectionHome.append(welcome, buttonOne, buttonTwo, img, nameSocial);
     console.log("soy el home");
-    return section;
+    return sectionHome;
   }
   
   export default home;
