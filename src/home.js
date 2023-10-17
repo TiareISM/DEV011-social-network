@@ -19,6 +19,8 @@ export function home(navigateTo) {
   const description2Social = document.createElement('h4');
   description2Social.setAttribute('class', 'description2Social');
   const openGoogle = document.createElement('button');
+  openGoogle.setAttribute('class', 'openGoogle');
+  
 
   img.src = 'imagen/LogoEnRutados.png';
   buttonOne.textContent = 'Iniciar sesión';
