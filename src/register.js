@@ -1,30 +1,28 @@
-// file login finished
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
-function login(navigateTo) {
-  // ----- contenedor principal ----
+export function register(navigateTo) {
   const principalContainer = document.createElement('section');
   principalContainer.setAttribute('class', 'principal-container');
   const buttonReturn = document.createElement('button');
   buttonReturn.setAttribute('class', 'return');
-  // ----- contenedor nombre red social ----
-  const containerName = document.createElement('section');
-  containerName.setAttribute('class', 'containerName');
+  const nameSocialContainer = document.createElement('section');
+  nameSocialContainer.setAttribute('class', 'name-social-container');
   const img = document.createElement('img');
   img.setAttribute('class', 'logo');
   const nameSocial = document.createElement('h1');
   nameSocial.setAttribute('class', 'nameSocial');
-  // ----- contenedor login -----
-  const containerSingIn = document.createElement('section');
-  containerSingIn.setAttribute('class', 'containerInfo');
+
+  const registerContainer = document.createElement('section');
+  registerContainer.setAttribute('class', 'containerInfo');
   const form = document.createElement('form');
+  const inputName = document.createElement('input');
+  inputName.setAttribute('class', 'inputInfo');
   const inputEmail = document.createElement('input');
   inputEmail.setAttribute('class', 'inputInfo');
   const inputPass = document.createElement('input');
   inputPass.setAttribute('class', 'inputInfo');
-  const buttonSignIn = document.createElement('button');
-  buttonSignIn.setAttribute('class', 'signIn');
-  // const forgetPassword = document.createElement('input');
+  const buttonRegister = document.createElement('button');
+  buttonRegister.setAttribute('class', 'buttonInfo');
   const connectWith = document.createElement('h4');
   connectWith.setAttribute('class', 'connect-with');
   const openGoogle = document.createElement('button');
@@ -32,11 +30,11 @@ function login(navigateTo) {
 
   img.src = 'imagen/LogoEnRutados.png';
   nameSocial.textContent = ' EnRutados';
+  inputName.placeholder = 'Nombre Usuario';
   inputEmail.placeholder = 'Correo electrónico';
   inputPass.placeholder = 'Contraseña';
-  buttonSignIn.textContent = 'Iniciar sesión';
+  buttonRegister.textContent = 'Registrate';
   connectWith.textContent = 'O conéctate con';
-  
   buttonReturn.textContent = 'Return';
   buttonReturn.addEventListener('click', () => {
     navigateTo('/');
@@ -57,12 +55,11 @@ function login(navigateTo) {
     }
   });
 
-  form.append(inputEmail, inputPass);
-  containerName.append(img, nameSocial);
-  containerSingIn.append(form, buttonSignIn, connectWith, openGoogle);
-  principalContainer.append(buttonReturn, containerName, containerSingIn);
-
+  form.append(inputName, inputEmail, inputPass);
+  nameSocialContainer.append(img, nameSocial);
+  registerContainer.append(form, buttonRegister, connectWith, openGoogle);
+  principalContainer.append(buttonReturn, nameSocialContainer, registerContainer);
+  console.log('este es el registro');
   return principalContainer;
 }
-
-export default login;
+export default register;

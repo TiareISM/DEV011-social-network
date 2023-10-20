@@ -4,8 +4,15 @@ import 'firebase/firestore';
 
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+
+/* import { myFunction } from './lib/index.js';
+myFunction(); */
+
+import { home } from './home.js';
+import login from './login.js';
+import error from './error.js';
+import register from './register.js';
 
 // TODO: Replace the following with your app's Firebase project configuration
 // See: https://support.google.com/firebase/answer/7015592
@@ -29,17 +36,12 @@ const db = getFirestore(app);
 // Agrega la configuración de Firebase Auth
 const auth = getAuth();
 
-/*import { myFunction } from './lib/index.js';
-myFunction();*/
-
-import { home } from './home.js';
-import login from './login.js';
-import error from './error.js';
-
 const routes = [
   { path: '/', component: home },
   { path: '/login', component: login },
   { path: '/error', component: error },
+  { path: '/register', component: register },
+
 ];
 
 const defaultRoute = '/';
