@@ -1,4 +1,4 @@
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { registerUser, signGoogle } from './lib/index.js';
 
 export function register(navigateTo) {
   const principalContainer = document.createElement('section');
@@ -17,10 +17,16 @@ export function register(navigateTo) {
   const form = document.createElement('form');
   const inputName = document.createElement('input');
   inputName.setAttribute('class', 'inputInfo');
+  inputName.setAttribute('type','text');
+  inputName.setAttribute('id','idInputName');
   const inputEmail = document.createElement('input');
   inputEmail.setAttribute('class', 'inputInfo');
+  inputEmail.setAttribute('type','email');
+  inputEmail.setAttribute('id','idInputEmail');
   const inputPass = document.createElement('input');
   inputPass.setAttribute('class', 'inputInfo');
+  inputPass.setAttribute('type','password');
+  inputPass.setAttribute('id', 'idInputPass');
   const buttonRegister = document.createElement('button');
   buttonRegister.setAttribute('class', 'buttonInfo');
   const connectWith = document.createElement('h4');
@@ -40,20 +46,18 @@ export function register(navigateTo) {
     navigateTo('/');
   });
 
-  // Agrega un evento de click para el botón de inicio de sesión con Google
-  openGoogle.addEventListener('click', async () => {
-    const auth = getAuth();
-    const provider = new GoogleAuthProvider();
+   // Evento Sing Up
+   
+   buttonRegister.addEventListener('click', () => {
+     const email = document.getElementById('idInputEmail').value;
+     const password = document.getElementById('idInputPass').value;
+     const name = document.getElementById('idInputName').value;
+     registerUser(email, password, name);
+   });
 
-    try {
-      await signInWithPopup(auth, provider);
-      // Inicio de sesión con Google exitoso
-      // Puedes agregar una redirección o lógica adicional aquí
-    } catch (error) {
-      console.error('Google login error', error);
-      // Maneja los errores de inicio de sesión con Google
-    }
-  });
+
+  // Agrega un evento de click para el botón de inicio de sesión con Google
+  openGoogle.addEventListener('click', signGoogle);
 
   form.append(inputName, inputEmail, inputPass);
   nameSocialContainer.append(img, nameSocial);
@@ -62,4 +66,6 @@ export function register(navigateTo) {
   console.log('este es el registro');
   return principalContainer;
 }
+
+
 export default register;
