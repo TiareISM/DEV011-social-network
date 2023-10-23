@@ -1,0 +1,116 @@
+/*const sectionHome = document.createElement('section');
+  sectionHome.setAttribute('class', 'containerHome');
+  const img = document.createElement('img');
+  img.setAttribute('class', 'logo');
+  const welcome = document.createElement('h2');
+  welcome.setAttribute('class', 'welcome');
+  const nameSocial = document.createElement('h1');
+  nameSocial.setAttribute('class', 'nameSocial');
+  const descriptionSocial= document.createElement('h3');
+  descriptionSocial.setAttribute('class', 'descriptionSocial');
+  const buttonOne = document.createElement('button');
+  buttonOne.setAttribute('class', 'signIn');
+  const buttonTwo = document.createElement('button');
+  buttonTwo.setAttribute('class', 'signUp');
+  const description2Social = document.createElement('h4');
+  description2Social.setAttribute('class', 'description2Social');
+  const openGoogle = document.createElement('button');
+*/
+* {
+    margin: 0;
+    padding: auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body{
+    background: #59236d;
+}
+
+.principal-container {
+    display: flex;
+    flex-wrap: wrap;
+    height: 80%;
+    width: 200px;
+    padding: 3rem;
+    margin:auto;
+    border-radius: 20px;
+    background-color: #e7ecd7;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.name-social-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logo{
+    width: 164px;
+    height: 158px;
+    flex-shrink: 0;
+}
+
+.nameSocial{
+    color: #4D3EFC;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.containerHome {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    
+}
+.welcome {
+    color: #11220B;
+    font-family: Inika;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.signUp,
+.signIn{
+    border-radius: 5px;
+    border: 3px solid #4D3EFC;
+    background: #E5EBD2;
+    width: 280px;
+    height: 37px;
+    flex-shrink: 0;
+}
+.signUp:hover,
+.signIn:hover{
+    background-color: #4D3EFC;
+}
+.containerHome{
+    border-radius: 20px;
+    background: #FFF;
+    display: flex;
+    flex-direction: column;
+}
+
+.openGoogle{
+    width: 82px;
+    height: 60px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff; /* Color de fondo */
+    border: 1px solid #ccc; /* Borde */
+    padding: 10px 20px; /* Relleno */
+    border-radius: 5px; /* Borde redondeado */
+    cursor: pointer;
+    background-image:url('https://cdn-icons-png.flaticon.com/256/2875/2875404.png');
+    background-size: contain; /* Ajusta el tamaño del fondo */
+    background-repeat: no-repeat; /* No se repite */
+    background-position: 10px center; /* Alinea el logo a la izquierda */
+}
