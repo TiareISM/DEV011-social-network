@@ -16,8 +16,57 @@
   description2Social.setAttribute('class', 'description2Social');
   const openGoogle = document.createElement('button');
 */
+* {
+    margin: 0;
+    padding: auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 body{
-    background: #E5EBD2;
+    background: #59236d;
+}
+
+.principal-container {
+    display: flex;
+    flex-wrap: wrap;
+    height: 80%;
+    width: 200px;
+    padding: 3rem;
+    margin:auto;
+    border-radius: 20px;
+    background-color: #e7ecd7;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.name-social-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logo{
+    width: 164px;
+    height: 158px;
+    flex-shrink: 0;
+}
+
+.nameSocial{
+    color: #4D3EFC;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.containerHome {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    
 }
 .welcome {
     color: #11220B;
@@ -27,14 +76,7 @@ body{
     font-weight: 700;
     line-height: normal;
 }
-.nameSocial{
-    color: #4D3EFC;
-    font-family: Inter;
-    font-size: 40px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
+
 .signUp,
 .signIn{
     border-radius: 5px;
@@ -54,11 +96,7 @@ body{
     display: flex;
     flex-direction: column;
 }
-.logo{
-    width: 164px;
-    height: 158px;
-    flex-shrink: 0;
-}
+
 .openGoogle{
     width: 82px;
     height: 60px;
