@@ -1,5 +1,5 @@
 // file login finished
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { signGoogle }  from './lib/index.js';
 
 function login(navigateTo) {
   // ----- contenedor principal ----
@@ -43,19 +43,8 @@ function login(navigateTo) {
   });
 
   // Agrega un evento de click para el botón de inicio de sesión con Google
-  openGoogle.addEventListener('click', async () => {
-    const auth = getAuth();
-    const provider = new GoogleAuthProvider();
+  openGoogle.addEventListener('click', signGoogle);
 
-    try {
-      await signInWithPopup(auth, provider);
-      // Inicio de sesión con Google exitoso
-      // Puedes agregar una redirección o lógica adicional aquí
-    } catch (error) {
-      console.error('Google login error', error);
-      // Maneja los errores de inicio de sesión con Google
-    }
-  });
 
   form.append(inputEmail, inputPass);
   containerName.append(img, nameSocial);
