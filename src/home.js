@@ -23,7 +23,7 @@ export function home(navigateTo) {
   buttonSignIn.setAttribute('class', 'signIn');
   const buttonSignUp = document.createElement('button');
   buttonSignUp.setAttribute('class', 'signUp');
-  const connectWith = document.createElement('h4');
+  const connectWith = document.createElement('h6');
   connectWith.setAttribute('class', 'connect-with');
   const openGoogle = document.createElement('button');
   openGoogle.setAttribute('class', 'openGoogle');

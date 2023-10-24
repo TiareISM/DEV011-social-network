@@ -1,49 +1,34 @@
-/*const sectionHome = document.createElement('section');
-  sectionHome.setAttribute('class', 'containerHome');
-  const img = document.createElement('img');
-  img.setAttribute('class', 'logo');
-  const welcome = document.createElement('h2');
-  welcome.setAttribute('class', 'welcome');
-  const nameSocial = document.createElement('h1');
-  nameSocial.setAttribute('class', 'nameSocial');
-  const descriptionSocial= document.createElement('h3');
-  descriptionSocial.setAttribute('class', 'descriptionSocial');
-  const buttonOne = document.createElement('button');
-  buttonOne.setAttribute('class', 'signIn');
-  const buttonTwo = document.createElement('button');
-  buttonTwo.setAttribute('class', 'signUp');
-  const description2Social = document.createElement('h4');
-  description2Social.setAttribute('class', 'description2Social');
-  const openGoogle = document.createElement('button');
-*/
 * {
     margin: 0;
-    padding: auto;
+    padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-body{
-    background: #59236d;
+body {
+    background-color: #e7ecd7;
+}
+#root {
+   
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 0 auto;
 }
 
 .principal-container {
     display: flex;
-    flex-wrap: wrap;
-    height: 80%;
-    width: 200px;
-    padding: 3rem;
-    margin:auto;
-    border-radius: 20px;
+    flex-direction: column;
+    height: 70%;
+    width: 90%;
     background-color: #e7ecd7;
     justify-content: center;
     align-items: center;
-    
+    margin: 0 auto;
 }
 
 .name-social-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    
+    
 }
 
 .logo{
@@ -61,6 +46,33 @@ body{
     line-height: normal;
 }
 
+.containerInfo {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(242, 245, 244);
+    border-radius: 15px;
+    padding: 20px;
+    align-items: center;
+}
+
+.inputInfo {
+    width: 70%;
+    margin: 10px 0;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    background-color: rgb(215, 225, 217);
+}
+
+.buttonInfo {
+    width: 70%;
+    margin: 10px 0;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    background-color: rgb(77, 62, 252);
+    color: #FFF;
+}
 .containerHome {
     display: flex;
     justify-content: center;

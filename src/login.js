@@ -1,5 +1,5 @@
 // file login finished
-import { signGoogle }  from './lib/index.js';
+import { auth, signGoogle }  from './lib/index.js';
 
 function login(navigateTo) {
   // ----- contenedor principal ----
@@ -44,7 +44,24 @@ function login(navigateTo) {
 
   // Agrega un evento de click para el botón de inicio de sesión con Google
   openGoogle.addEventListener('click', signGoogle);
+  const user = auth.currentUser;
+  if (user !== null) {
 
+    user.providerData.forEach((profile) => {
+  
+      console.log("Sign-in provider: " + profile.providerId);
+  
+      console.log("  Provider-specific UID: " + profile.uid);
+  
+      console.log("  Name: " + profile.displayName);
+  
+      console.log("  Email: " + profile.email);
+  
+      console.log("  Photo URL: " + profile.photoURL);
+  
+    });
+  
+  }
 
   form.append(inputEmail, inputPass);
   containerName.append(img, nameSocial);
