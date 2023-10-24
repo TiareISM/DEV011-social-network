@@ -1,6 +1,6 @@
 import firebase from 'firebase/compat/app';
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from "firebase/firestore"; 
+import { getFirestore, addDoc, collection } from "firebase/firestore"; 
 import {getAuth, createUserWithEmailAndPassword, updateProfile, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
 //-----Configuración de Firebase-----
@@ -20,7 +20,7 @@ const app = initializeApp(firebaseConfig);
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 // Agrega la configuración de Firebase Auth
-const auth = getAuth();
+export const auth = getAuth(app);
 
 
 //----- Funcion de registro de Usuario -----
@@ -46,6 +46,20 @@ export const registerUser = (email, password, name) => {
       // ..
     });
 }
+
+//----- Función agregar datos-----
+/*export const registerUserdb = (
+
+  try {
+    const docRef = await addDoc(collection(db, "users"), {
+      name: "name",
+      email: "email",
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+)*/
 
 //-----Funcion de Ingreso con Google----
 export const signGoogle = () => {
