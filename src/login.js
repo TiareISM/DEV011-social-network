@@ -1,5 +1,5 @@
 // file login finished
-import { auth, signGoogle }  from './lib/index.js';
+import { auth, signGoogle, signIn }  from './lib/index.js';
 
 function login(navigateTo) {
   // ----- contenedor principal ----
@@ -20,8 +20,13 @@ function login(navigateTo) {
   const form = document.createElement('form');
   const inputEmail = document.createElement('input');
   inputEmail.setAttribute('class', 'inputInfo');
+  inputEmail.setAttribute('id','idInputEmail');
+  inputEmail.setAttribute('autocomplete', 'current-password');
   const inputPass = document.createElement('input');
   inputPass.setAttribute('class', 'inputInfo');
+  inputPass.setAttribute('id','idInputPass');
+  inputPass.setAttribute('type','password');
+  inputPass.setAttribute('autocomplete', 'current-password');
   const buttonSignIn = document.createElement('button');
   buttonSignIn.setAttribute('class', 'signIn');
   // const forgetPassword = document.createElement('input');
@@ -41,7 +46,12 @@ function login(navigateTo) {
   buttonReturn.addEventListener('click', () => {
     navigateTo('/');
   });
-
+  //
+  buttonSignIn.addEventListener('click', () => {
+    const email = document.getElementById('idInputEmail').value;
+    const password = document.getElementById('idInputPass').value;
+    signIn(email, password);
+  });
   // Agrega un evento de click para el botón de inicio de sesión con Google
   openGoogle.addEventListener('click', signGoogle);
   const user = auth.currentUser;

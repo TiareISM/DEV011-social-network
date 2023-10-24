@@ -1,7 +1,7 @@
 import firebase from 'firebase/compat/app';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, addDoc, collection } from "firebase/firestore"; 
-import {getAuth, createUserWithEmailAndPassword, updateProfile, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import {getAuth, createUserWithEmailAndPassword, updateProfile, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword } from 'firebase/auth';
 
 //-----Configuración de Firebase-----
 const firebaseConfig = {
@@ -33,8 +33,7 @@ export const registerUser = (email, password, name) => {
         displayName: name,
         userEmail: email,
       });
-      alert('Usuario Registrado');
-      window.location.hash = '#/login';
+      window.location.href = '/register';
       emailCheck();
     })
     .catch((error) => {
@@ -42,7 +41,7 @@ export const registerUser = (email, password, name) => {
       console.log(errorCode);
       const errorMessage = error.message;
       console.log(errorMessage);
-      alert('Correo ya registrado');
+     
       // ..
     });
 }
@@ -78,3 +77,21 @@ export const signGoogle = () => {
       console.error('Error de inicio de sesión:', errorCode);
     });
   }
+
+//-----Funcion de Inicio Sesión----
+export const signIn = (email, password) => {
+  const auth = getAuth(app);
+  return signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    const user = userCredential.user;
+    console.log('inicio de sesión exitoso', user);
+    window.location.href = '/dashboard';
+    return user;
+  })
+  .catch((error) => {
+    // Manejo de errores en caso de que el inicio de sesión falle.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.error('Error de inicio de sesión:', errorCode, errorMessage);
+  });
+}
