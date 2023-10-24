@@ -1,4 +1,4 @@
-import { registerUser, signGoogle } from './lib/index.js';
+import { registerUser, signGoogle } from "./lib";
 
 export function register(navigateTo) {
   const principalContainer = document.createElement('section');
