@@ -46,12 +46,22 @@ function login(navigateTo) {
   buttonReturn.addEventListener('click', () => {
     navigateTo('/');
   });
-  //
+
+  // Agrega un evento de click para el botón de inicio de sesión
   buttonSignIn.addEventListener('click', () => {
     const email = document.getElementById('idInputEmail').value;
     const password = document.getElementById('idInputPass').value;
-    signIn(email, password);
+    signIn(email, password)
+      .then(() => {
+        // Redirige al dashboard después de iniciar sesión con éxito
+        navigateTo('/dashboard');
+      })
+      .catch((error) => {
+        // Manejo de errores en caso de que el inicio de sesión falle.
+        console.error('Error de inicio de sesión:', error);
+      });
   });
+
   // Agrega un evento de click para el botón de inicio de sesión con Google
   openGoogle.addEventListener('click', signGoogle);
   const user = auth.currentUser;

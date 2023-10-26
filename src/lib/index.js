@@ -1,6 +1,6 @@
 import firebase from 'firebase/compat/app';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, addDoc, collection } from "firebase/firestore"; 
+import { getFirestore, addDoc, collection, getDocs, onSnapshot} from "firebase/firestore"; 
 import {getAuth, createUserWithEmailAndPassword, updateProfile, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword } from 'firebase/auth';
 
 //-----Configuración de Firebase-----
@@ -18,7 +18,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // Initialize Cloud Firestore and get a reference to the service
-const db = getFirestore(app);
+export const db = getFirestore(app);
 // Agrega la configuración de Firebase Auth
 export const auth = getAuth(app);
 
@@ -41,8 +41,6 @@ export const registerUser = (email, password, name) => {
       console.log(errorCode);
       const errorMessage = error.message;
       console.log(errorMessage);
-     
-      // ..
     });
 }
 
@@ -95,3 +93,16 @@ export const signIn = (email, password) => {
     console.error('Error de inicio de sesión:', errorCode, errorMessage);
   });
 }
+
+//-----Agregar comentarios-----
+const postCollection = collection(db, "posts");
+
+export const addPost = (comment) =>{
+  addDoc(postCollection, {
+     comment,
+  });
+}
+export const querySnapshot = getDocs(postCollection);
+export const paintRealTime = (callback) => onSnapshot(postCollection, callback)
+
+  

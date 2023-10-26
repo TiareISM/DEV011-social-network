@@ -1,13 +1,3 @@
-/*import firebase from 'firebase/compat/app';
-// Required for side-effects
-import 'firebase/firestore';
-
-import firebase from 'firebase/compat/app';
-
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';*/
-
 import { home } from './home.js';
 import login from './login.js';
 import error from './error.js';
