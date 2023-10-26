@@ -30,6 +30,7 @@ body {
     width: 164px;
     height: 158px;
     flex-shrink: 0;
+    margin-top: 30px;
 }
 
 .nameSocial{
@@ -40,13 +41,21 @@ body {
     font-weight: 400;
     line-height: normal;
 }
-
+.containerHome {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(242, 245, 244);
+    border-radius: 15px;
+    padding: 20px;
+    align-items: center;
+}
 .containerInfo {
     display: flex;
     flex-direction: column;
     background-color: rgb(242, 245, 244);
     border-radius: 15px;
     padding: 20px;
+    width: auto;
     align-items: center;
 }
 
@@ -65,43 +74,58 @@ body {
     padding: 8px;
     border-radius: 8px;
     border: none;
-    background-color: rgb(77, 62, 252);
+    background-color: #6459d8;
     color: #FFF;
 }
 .containerHome {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    
+    border-radius: 20px;
+    background: #FFF;
+    flex-direction: column;
 }
+
 .welcome {
-    color: #11220B;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #6459d8;
     font-family: Inika;
     font-size: 20px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    margin: auto;
 }
 
 .signUp,
 .signIn{
     border-radius: 5px;
-    border: 3px solid #4D3EFC;
-    background: #E5EBD2;
+    background:  rgb(215, 225, 217);
     width: 280px;
     height: 37px;
     flex-shrink: 0;
+    margin: 10px;
+    border: 0cm;
+
 }
 .signUp:hover,
 .signIn:hover{
-    background-color: #4D3EFC;
+    background-color: #6459d8;
+    color:#FFF;
 }
-.containerHome{
-    border-radius: 20px;
-    background: #FFF;
-    display: flex;
-    flex-direction: column;
+
+.return {
+    background-image: url('/src/imagen/return.png');
+    background-size: cover;
+    border: none;
+    width: 100px;
+    height: 100px;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 35px;
+
 }
 
 .openGoogle{
@@ -112,7 +136,8 @@ body {
     align-items: center;
     justify-content: center;
     background-color: #fff; /* Color de fondo */
-    border: 1px solid #ccc; /* Borde */
+    margin: 10px;
+    border: 0cm;
     padding: 10px 20px; /* Relleno */
     border-radius: 5px; /* Borde redondeado */
     cursor: pointer;

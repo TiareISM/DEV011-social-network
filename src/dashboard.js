@@ -1,29 +1,33 @@
+import { addPost, paintRealTime } from "./lib";
+
 export function dashboard(navigateTo) {
   // ----- contenedor del nombre red social -----
-  const containerDashbord = document.createElement("div")
+  const containerDashbord = document.createElement("section");
   const nameSocialContainer = document.createElement("header");
   nameSocialContainer.setAttribute("class", "name-social-container");
   const img = document.createElement("img");
   img.setAttribute("class", "logo");
   const nameSocial = document.createElement("h1");
   nameSocial.setAttribute("class", "nameSocial");
-  const welcomeUser = document.createElement("p")
+  const welcomeUser = document.createElement("p");
   welcomeUser.setAttribute("class", "welcome-user");
- //----- contenedor filtros-----
+  //----- contenedor filtros-----
   const filterContainer = document.createElement("nav");
   filterContainer.setAttribute("class", "filter-container");
-  const filterTransport = document.createElement("section");
+  const ulFilter = document.createElement("ul");
+  ulFilter.setAttribute("class", "ul-filter");
+  const filterTransport = document.createElement("li");
   filterTransport.setAttribute("class", "filter-wall");
   filterTransport.setAttribute("id", "filter-transport");
-  const filterHostal = document.createElement("section");
-  filterHostal.setAttribute("class", "filter-wall");
+  const filterHostal = document.createElement("li");
+  filterHostal.setAttribute("class", "filter-hostal");
   filterHostal.setAttribute("id", "filter-hostal");
-  const filterRestaurant = document.createElement("section");
+  const filterRestaurant = document.createElement("li");
   filterRestaurant.setAttribute("class", "filter-wall");
   filterRestaurant.setAttribute("id", "filter-restaurant");
   //----- contenedor publicaciones----
-  const wallContainer = document.createElement("main");
-  wallContainer.setAttribute("class", "main");
+  const wallContainer = document.createElement("section");
+  wallContainer.setAttribute("class", "wall-container");
   const wallPost = document.createElement("section");
   wallPost.setAttribute("class", "wall-post");
   const publication = document.createElement("div");
@@ -33,84 +37,72 @@ export function dashboard(navigateTo) {
   photoPost.setAttribute("accept", "image/*");
   photoPost.setAttribute("class", "foto");
   //-----reacciones a foto-----
-  const reactionToPhoto = document.createElement("div");
+  const reactionToPhoto = document.createElement("section");
   reactionToPhoto.setAttribute("class", "acciones");
   const buttonLike = document.createElement("button");
   buttonLike.setAttribute("class", "like");
   const buttonComment = document.createElement("button");
   buttonComment.setAttribute("class", "comment");
-  const sendComment = document.createElement("div");
+  const wallSection = document.createElement("section");
+  const sendComment = document.createElement("input");
   sendComment.setAttribute("class", "comentario");
-  const writtenComment = document.createElement("textarea");
-  writtenComment.setAttribute("class", "escribe-comentario");
+  sendComment.setAttribute("id", "sendComment");
+  //const writtenComment = document.createElement("textarea");
+  //writtenComment.setAttribute("class", "escribe-comentario");
   const buttonSend = document.createElement("button");
   buttonSend.setAttribute("class", "enviar-comentario");
+  buttonSend.setAttribute("id","buttonSend");
+  const postSection = document.createElement("article");
+  postSection.setAttribute("class", "post");
+  postSection.setAttribute("id","post-section");
+  const navigationBar = document.createElement("footer");
+  navigationBar.setAttribute("class", "navigation-bar");
+  const listNavigation = document.createElement("ul");
+  listNavigation.setAttribute("class", "list-navigation");
+  const liSearch = document.createElement("li");
+  liSearch.setAttribute("class", "navigation-bar");
+  const liHome = document.createElement("li");
+  liHome.setAttribute("class", "li-home");
+  const liUpload = document.createElement("li");
+  liUpload.setAttribute("class", "li-upload");
+  const liProfile = document.createElement("li");
+  liProfile.setAttribute("class", "li-profile");
 
   img.src = "imagen/LogoEnRutados.png";
   nameSocial.textContent = "EnRutados";
-  
+  buttonSend.textContent = "Publicar";
 
-  filterContainer.append(filterTransport, filterHostal, filterRestaurant);
+  
+  filterContainer.append(ulFilter, filterTransport, filterHostal, filterRestaurant);
   nameSocialContainer.append(img, nameSocial, filterContainer);
-  wallContainer.append(wallPost, publication, photoPost, reactionToPhoto, buttonLike, buttonComment, writtenComment, buttonSend);
-  containerDashbord.append(nameSocialContainer, wallContainer)
+  wallSection.append(sendComment, buttonSend, postSection);
+
+  wallSection.querySelector("#buttonSend").addEventListener("click", () => {
+    const comment = wallSection.querySelector("#sendComment");
+    addPost(comment.value);
+    comment.value = "";
+  });
+  paintRealTime((querySnapshot) => {
+    postSection.textContent = " ";
+    querySnapshot.forEach((doc) => {
+      console.log(`${doc.id} => ${doc.data()}`);
+      const post = document.createElement("input");
+      post.value = doc.data().comment;
+      postSection.append(post);
+    });
+  });
+  
+  wallContainer.append(
+    wallPost,
+    publication,
+    photoPost,
+    reactionToPhoto,
+    buttonLike,
+    buttonComment
+  );
+  navigationBar.append(listNavigation, liSearch, liHome, liUpload, liProfile);
+  containerDashbord.append(nameSocialContainer, wallContainer, wallSection, navigationBar);
+
 
   return containerDashbord;
 }
-
-/*
-  // Agrega un evento de cambio para el campo de entrada de archivo
-  photoPost.addEventListener("change", (event) => {
-    const selectedFile = event.target.files[0]; // Obtiene el archivo seleccionado
-    // Realiza las operaciones necesarias con el archivo seleccionado, como mostrar una vista previa o cargarlo a un servidor.
-    // Por ejemplo, para mostrar una vista previa de la imagen seleccionada:
-
-    const imagePreview = document.createElement("img");
-    imagePreview.setAttribute("src", URL.createObjectURL(selectedFile)); // Muestra una vista previa de la imagen
-    // Agrega la vista previa al formulario o a donde quieras mostrarla
-    const form = document.querySelector("#tuFormulario"); // Reemplaza '#tuFormulario' con el selector de tu formulario
-    form.appendChild(imagePreview);
-  });
-
-  // Agrega el campo de entrada de archivo al formulario o donde desees
-  const form = document.querySelector("#tuFormulario"); // Reemplaza '#tuFormulario' con el selector de tu formulario
-  form.appendChild(fileInput);
-  
-//----- contenedor publicaciones----
-const containerWallPost = document.createElement();
-const wallPost = `
-    <header class='header-wall'>
-            <img class='logo' src='/imagen/LogoEnRutados.png' />
-            <h1>EnRutados</h1>
-            <nav>
-                <section class='filter-wall' id='filter-transport'>Tansporte</section>
-                <section class='filter-wall' id='filter-hostal'>Alojamiento</section>
-                <section class='filter-wall' id='filter-restaurant'>Restaurante</section>
-            </nav>
-        </header><main>
-                <section>
-                <div class="publicacion">
-                     <div class="foto">
-                        <img src="ruta_de_la_imagen.jpg" alt="Foto de la publicación"> </div>
-                         <div class="comentario"> 
-                         <textarea placeholder="Escribe tu comentario..."></textarea> 
-                         </div>
-                          <div class="acciones">
-                             <button class="like">Like</button> 
-                             <button class="emoticon">😄</button>
-                              </div> 
-                              <div class="opciones"> 
-                              <label for="transporte">Transporte</label>
-                               <input type="radio" id="transporte" name="tipo" value="transporte">
-                                 <label for="alojamiento">Alojamiento</label>
-                                  <input type="radio" id="alojamiento" name="tipo" value="alojamiento"> 
-                                  <label for="comidas">Comidas</label> 
-                                  <input type="radio" id="comidas" name="tipo" value="comidas"> 
-                                  </div>
-                                   </div>
-                </section>
-            </main>
-            `;
-containerWallPost.innerHTML = wallPost;
- return containerWallPost;
-}*/
