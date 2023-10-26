@@ -1,13 +1,11 @@
 import { home } from './home.js';
 import login from './login.js';
 import error from './error.js';
-import register from './register.js';
+import { register } from './register.js';
 import { dashboard } from './dashboard.js';
 
 // TODO: Replace the following with your app's Firebase project configuration
 // See: https://support.google.com/firebase/answer/7015592
-
-
 const routes = [
   { path: '/', component: home },
   { path: '/login', component: login },
