@@ -33,7 +33,7 @@ export const registerUser = (email, password, name) => {
         displayName: name,
         userEmail: email,
       });
-      window.location.href = '/register';
+      window.location.hash = '/register';
       emailCheck();
     })
     .catch((error) => {
@@ -83,7 +83,7 @@ export const signIn = (email, password) => {
   .then((userCredential) => {
     const user = userCredential.user;
     console.log('inicio de sesión exitoso', user);
-    window.location.href = '/dashboard';
+    window.location.hash = '/dashboard';
     return user;
   })
   .catch((error) => {
