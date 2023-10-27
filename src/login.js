@@ -1,5 +1,5 @@
 // file login finished
-import { auth, signGoogle, signIn }  from './lib/index.js';
+import { auth, signGoogle, signIn} from './lib/index.js';
 
  function login(navigateTo) {
   // ----- contenedor principal ----
@@ -20,12 +20,12 @@ import { auth, signGoogle, signIn }  from './lib/index.js';
   const form = document.createElement('form');
   const inputEmail = document.createElement('input');
   inputEmail.setAttribute('class', 'inputInfo');
-  inputEmail.setAttribute('id','idInputEmail');
+  inputEmail.setAttribute('id', 'idInputEmail');
   inputEmail.setAttribute('autocomplete', 'current-password');
   const inputPass = document.createElement('input');
   inputPass.setAttribute('class', 'inputInfo');
-  inputPass.setAttribute('id','idInputPass');
-  inputPass.setAttribute('type','password');
+  inputPass.setAttribute('id', 'idInputPass');
+  inputPass.setAttribute('type', 'password');
   inputPass.setAttribute('autocomplete', 'current-password');
   const buttonSignIn = document.createElement('button');
   buttonSignIn.setAttribute('class', 'signIn');
@@ -41,7 +41,7 @@ import { auth, signGoogle, signIn }  from './lib/index.js';
   inputPass.placeholder = 'Contraseña';
   buttonSignIn.textContent = 'Iniciar sesión';
   connectWith.textContent = 'O conéctate con';
-  
+
   buttonReturn.textContent = 'Return';
   buttonReturn.addEventListener('click', () => {
     navigateTo('/');
@@ -59,21 +59,15 @@ import { auth, signGoogle, signIn }  from './lib/index.js';
   openGoogle.addEventListener('click', signGoogle);
   const user = auth.currentUser;
   if (user !== null) {
-
     user.providerData.forEach((profile) => {
-  
-      console.log("Sign-in provider: " + profile.providerId);
-  
-      console.log("  Provider-specific UID: " + profile.uid);
-  
-      console.log("  Name: " + profile.displayName);
-  
-      console.log("  Email: " + profile.email);
-  
-      console.log("  Photo URL: " + profile.photoURL);
-  
+      console.log(`Sign-in provider: ${profile.providerId}`);
+      console.log(`  Provider-specific UID: ${profile.uid}`);
+      console.log(`  Name: ${profile.displayName}`);
+
+      console.log(`  Email: ${profile.email}`);
+
+      console.log(`  Photo URL: ${profile.photoURL}`);
     });
-  
   }
 
   form.append(inputEmail, inputPass);
