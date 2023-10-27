@@ -1,6 +1,6 @@
 import { addPost, logout, paintRealTime } from './lib';
 
-export function dashboard(navigateTo) {
+export function dashboard() {
   // ----- contenedor del nombre red social -----
   const containerDashbord = document.createElement('section');
   const nameSocialContainer = document.createElement('header');
@@ -92,13 +92,11 @@ export function dashboard(navigateTo) {
   paintRealTime((querySnapshot) => {
     postSection.textContent = ' ';
     querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data()}`);
       const post = document.createElement('input');
       post.value = doc.data().comment;
       postSection.append(post);
     });
   });
-
   wallContainer.append(
     wallPost,
     publication,
@@ -107,8 +105,20 @@ export function dashboard(navigateTo) {
     buttonLike,
     buttonComment,
   );
-  navigationBar.append(listNavigation, liSearch, liHome, liUpload, liProfile);
-  containerDashbord.append(nameSocialContainer, wallContainer, wallSection, navigationBar, logoutButton);
+  navigationBar.append(
+    listNavigation,
+    liSearch,
+    liHome,
+    liUpload,
+    liProfile,
+  );
+  containerDashbord.append(
+    nameSocialContainer,
+    wallContainer,
+    wallSection,
+    navigationBar,
+    logoutButton,
+  );
 
   return containerDashbord;
 }

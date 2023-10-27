@@ -1,4 +1,4 @@
-import firebase from 'firebase/compat/app';
+// import firebase from 'firebase/compat/app';
 import { initializeApp } from 'firebase/app';
 import {
   getFirestore, addDoc, collection, getDocs, onSnapshot,
@@ -32,20 +32,20 @@ export const auth = getAuth(app);
 export const registerUser = (email, password, name) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user = userCredential.user;
-      console.log(user);
+      // const user = userCredential.user;
+      // console.log(user);
       updateProfile(auth.currentUser, {
         displayName: name,
         userEmail: email,
       });
       window.location.hash = '/dashboard';
-      emailCheck();
+      // emailCheck();
     })
     .catch((error) => {
-      const errorCode = error.code;
-      console.log(errorCode);
-      const errorMessage = error.message;
-      console.log(errorMessage);
+      // const errorCode = error.code;
+      // console.log(errorCode);
+      // const errorMessage = error.message;
+      // console.log(errorMessage);
     });
 };
 
@@ -69,19 +69,19 @@ export const signGoogle = () => {
   signInWithPopup(auth, provider)
     .then((result) => {
       // Inicio de sesión exitoso, puedes acceder a la información del usuario aquí.
-      const user = result.user;
-      console.log('Usuario autenticado:', user);
+      // const user = result.user;
+      // console.log('Usuario autenticado:', user);
       window.location.hash = '/dashboard';
     })
     .catch((error) => {
       // Manejo de errores en caso de que el inicio de sesión falle.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error('Error de inicio de sesión:', errorCode);
+      // const errorCode = error.code;
+      // const errorMessage = error.message;
+      // console.error('Error de inicio de sesión:', errorCode);
     });
 };
 
-//-----Funcion de Inicio Sesión----
+// -----Funcion de Inicio Sesión----
 export const signIn = (email, password) => new Promise((resolve, reject) => {
   if (!email || !password) {
     const error = new Error('Campos vacíos');
@@ -92,15 +92,15 @@ export const signIn = (email, password) => new Promise((resolve, reject) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log('inicio de sesión exitoso', user);
+      // console.log('inicio de sesión exitoso', user);
       window.location.hash = '/dashboard';
       return user;
     })
     .catch((error) => {
     // Manejo de errores en caso de que el inicio de sesión falle.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error('Error de inicio de sesión:', errorCode, errorMessage);
+      // const errorCode = error.code;
+      // const errorMessage = error.message;
+      // console.error('Error de inicio de sesión:', errorCode, errorMessage);
       reject(error);
     });
 });
@@ -120,10 +120,10 @@ export const paintRealTime = (callback) => onSnapshot(postCollection, callback);
 export const logout = () => {
   signOut(auth)
     .then(() => {
-      console.log('cierre sesión');
+      // console.log('cierre sesión');
       window.location.href = '/';
     })
     .catch((error) => {
-      console.error('error al cerrar sesión', error);
+      // console.error('error al cerrar sesión', error);
     });
 };

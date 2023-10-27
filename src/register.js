@@ -62,6 +62,6 @@ export function register(navigateTo) {
   nameSocialContainer.append(img, nameSocial);
   registerContainer.append(form, buttonRegister, connectWith, openGoogle);
   principalContainer.append(buttonReturn, nameSocialContainer, registerContainer);
-  console.log('este es el registro');
+  // console.log('este es el registro');
   return principalContainer;
 }
