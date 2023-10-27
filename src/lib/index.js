@@ -38,7 +38,7 @@ export const registerUser = (email, password, name) => {
         displayName: name,
         userEmail: email,
       });
-      window.location.href = '/dashboard';
+      window.location.hash = '/dashboard';
       emailCheck();
     })
     .catch((error) => {
@@ -71,7 +71,7 @@ export const signGoogle = () => {
       // Inicio de sesión exitoso, puedes acceder a la información del usuario aquí.
       const user = result.user;
       console.log('Usuario autenticado:', user);
-      window.location.href = '/dashboard';
+      window.location.hash = '/dashboard';
     })
     .catch((error) => {
       // Manejo de errores en caso de que el inicio de sesión falle.
@@ -81,7 +81,7 @@ export const signGoogle = () => {
     });
 };
 
-// -----Funcion de Inicio Sesión----
+//-----Funcion de Inicio Sesión----
 export const signIn = (email, password) => new Promise((resolve, reject) => {
   if (!email || !password) {
     const error = new Error('Campos vacíos');
@@ -93,7 +93,7 @@ export const signIn = (email, password) => new Promise((resolve, reject) => {
     .then((userCredential) => {
       const user = userCredential.user;
       console.log('inicio de sesión exitoso', user);
-      window.location.href = '/dashboard';
+      window.location.hash = '/dashboard';
       return user;
     })
     .catch((error) => {

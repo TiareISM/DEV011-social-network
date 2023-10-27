@@ -1,7 +1,7 @@
 // file login finished
-import { auth, signGoogle, signIn } from './lib/index.js';
+import { auth, signGoogle, signIn} from './lib/index.js';
 
-function login(navigateTo) {
+ function login(navigateTo) {
   // ----- contenedor principal ----
   const principalContainer = document.createElement('section');
   principalContainer.setAttribute('class', 'principal-container');
@@ -52,14 +52,7 @@ function login(navigateTo) {
     const email = document.getElementById('idInputEmail').value;
     const password = document.getElementById('idInputPass').value;
     signIn(email, password)
-      .then(() => {
-        // Redirige al dashboard después de iniciar sesión con éxito
-        navigateTo('/dashboard');
-      })
-      .catch((error) => {
-        // Manejo de errores en caso de que el inicio de sesión falle.
-        console.error('Error de inicio de sesión:', error);
-      });
+    navigateTo('/dashboard');
   });
 
   // Agrega un evento de click para el botón de inicio de sesión con Google
@@ -68,9 +61,7 @@ function login(navigateTo) {
   if (user !== null) {
     user.providerData.forEach((profile) => {
       console.log(`Sign-in provider: ${profile.providerId}`);
-
       console.log(`  Provider-specific UID: ${profile.uid}`);
-
       console.log(`  Name: ${profile.displayName}`);
 
       console.log(`  Email: ${profile.email}`);
