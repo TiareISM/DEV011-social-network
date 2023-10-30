@@ -5,6 +5,7 @@ export function register(navigateTo) {
   principalContainer.setAttribute('class', 'principal-container');
   const buttonReturn = document.createElement('button');
   buttonReturn.setAttribute('class', 'return');
+  buttonReturn.setAttribute('id', 'return');
   const nameSocialContainer = document.createElement('section');
   nameSocialContainer.setAttribute('class', 'name-social-container');
   const img = document.createElement('img');
@@ -62,6 +63,6 @@ export function register(navigateTo) {
   nameSocialContainer.append(img, nameSocial);
   registerContainer.append(form, buttonRegister, connectWith, openGoogle);
   principalContainer.append(buttonReturn, nameSocialContainer, registerContainer);
-  console.log('este es el registro');
+  // console.log('este es el registro');
   return principalContainer;
 }
