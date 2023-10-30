@@ -28,22 +28,21 @@ export function home(navigateTo) {
   const openGoogle = document.createElement("button");
   openGoogle.setAttribute("class", "openGoogle");
 
-  img.src = "imagen/LogoEnRutados.png";
-  nameSocial.textContent = "EnRutados";
-  welcome.textContent = "Bienvenido";
-  descriptionSocial.textContent = "¡Tu red social de viajes favoritas!";
-  connectWith.textContent = "O conectate con";
-  buttonSignIn.textContent = "Iniciar sesión";
-  buttonSignIn.addEventListener("click", () => {
-    navigateTo("/login");
+  img.src = 'imagen/LogoEnRutados.png';
+  nameSocial.textContent = 'EnRutados';
+  welcome.textContent = 'Bienvenido';
+  descriptionSocial.textContent = '¡Tu red social de viajes favoritas!';
+  connectWith.textContent = 'O conectate con';
+  buttonSignIn.textContent = 'Iniciar sesión';
+  buttonSignIn.addEventListener('click', () => {
+    navigateTo('/login');
   });
   buttonSignUp.textContent = "Registrate";
   buttonSignUp.addEventListener("click", () => {
     navigateTo("/register");
   });
-
   // Agrega un evento de click para el botón de inicio de sesión con Google
-  openGoogle.addEventListener("click", signGoogle);
+  openGoogle.addEventListener('click', signGoogle);
 
   nameSocialContainer.append(img, nameSocial);
   sectionHome.append(
@@ -52,7 +51,7 @@ export function home(navigateTo) {
     buttonSignIn,
     buttonSignUp,
     connectWith,
-    openGoogle
+    openGoogle,
   );
   principalContainer.append(nameSocialContainer, sectionHome);
 

@@ -48,11 +48,11 @@ function login(navigateTo) {
   });
 
   // Agrega un evento de click para el botón de inicio de sesión
-  buttonSignIn.addEventListener("click", () => {
-    const email = document.getElementById("idInputEmail").value;
-    const password = document.getElementById("idInputPass").value;
+  buttonSignIn.addEventListener('click', () => {
+    const email = document.getElementById('idInputEmail').value;
+    const password = document.getElementById('idInputPass').value;
     signIn(email, password);
-    navigateTo("/dashboard");
+    navigateTo('/dashboard');
   });
 
   // Agrega un evento de click para el botón de inicio de sesión con Google
@@ -60,13 +60,11 @@ function login(navigateTo) {
   const user = auth.currentUser;
   if (user !== null) {
     user.providerData.forEach((profile) => {
-      console.log(`Sign-in provider: ${profile.providerId}`);
-      console.log(`  Provider-specific UID: ${profile.uid}`);
-      console.log(`  Name: ${profile.displayName}`);
-
-      console.log(`  Email: ${profile.email}`);
-
-      console.log(`  Photo URL: ${profile.photoURL}`);
+      // console.log(`Sign-in provider: ${profile.providerId}`);
+      // console.log(`  Provider-specific UID: ${profile.uid}`);
+      // console.log(`  Name: ${profile.displayName}`);
+      // console.log(`  Email: ${profile.email}`);
+      // console.log(`  Photo URL: ${profile.photoURL}`);
     });
   }
 

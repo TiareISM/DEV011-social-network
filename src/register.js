@@ -1,16 +1,17 @@
 import { registerUser, signGoogle } from "./lib";
 
 export function register(navigateTo) {
-  const principalContainer = document.createElement("section");
-  principalContainer.setAttribute("class", "principal-container");
-  const buttonReturn = document.createElement("button");
-  buttonReturn.setAttribute("class", "return");
-  const nameSocialContainer = document.createElement("section");
-  nameSocialContainer.setAttribute("class", "name-social-container");
-  const img = document.createElement("img");
-  img.setAttribute("class", "logo");
-  const nameSocial = document.createElement("h1");
-  nameSocial.setAttribute("class", "nameSocial");
+  const principalContainer = document.createElement('section');
+  principalContainer.setAttribute('class', 'principal-container');
+  const buttonReturn = document.createElement('button');
+  buttonReturn.setAttribute('class', 'return');
+  buttonReturn.setAttribute('id', 'return');
+  const nameSocialContainer = document.createElement('section');
+  nameSocialContainer.setAttribute('class', 'name-social-container');
+  const img = document.createElement('img');
+  img.setAttribute('class', 'logo');
+  const nameSocial = document.createElement('h1');
+  nameSocial.setAttribute('class', 'nameSocial');
 
   const registerContainer = document.createElement("section");
   registerContainer.setAttribute("class", "containerInfo");
@@ -61,11 +62,7 @@ export function register(navigateTo) {
   form.append(inputName, inputEmail, inputPass);
   nameSocialContainer.append(img, nameSocial);
   registerContainer.append(form, buttonRegister, connectWith, openGoogle);
-  principalContainer.append(
-    buttonReturn,
-    nameSocialContainer,
-    registerContainer
-  );
-  console.log("este es el registro");
+  principalContainer.append(buttonReturn, nameSocialContainer, registerContainer);
+  // console.log('este es el registro');
   return principalContainer;
 }
