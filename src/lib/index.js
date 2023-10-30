@@ -46,6 +46,7 @@ export const registerUser = (email, password, name) => {
       // console.log(errorCode);
       // const errorMessage = error.message;
       // console.log(errorMessage);
+      reject(error);
     });
 };
 
@@ -78,6 +79,7 @@ export const signGoogle = () => {
       // const errorCode = error.code;
       // const errorMessage = error.message;
       // console.error('Error de inicio de sesión:', errorCode);
+      reject(error);
     });
 };
 
@@ -120,6 +122,7 @@ export const paintRealTime = (callback) => onSnapshot(postCollection, callback);
 export const logout = () => {
   signOut(auth)
     .then(() => {
+      auth.currentUser= '';
       // console.log('cierre sesión');
       window.location.href = '/';
     })
