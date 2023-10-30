@@ -1,24 +1,32 @@
-import firebase from 'firebase/compat/app';
-import { initializeApp } from 'firebase/app';
+import firebase from "firebase/compat/app";
+import { initializeApp } from "firebase/app";
 import {
-  getFirestore, addDoc, collection, getDocs, onSnapshot,
-} from 'firebase/firestore';
+  getFirestore,
+  addDoc,
+  collection,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore";
 import {
   getAuth,
   createUserWithEmailAndPassword,
-  updateProfile, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, signOut,
-} from 'firebase/auth';
+  updateProfile,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 
 // -----Configuración de Firebase-----
 const firebaseConfig = {
-  apiKey: 'AIzaSyCjGsgPgUBt6lk3jxRAuYbyG4DGVxcdesY',
-  authDomain: 'enrutados-da685.firebaseapp.com',
-  databaseURL: 'https://enrutados-da685.firebaseio.com',
-  projectId: 'enrutados-da685',
-  storageBucket: 'enrutados-da685.appspot.com',
-  messagingSenderId: '50191944291',
-  appId: '1:50191944291:web:85693ee8aa28735369c656',
-  measurementId: 'G-TT84JFJXC9',
+  apiKey: "AIzaSyCjGsgPgUBt6lk3jxRAuYbyG4DGVxcdesY",
+  authDomain: "enrutados-da685.firebaseapp.com",
+  databaseURL: "https://enrutados-da685.firebaseio.com",
+  projectId: "enrutados-da685",
+  storageBucket: "enrutados-da685.appspot.com",
+  messagingSenderId: "50191944291",
+  appId: "1:50191944291:web:85693ee8aa28735369c656",
+  measurementId: "G-TT84JFJXC9",
 };
 
 // Initialize Firebase
@@ -38,7 +46,7 @@ export const registerUser = (email, password, name) => {
         displayName: name,
         userEmail: email,
       });
-      window.location.hash = '/dashboard';
+      window.location.hash = "/dashboard";
       emailCheck();
     })
     .catch((error) => {
@@ -70,43 +78,44 @@ export const signGoogle = () => {
     .then((result) => {
       // Inicio de sesión exitoso, puedes acceder a la información del usuario aquí.
       const user = result.user;
-      console.log('Usuario autenticado:', user);
-      window.location.hash = '/dashboard';
+      console.log("Usuario autenticado:", user);
+      window.location.hash = "/dashboard";
     })
     .catch((error) => {
       // Manejo de errores en caso de que el inicio de sesión falle.
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.error('Error de inicio de sesión:', errorCode);
+      console.error("Error de inicio de sesión:", errorCode);
     });
 };
 
 //-----Funcion de Inicio Sesión----
-export const signIn = (email, password) => new Promise((resolve, reject) => {
-  if (!email || !password) {
-    const error = new Error('Campos vacíos');
-    // alert('Ooops, no olvides llenar los campos para iniciar sesión.');
-    reject(error);
-    return;
-  }
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      console.log('inicio de sesión exitoso', user);
-      window.location.hash = '/dashboard';
-      return user;
-    })
-    .catch((error) => {
-    // Manejo de errores en caso de que el inicio de sesión falle.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error('Error de inicio de sesión:', errorCode, errorMessage);
+export const signIn = (email, password) =>
+  new Promise((resolve, reject) => {
+    if (!email || !password) {
+      const error = new Error("Campos vacíos");
+      // alert('Ooops, no olvides llenar los campos para iniciar sesión.');
       reject(error);
-    });
-});
+      return;
+    }
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("inicio de sesión exitoso", user);
+        window.location.hash = "/dashboard";
+        return user;
+      })
+      .catch((error) => {
+        // Manejo de errores en caso de que el inicio de sesión falle.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error("Error de inicio de sesión:", errorCode, errorMessage);
+        reject(error);
+      });
+  });
 
 // -----Agregar comentarios-----
-const postCollection = collection(db, 'posts');
+const postCollection = collection(db, "posts");
 
 export const addPost = (comment) => {
   addDoc(postCollection, {
@@ -120,10 +129,10 @@ export const paintRealTime = (callback) => onSnapshot(postCollection, callback);
 export const logout = () => {
   signOut(auth)
     .then(() => {
-      console.log('cierre sesión');
-      window.location.href = '/';
+      console.log("cierre sesión");
+      window.location.href = "/";
     })
     .catch((error) => {
-      console.error('error al cerrar sesión', error);
+      console.error("error al cerrar sesión", error);
     });
 };
