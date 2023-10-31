@@ -1,8 +1,8 @@
-import { addPost, logout, paintRealTime } from "./lib";
+import { addComment, addPost, logout, paintRealTime, paintReal} from "./lib";
 
 export function dashboard() {
   // ----- contenedor del nombre red social -----
-  const containerDashbord = document.createElement("section");
+  const containerDashbord = document.createElement('section');
   const nameSocialContainer = document.createElement("header");
   nameSocialContainer.setAttribute("class", "name-social-container");
   const img = document.createElement("img");
@@ -29,13 +29,7 @@ export function dashboard() {
   const wallContainer = document.createElement("section");
   wallContainer.setAttribute("class", "wall-container");
   const wallPost = document.createElement("section");
-  wallPost.setAttribute("class", "wall-post");
-  const publication = document.createElement("div");
-  publication.setAttribute("class", "publicación");
-  const photoPost = document.createElement("input");
-  photoPost.setAttribute("type", "file");
-  photoPost.setAttribute("accept", "image/*");
-  photoPost.setAttribute("class", "foto");
+  
   // -----reacciones a foto-----
   const reactionToPhoto = document.createElement("section");
   reactionToPhoto.setAttribute("class", "acciones");
@@ -47,8 +41,6 @@ export function dashboard() {
   const sendComment = document.createElement("input");
   sendComment.setAttribute("class", "comentario");
   sendComment.setAttribute("id", "sendComment");
-  // const writtenComment = document.createElement("textarea");
-  // writtenComment.setAttribute("class", "escribe-comentario");
   const buttonSend = document.createElement("button");
   buttonSend.setAttribute("class", "enviar-comentario");
   buttonSend.setAttribute("id", "buttonSend");
@@ -60,17 +52,84 @@ export function dashboard() {
   const listNavigation = document.createElement("ul");
   listNavigation.setAttribute("class", "list-navigation");
   const liSearch = document.createElement("li");
-  liSearch.setAttribute("class", "navigation-bar");
+  liSearch.setAttribute("class", "li-search");
+  liSearch.textContent = "Búsqueda";
   const liHome = document.createElement("li");
   liHome.setAttribute("class", "li-home");
+  liHome.textContent = "Inicio";
   const liUpload = document.createElement("li");
+  liUpload.textContent = "Subir";
+  // -----Para subir publicaciones-----
+  const form = document.createElement('form');
+  form.setAttribute('id', 'postForm');
+  const titleLabel = document.createElement('label');
+  titleLabel.setAttribute('for', 'post-title');
+  titleLabel.textContent = 'Título:';
+  const titleInput = document.createElement('input');
+  titleInput.setAttribute('type', 'text');
+  titleInput.setAttribute('id', 'post-title');
+  titleInput.setAttribute('required', 'true');
+  const descriptionLabel = document.createElement('label');
+  descriptionLabel.setAttribute('for', 'post-content');
+  descriptionLabel.textContent = 'Descripción:';
+  const descriptionTextarea = document.createElement('textarea');
+  descriptionTextarea.setAttribute('id', 'post-content');
+  descriptionTextarea.setAttribute('required', 'true');
+  descriptionTextarea.setAttribute('placeholder', 'Escribe tu comentario <3'); 
+  const imageLabel = document.createElement('label');
+  imageLabel.setAttribute('for', 'post-image');
+  imageLabel.textContent = 'Imagen:';
+  const imageInput = document.createElement('input');
+  imageInput.setAttribute('type', 'file');
+  imageInput.setAttribute('id', 'postFile');
+  imageInput.setAttribute('accept', 'image/*');
+  imageInput.setAttribute('required', 'true');
+  const submitButton = document.createElement('button');
+  submitButton.setAttribute('type', 'submit');
+  submitButton.textContent = 'Publicar';
   liUpload.setAttribute("class", "li-upload");
   const liProfile = document.createElement("li");
   liProfile.setAttribute("class", "li-profile");
+  liProfile.textContent = "Perfil";
   // Botón para cerrar sesión
   const logoutButton = document.createElement("button");
   logoutButton.setAttribute("class", "logout-button");
   logoutButton.textContent = "Cerrar Sesión";
+
+//para modal de form
+  liUpload.addEventListener('click', () => {
+    // Crear un div para el modal
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
+    form.appendChild(titleLabel);
+    form.appendChild(titleInput);
+    form.appendChild(descriptionLabel);
+    form.appendChild(descriptionTextarea);
+    form.appendChild(imageLabel);
+    form.appendChild(imageInput);
+    form.appendChild(submitButton);
+    // Agregar el formulario al modal
+    modal.appendChild(form);
+    
+    // Mostrar el modal en la página
+    document.body.appendChild(modal);  
+    // Escuchar evento de envío del formulario
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const title = form.querySelector('#post-title').value;
+      const imageFile = form.querySelector('#postFile').files[0]; // Obtener la imagen seleccionada
+      const description = form.querySelector('#post-content').value;
+      
+  
+      // Llamar a la función para agregar publicación y subir imagen a Firebase
+      addPost(title, imageFile, description);
+  
+      // Cerrar el modal después de enviar la publicación
+      modal.style.display = 'none';
+    });
+  });
+
+
   // Función para el botón
   logoutButton.addEventListener("click", () => {
     logout();
@@ -79,6 +138,7 @@ export function dashboard() {
   img.src = "imagen/LogoEnRutados.png";
   nameSocial.textContent = "EnRutados";
   buttonSend.textContent = "Publicar";
+  
 
   filterContainer.append(
     ulFilter,
@@ -91,7 +151,7 @@ export function dashboard() {
 
   wallSection.querySelector("#buttonSend").addEventListener("click", () => {
     const comment = wallSection.querySelector("#sendComment");
-    addPost(comment.value);
+    addComment(comment.value);
     comment.value = "";
   });
   paintRealTime((querySnapshot) => {
@@ -102,10 +162,21 @@ export function dashboard() {
       postSection.append(post);
     });
   });
+  paintReal((querySnapshot) => {
+    wallPost.innerHTML = ''; // Limpiar el contenido anterior antes de agregar los nuevos datos
+    querySnapshot.forEach((doc) => {
+        const postData = doc.data();
+        const postElement = document.createElement('div');
+        postElement.innerHTML = `
+            <h3>${postData.title}</h3>
+            <p>${postData.description}</p>
+            <img src="${postData.image}" alt="Publicación">
+        `;
+        wallPost.appendChild(postElement);
+    });
+});
   wallContainer.append(
     wallPost,
-    publication,
-    photoPost,
     reactionToPhoto,
     buttonLike,
     buttonComment

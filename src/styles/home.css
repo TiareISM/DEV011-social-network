@@ -143,3 +143,8 @@ body {
   background-repeat: no-repeat; /* No se repite */
   background-position: 10px center; /* Alinea el logo a la izquierda */
 }
+
+.navigation-bar {
+  background-color: #4D3EFC;; /* Color de fondo */
+  padding: 10px; /* Espaciado interior */
+}

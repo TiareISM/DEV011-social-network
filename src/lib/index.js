@@ -1,4 +1,4 @@
-// import firebase from "firebase/compat/app";
+import firebase from "firebase/compat/app";
 import { initializeApp } from "firebase/app";
 import {
   getFirestore,
@@ -16,6 +16,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 // -----Configuración de Firebase-----
 const firebaseConfig = {
@@ -36,11 +37,12 @@ export const db = getFirestore(app);
 // Agrega la configuración de Firebase Auth
 export const auth = getAuth(app);
 
+
 // ----- Funcion de registro de Usuario -----
 export const registerUser = (email, password, name) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      // const user = userCredential.user;
+      const user = userCredential.user;
       // console.log(user);
       updateProfile(auth.currentUser, {
         displayName: name,
@@ -58,19 +60,6 @@ export const registerUser = (email, password, name) => {
     });
 };
 
-// ----- Función agregar datos-----
-/* export const registerUserdb = (
-
-  try {
-    const docRef = await addDoc(collection(db, "users"), {
-      name: "name",
-      email: "email",
-    });
-    console.log("Document written with ID: ", docRef.id);
-  } catch (e) {
-    console.error("Error adding document: ", e);
-  }
-) */
 
 // -----Funcion de Ingreso con Google----
 export const signGoogle = () => {
@@ -95,46 +84,77 @@ export const signGoogle = () => {
 export const signIn = (email, password) => new Promise((resolve, reject) => {
   if (!email || !password) {
     const error = new Error('Campos vacíos');
-    // alert('Ooops, no olvides llenar los campos para iniciar sesión.');
-    reject(error);
+    reject(error); // Rechaza la promesa si faltan los campos
     return;
   }
+
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      // console.log('inicio de sesión exitoso', user);
-      window.location.hash = '/dashboard';
-      return user;
+      resolve(user); // Resuelve la promesa con el usuario en caso de inicio de sesión exitoso
     })
     .catch((error) => {
-    // Manejo de errores en caso de que el inicio de sesión falle.
-      // const errorCode = error.code;
-      // const errorMessage = error.message;
-      // console.error('Error de inicio de sesión:', errorCode, errorMessage);
-      reject(error);
+      reject(error); // Rechaza la promesa si hay un error en el inicio de sesión
     });
 });
 
+// Función para agregar una publicación a Firebase
+const storage = getStorage();
+const postCollections = collection(db, "post");
+
+// Función para agregar una publicación a Firebase con el URL de la imagen
+export const addPost = (title, imageFile, description) => {
+  const user = auth.currentUser;
+  const userEmail = user.email;
+
+  // Subir el archivo a Firebase Storage
+  const storageRef = ref(storage, 'publicaciones/' + imageFile.name);
+  const uploadTask = uploadBytes(storageRef, imageFile);
+
+  // Subir el archivo y guardar la publicación con la URL de descarga
+  uploadTask.then((snapshot) => {
+    getDownloadURL(snapshot.ref).then((downloadURL) => {
+      addDoc(postCollections, {
+        title,
+        image: downloadURL,
+        description,
+        email: userEmail,
+      }).then(() => {
+        console.log("Publicación agregada con la URL de la imagen");
+      }).catch((error) => {
+        console.error("Error al agregar la publicación:", error);
+      });
+    }).catch((error) => {
+      console.error("Error al obtener la URL de descarga:", error);
+    });
+  }).catch((error) => {
+    console.error("Error al subir el archivo al almacenamiento:", error);
+  });
+};
+
 // -----Agregar comentarios-----
 const postCollection = collection(db, "posts");
-
-export const addPost = (comment) => {
+export const addComment = (comment) => {
   addDoc(postCollection, {
     comment,
   });
 };
-export const querySnapshot = getDocs(postCollection);
+export const querySnapshot = getDocs(postCollection, postCollections);
 export const paintRealTime = (callback) => onSnapshot(postCollection, callback);
+export const paintReal = (callback) => onSnapshot(postCollections, callback);
 
 // -----Función para cerrar sesión-----
 export const logout = () => {
-  signOut(auth)
-    .then(() => {
-      auth.currentUser= '';
-      // console.log('cierre sesión');
-      window.location.href = '/';
-    })
-    .catch((error) => {
-      // console.error('error al cerrar sesión', error);
-    });
+  const auth = getAuth();
+  
+  auth.signOut().then(() => {
+    // Limpiar los datos del usuario al cerrar sesión
+    auth.currentUser = null;
+    // Redirigir a la página principal o a la de inicio de sesión
+    window.location.href = '/'; // Redirige a la página de inicio de sesión
+  }).catch((error) => {
+    console.error('Error al cerrar sesión:', error);
+    // En caso de error, redirige a la página principal
+    window.location.href = '/';
+  });
 };

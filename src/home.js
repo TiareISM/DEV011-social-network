@@ -1,5 +1,7 @@
 // file home.js
-import { signGoogle } from "./lib/index.js";
+import { auth, signGoogle } from "./lib/index.js";
+const user = auth.currentUser;
+console.log(user)
 
 export function home(navigateTo) {
   // ----- contenedor principal -----
