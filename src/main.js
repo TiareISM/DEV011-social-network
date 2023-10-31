@@ -11,12 +11,12 @@ const routes = [
   { path: '/login', component: login },
   { path: '/error', component: error },
   { path: '/register', component: register },
-  { path: '/dashboard', component: dashboard },
+  { path: '/dashboard', component: dashboard},
 
 ];
 
-const defaultRoute = '/';
-const root = document.getElementById('root');
+const defaultRoute = "/";
+const root = document.getElementById("root");
 
 function navigateTo(hash) {
   const route = routes.find((routeFound) => routeFound.path === hash);
@@ -24,7 +24,7 @@ function navigateTo(hash) {
     window.history.pushState(
       {},
       route.path,
-      window.location.origin + route.path,
+      window.location.origin + route.path
     );
 
     if (root.firstChild) {
@@ -32,7 +32,7 @@ function navigateTo(hash) {
     }
     root.appendChild(route.component(navigateTo));
   } else {
-    navigateTo('/error');
+    navigateTo("/error");
   }
 }
 
