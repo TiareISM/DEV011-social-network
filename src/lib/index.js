@@ -1,12 +1,16 @@
-import firebase from "firebase/compat/app";
-import { initializeApp } from "firebase/app";
+/* eslint-disable no-shadow */
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
+import firebase from 'firebase/compat/app';
+import { initializeApp } from 'firebase/app';
 import {
   getFirestore,
   addDoc,
   collection,
   getDocs,
   onSnapshot,
-} from "firebase/firestore";
+} from 'firebase/firestore';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -15,19 +19,21 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signOut,
-} from "firebase/auth";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+} from 'firebase/auth';
+import {
+  getStorage, ref, uploadBytes, getDownloadURL,
+} from 'firebase/storage';
 
 // -----Configuración de Firebase-----
 const firebaseConfig = {
-  apiKey: "AIzaSyCjGsgPgUBt6lk3jxRAuYbyG4DGVxcdesY",
-  authDomain: "enrutados-da685.firebaseapp.com",
-  databaseURL: "https://enrutados-da685.firebaseio.com",
-  projectId: "enrutados-da685",
-  storageBucket: "enrutados-da685.appspot.com",
-  messagingSenderId: "50191944291",
-  appId: "1:50191944291:web:85693ee8aa28735369c656",
-  measurementId: "G-TT84JFJXC9",
+  apiKey: 'AIzaSyCjGsgPgUBt6lk3jxRAuYbyG4DGVxcdesY',
+  authDomain: 'enrutados-da685.firebaseapp.com',
+  databaseURL: 'https://enrutados-da685.firebaseio.com',
+  projectId: 'enrutados-da685',
+  storageBucket: 'enrutados-da685.appspot.com',
+  messagingSenderId: '50191944291',
+  appId: '1:50191944291:web:85693ee8aa28735369c656',
+  measurementId: 'G-TT84JFJXC9',
 };
 
 // Initialize Firebase
@@ -36,7 +42,6 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 // Agrega la configuración de Firebase Auth
 export const auth = getAuth(app);
-
 
 // ----- Funcion de registro de Usuario -----
 export const registerUser = (email, password, name) => {
@@ -59,7 +64,6 @@ export const registerUser = (email, password, name) => {
       reject(error);
     });
 };
-
 
 // -----Funcion de Ingreso con Google----
 export const signGoogle = () => {
@@ -100,7 +104,7 @@ export const signIn = (email, password) => new Promise((resolve, reject) => {
 
 // Función para agregar una publicación a Firebase
 const storage = getStorage();
-const postCollections = collection(db, "post");
+const postCollections = collection(db, 'post');
 
 // Función para agregar una publicación a Firebase con el URL de la imagen
 export const addPost = (title, imageFile, description) => {
@@ -108,7 +112,7 @@ export const addPost = (title, imageFile, description) => {
   const userEmail = user.email;
 
   // Subir el archivo a Firebase Storage
-  const storageRef = ref(storage, 'publicaciones/' + imageFile.name);
+  const storageRef = ref(storage, `publicaciones/${imageFile.name}`);
   const uploadTask = uploadBytes(storageRef, imageFile);
 
   // Subir el archivo y guardar la publicación con la URL de descarga
@@ -120,20 +124,20 @@ export const addPost = (title, imageFile, description) => {
         description,
         email: userEmail,
       }).then(() => {
-        console.log("Publicación agregada con la URL de la imagen");
+        console.log('Publicación agregada con la URL de la imagen');
       }).catch((error) => {
-        console.error("Error al agregar la publicación:", error);
+        console.error('Error al agregar la publicación:', error);
       });
     }).catch((error) => {
-      console.error("Error al obtener la URL de descarga:", error);
+      console.error('Error al obtener la URL de descarga:', error);
     });
   }).catch((error) => {
-    console.error("Error al subir el archivo al almacenamiento:", error);
+    console.error('Error al subir el archivo al almacenamiento:', error);
   });
 };
 
 // -----Agregar comentarios-----
-const postCollection = collection(db, "posts");
+const postCollection = collection(db, 'posts');
 export const addComment = (comment) => {
   addDoc(postCollection, {
     comment,
@@ -146,7 +150,7 @@ export const paintReal = (callback) => onSnapshot(postCollections, callback);
 // -----Función para cerrar sesión-----
 export const logout = () => {
   const auth = getAuth();
-  
+
   auth.signOut().then(() => {
     // Limpiar los datos del usuario al cerrar sesión
     auth.currentUser = null;

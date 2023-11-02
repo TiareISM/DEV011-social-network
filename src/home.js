@@ -1,34 +1,36 @@
+/* eslint-disable no-console */
 // file home.js
-import { auth, signGoogle } from "./lib/index.js";
+import { auth, signGoogle } from './lib/index.js';
+
 const user = auth.currentUser;
-console.log(user)
+console.log(user);
 
 export function home(navigateTo) {
   // ----- contenedor principal -----
-  const principalContainer = document.createElement("section");
-  principalContainer.setAttribute("class", "principal-container");
+  const principalContainer = document.createElement('section');
+  principalContainer.setAttribute('class', 'principal-container');
   // ----- contenedor del nombre red social -----
-  const nameSocialContainer = document.createElement("section");
-  nameSocialContainer.setAttribute("class", "name-social-container");
-  const img = document.createElement("img");
-  img.setAttribute("class", "logo");
-  const nameSocial = document.createElement("h1");
-  nameSocial.setAttribute("class", "nameSocial");
+  const nameSocialContainer = document.createElement('section');
+  nameSocialContainer.setAttribute('class', 'name-social-container');
+  const img = document.createElement('img');
+  img.setAttribute('class', 'logo');
+  const nameSocial = document.createElement('h1');
+  nameSocial.setAttribute('class', 'nameSocial');
   // ----- contenedor sección home -----
-  const sectionHome = document.createElement("section");
-  sectionHome.setAttribute("class", "containerInfo");
-  const welcome = document.createElement("h2");
-  welcome.setAttribute("class", "welcome");
-  const descriptionSocial = document.createElement("p");
-  descriptionSocial.setAttribute("class", "descriptionSocial");
-  const buttonSignIn = document.createElement("button");
-  buttonSignIn.setAttribute("class", "signIn");
-  const buttonSignUp = document.createElement("button");
-  buttonSignUp.setAttribute("class", "signUp");
-  const connectWith = document.createElement("h6");
-  connectWith.setAttribute("class", "connect-with");
-  const openGoogle = document.createElement("button");
-  openGoogle.setAttribute("class", "openGoogle");
+  const sectionHome = document.createElement('section');
+  sectionHome.setAttribute('class', 'containerInfo');
+  const welcome = document.createElement('h2');
+  welcome.setAttribute('class', 'welcome');
+  const descriptionSocial = document.createElement('p');
+  descriptionSocial.setAttribute('class', 'descriptionSocial');
+  const buttonSignIn = document.createElement('button');
+  buttonSignIn.setAttribute('class', 'signIn');
+  const buttonSignUp = document.createElement('button');
+  buttonSignUp.setAttribute('class', 'signUp');
+  const connectWith = document.createElement('h6');
+  connectWith.setAttribute('class', 'connect-with');
+  const openGoogle = document.createElement('button');
+  openGoogle.setAttribute('class', 'openGoogle');
 
   img.src = 'imagen/LogoEnRutados.png';
   nameSocial.textContent = 'EnRutados';
@@ -39,9 +41,9 @@ export function home(navigateTo) {
   buttonSignIn.addEventListener('click', () => {
     navigateTo('/login');
   });
-  buttonSignUp.textContent = "Registrate";
-  buttonSignUp.addEventListener("click", () => {
-    navigateTo("/register");
+  buttonSignUp.textContent = 'Registrate';
+  buttonSignUp.addEventListener('click', () => {
+    navigateTo('/register');
   });
   // Agrega un evento de click para el botón de inicio de sesión con Google
   openGoogle.addEventListener('click', signGoogle);
