@@ -1,4 +1,4 @@
-import { addComment, logout, paintRealTime } from './lib';
+import { addPost, logout, paintRealTime } from './lib';
 
 export function dashboard() {
   // ----- contenedor del nombre red social -----
@@ -29,19 +29,12 @@ export function dashboard() {
   const wallContainer = document.createElement('section');
   wallContainer.setAttribute('class', 'wall-container');
   const wallPost = document.createElement('section');
-
-  // -----reacciones a foto-----
-  const reactionToPhoto = document.createElement('section');
-  reactionToPhoto.setAttribute('class', 'acciones');
-  const buttonLike = document.createElement('button');
-  buttonLike.setAttribute('class', 'like');
-  const buttonComment = document.createElement('button');
-  buttonComment.setAttribute('class', 'comment');
-  const wallSection = document.createElement('section');
+  wallContainer.setAttribute('class', 'wall-post');
   const postSection = document.createElement('article');
   postSection.setAttribute('class', 'post');
   postSection.setAttribute('id', 'post-section');
-  const navigationBar = document.createElement('footer');
+  //----- Contenedor de li------
+  const navigationBar = document.createElement('nav');
   navigationBar.setAttribute('class', 'navigation-bar');
   const listNavigation = document.createElement('ul');
   listNavigation.setAttribute('class', 'list-navigation');
@@ -64,6 +57,7 @@ export function dashboard() {
   buttonSend.setAttribute('id', 'buttonSend');
   buttonSend.setAttribute('type', 'submit');
   liUpload.setAttribute('class', 'li-upload');
+
   const liProfile = document.createElement('li');
   liProfile.setAttribute('class', 'li-profile');
   liProfile.textContent = 'Perfil';
@@ -86,11 +80,11 @@ export function dashboard() {
     // Escuchar evento de envío del formulario
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-      const comment = form.querySelector('#sendComment').value;
+      const post = form.querySelector('#sendComment').value;
 
       // Llamar a la función para agregar publicación y subir imagen a Firebase
-      addComment(comment);
-      comment.value = '';
+      addPost(post);
+      post.value = '';
       // Cerrar el modal después de enviar la publicación
       modal.style.display = 'none';
     });
@@ -111,22 +105,27 @@ export function dashboard() {
     filterRestaurant,
   );
   nameSocialContainer.append(img, nameSocial, filterContainer);
-  wallSection.append(postSection);
+  wallPost.append(postSection);
 
   paintRealTime((querySnapshot) => {
     postSection.textContent = ' ';
     querySnapshot.forEach((doc) => {
-      const post = document.createElement('input');
-      post.value = doc.data().comment;
-      postSection.append(post);
+      const postNew = document.createElement('input');
+      postNew.setAttribute('class', 'post');
+      const buttonLike = document.createElement('button');
+      buttonLike.setAttribute('class', 'like');
+      const buttonComment = document.createElement('button');
+      buttonComment.setAttribute('class', 'comment');
+      postNew.value = doc.data().post;
+      buttonLike.value = doc.data().like;
+      buttonComment.value = doc.data().comment
+
+      postSection.append(postNew,buttonLike,buttonComment);
     });
   });
 
   wallContainer.append(
     wallPost,
-    reactionToPhoto,
-    buttonLike,
-    buttonComment,
   );
   navigationBar.append(
     listNavigation,
@@ -138,7 +137,6 @@ export function dashboard() {
   containerDashbord.append(
     nameSocialContainer,
     wallContainer,
-    wallSection,
     navigationBar,
     logoutButton,
   );

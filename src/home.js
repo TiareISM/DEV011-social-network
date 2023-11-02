@@ -46,7 +46,9 @@ export function home(navigateTo) {
     navigateTo('/register');
   });
   // Agrega un evento de click para el botón de inicio de sesión con Google
-  openGoogle.addEventListener('click', signGoogle);
+  openGoogle.addEventListener("click", () =>{
+    signGoogle().then((rest) => navigateTo('/dashboard'))
+  });
 
   nameSocialContainer.append(img, nameSocial);
   sectionHome.append(

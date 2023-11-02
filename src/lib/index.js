@@ -10,7 +10,8 @@ import {
   collection,
   getDocs,
   onSnapshot,
-} from 'firebase/firestore';
+  getDoc,
+} from "firebase/firestore";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -59,28 +60,33 @@ export const registerUser = (email, password, name) => {
     .catch((error) => {
       // const errorCode = error.code;
       // console.log(errorCode);
-      // const errorMessage = error.message;
+      //const errorMessage = error.message;
       // console.log(errorMessage);
-      reject(error);
+      console.error('error durante el registro', error);
     });
 };
 
 // -----Funcion de Ingreso con Google----
 export const signGoogle = () => {
   const provider = new GoogleAuthProvider();
-  signInWithPopup(auth, provider)
+  return signInWithPopup(auth, provider)
     .then((result) => {
+       // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
       // Inicio de sesión exitoso, puedes acceder a la información del usuario aquí.
-      // const user = result.user;
+      const user = result.user;
+      console.log(user);
+      return user;
       // console.log('Usuario autenticado:', user);
-      window.location.hash = '/dashboard';
+      //window.location.hash = '/dashboard';
     })
     .catch((error) => {
       // Manejo de errores en caso de que el inicio de sesión falle.
-      // const errorCode = error.code;
-      // const errorMessage = error.message;
-      // console.error('Error de inicio de sesión:', errorCode);
-      reject(error);
+      //const errorCode = error.code;
+      //const errorMessage = error.message;
+      console.error('Error de inicio de sesión:', error);
+      return error;
     });
 };
 
@@ -107,7 +113,7 @@ const storage = getStorage();
 const postCollections = collection(db, 'post');
 
 // Función para agregar una publicación a Firebase con el URL de la imagen
-export const addPost = (title, imageFile, description) => {
+export const addPost2 = (title, imageFile, description) => {
   const user = auth.currentUser;
   const userEmail = user.email;
 
@@ -136,11 +142,11 @@ export const addPost = (title, imageFile, description) => {
   });
 };
 
-// -----Agregar comentarios-----
-const postCollection = collection(db, 'posts');
-export const addComment = (comment) => {
+// -----Agregar Publicación-----
+const postCollection = collection(db, "posts");
+export const addPost = (post) => {
   addDoc(postCollection, {
-    comment,
+    post,
   });
 };
 export const querySnapshot = getDocs(postCollection, postCollections);
@@ -161,4 +167,25 @@ export const logout = () => {
     // En caso de error, redirige a la página principal
     window.location.href = '/';
   });
+};
+//-----Función para Dar like-----
+export const giveLike = async (postId) => {
+  const docRef = doc(db, 'post', postId);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    const userId = auth.currentUser.uid;
+    const countLikes = docSnap.data().like;
+    const likesArray = docSnap.data().likesCounter || [];
+    if (likesArray.includes(userId)) {
+      await updateDoc(docRef, {
+        like: countLikes - 1,
+        likesCounter: arrayRemove(userId),
+      });
+    } else {
+      await updateDoc(docRef, {
+        like: countLikes + 1,
+        likesCounter: arrayUnion(userId),
+      });
+    }
+  }
 };
