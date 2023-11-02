@@ -12,13 +12,13 @@ describe('register', () => {
   it('debería ser una función', () => {
     expect(typeof signIn).toBe('function');
   });
-  test('have a button', () => {
+  test('tiene un boton que retorna', () => {
     const DOM = document.createElement('div');
     DOM.append(register());
     const haveAButton = DOM.querySelector('#return');
     expect(haveAButton).not.toBe(undefined);
   });
-  test('after click button return call funtion navegateTo', ()=> {
+  test('', ()=> {
     const DOM = document.createElement('div');
     const navegateTo = jest.fn();
     DOM.append(singup(navigateTo));
