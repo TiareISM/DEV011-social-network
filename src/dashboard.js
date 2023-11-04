@@ -1,4 +1,4 @@
-import { addPost, logout, paintRealTime } from './lib';
+import { addPost, logout, paintRealTime, giveLike } from './lib';
 
 export function dashboard() {
   // ----- contenedor del nombre red social -----
@@ -33,7 +33,7 @@ export function dashboard() {
   const postSection = document.createElement('article');
   postSection.setAttribute('class', 'post');
   postSection.setAttribute('id', 'post-section');
-  //----- Contenedor de li------
+  // ----- Contenedor de li------
   const navigationBar = document.createElement('nav');
   navigationBar.setAttribute('class', 'navigation-bar');
   const listNavigation = document.createElement('ul');
@@ -118,9 +118,13 @@ export function dashboard() {
       buttonComment.setAttribute('class', 'comment');
       postNew.value = doc.data().post;
       buttonLike.value = doc.data().like;
-      buttonComment.value = doc.data().comment
+      buttonComment.value = doc.data().comment;
+      // ----- Llamar función Like-----
+      buttonLike.addEventListener('click', () => {
+        giveLike();
+      });
 
-      postSection.append(postNew,buttonLike,buttonComment);
+      postSection.append(postNew, buttonLike, buttonComment);
     });
   });
 
