@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 import {
-  addPost, logout, paintRealTime, giveLike, auth, unGiveLike,
+  addPost, logout, paintRealTime, giveLike, auth, unGiveLike, deletePost,
 } from './lib';
 
 export function dashboard() {
@@ -86,11 +87,11 @@ export function dashboard() {
     // Escuchar evento de envío del formulario
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-      const post = form.querySelector('#sendComment').value;
-
+      const inputPost = form.querySelector('#sendComment');
+      const post = inputPost.value;
       // Llamar a la función para agregar publicación y subir imagen a Firebase
-      addPost(post);
-      post.value = '';
+      addPost(post, auth.currentUser.email);
+      inputPost.value = '';
       // Cerrar el modal después de enviar la publicación
       modal.style.display = 'none';
     });
@@ -120,6 +121,8 @@ export function dashboard() {
       const imgDelete = document.createElement('img');
       imgDelete.setAttribute('class', 'img-like');
       const counter = document.createElement('p');
+      counter.setAttribute('class', 'counter-like');
+      counter.textContent = doc.data().counterLikes.length;
       const buttonComment = document.createElement('button');
       buttonComment.setAttribute('class', 'comment');
       imgLike.src = 'imagen/like.png';
@@ -127,23 +130,29 @@ export function dashboard() {
       postNew.value = doc.data().post;
       buttonComment.value = doc.data().comment;
       buttonDelete.value = doc.data().comment;
-
       console.log('id email de usuarix: ', auth.currentUser.email);
 
       // ----- Llamar función Like-----
-      buttonLike.addEventListener('click', () => {
+      buttonLike.addEventListener('click', (event) => {
+        event.preventDefault();
         const postId = doc.id;
         if (!doc.data().counterLikes.includes(auth.currentUser.email)) {
           giveLike(postId, auth.currentUser.email);
         } else {
-          unGiveLike();
+          unGiveLike(postId, auth.currentUser.email);
         }
         console.log('data del documento: ', doc.data());
-        counter.textContent = doc.data().counterLikes.length;
+        // counter.textContent = doc.data().counterLikes.length;
+        console.log(doc.data().counterLikes.length);
       });
       // ----- Borrar publicación -----
       buttonDelete.addEventListener('click', () => {
-
+        const postId = doc.id;
+        if (doc.data().email === auth.currentUser.email) {
+          deletePost(postId, auth.currentUser.email);
+        } else {
+          alert('No puedes eliminar esta publicación');
+        }
       });
 
       postSection.append(postNew, buttonLike, counter, buttonComment, buttonDelete);

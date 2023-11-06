@@ -149,10 +149,11 @@ export const addPost2 = (title, imageFile, description) => {
 
 // -----Agregar Publicación-----
 const postCollection = collection(db, 'posts');
-export const addPost = (post) => {
+export const addPost = (post, email) => {
   addDoc(postCollection, {
     post,
     counterLikes: [],
+    email,
   });
 };
 export const querySnapshot = getDocs(postCollection, postCollections);
@@ -178,6 +179,7 @@ export const giveLike = (postId, idUser) => {
   updateDoc(doc(db, 'posts', postId), {
     counterLikes: arrayUnion(idUser),
   });
+  console.log('like dado exitosamente:');
 };
 
 export const unGiveLike = (postId, idUser) => {
@@ -186,30 +188,8 @@ export const unGiveLike = (postId, idUser) => {
   });
 };
 
-// export const giveLike = async (postId) => {
-//   console.log('Botón de "like" clicado');
-//   console.log('ID de la publicación:', postId);
-//   const docRef = doc(db, 'post', postId);
-//   const docSnap = await getDoc(docRef);
-//   if (docSnap.exists()) {
-//     const userId = auth.currentUser.uid;
-//     const countLikes = docSnap.data().like;
-//     const likesArray = docSnap.data().likesCounter || [];
-//     if (likesArray.includes(userId)) {
-//       await updateDoc(docRef, {
-//         like: countLikes - 1,
-//         likesCounter: arrayRemove(userId),
-//       });
-//     } else {
-//       await updateDoc(docRef, {
-//         like: countLikes + 1,
-//         likesCounter: arrayUnion(userId),
-//       });
-//     }
-//   }
-// };
 // Borrar datos
-export const deletePost = async (id) => {
-  await deleteDoc(doc(db, 'posts', id));
-  console.log(await deleteDoc);
+export const deletePost = (postId) => {
+  deleteDoc(doc(db, 'posts', postId));
+  console.log(deleteDoc);
 };
