@@ -1,3 +1,7 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
 import firebase from 'firebase/compat/app';
 import { initializeApp } from 'firebase/app';
 import {

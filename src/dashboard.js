@@ -40,7 +40,7 @@ export function dashboard() {
   const postSection = document.createElement('article');
   postSection.setAttribute('class', 'post');
   postSection.setAttribute('id', 'post-section');
-  // ----- Contenedor de menu------
+  //  ----- Contenedor de menu------
   const navigationBar = document.createElement('nav');
   navigationBar.setAttribute('class', 'navigation-bar');
   const listNavigation = document.createElement('ul');
@@ -52,11 +52,8 @@ export function dashboard() {
   liHome.setAttribute('class', 'li-home');
   liHome.textContent = 'Inicio';
   const liUpload = document.createElement('li');
+  liUpload.setAttribute('class', 'li-upload');
   liUpload.textContent = 'Subir';
-  // Botón para cerrar sesión
-  const logoutButton = document.createElement('button');
-  logoutButton.setAttribute('class', 'logout-button');
-  logoutButton.textContent = 'Cerrar Sesión';
   // -----Para subir publicaciones-----
   const form = document.createElement('form');
   form.setAttribute('id', 'postForm');
@@ -67,11 +64,14 @@ export function dashboard() {
   buttonSend.setAttribute('class', 'enviar-comentario');
   buttonSend.setAttribute('id', 'buttonSend');
   buttonSend.setAttribute('type', 'submit');
-  liUpload.setAttribute('class', 'li-upload');
-
   const liProfile = document.createElement('li');
   liProfile.setAttribute('class', 'li-profile');
   liProfile.textContent = 'Perfil';
+  // Botón para cerrar sesión
+  const logoutButton = document.createElement('button');
+  logoutButton.setAttribute('class', 'logout-button');
+  logoutButton.textContent = 'Cerrar Sesión';
+
   // para modal de form
   liUpload.addEventListener('click', () => {
     // Crear un div para el modal

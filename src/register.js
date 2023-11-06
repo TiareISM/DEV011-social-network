@@ -34,6 +34,10 @@ export function register(navigateTo) {
   connectWith.setAttribute('class', 'connect-with');
   const openGoogle = document.createElement('button');
   openGoogle.setAttribute('class', 'openGoogle');
+  const iconGoogle = document.createElement('span');
+  iconGoogle.setAttribute('class', 'icon-google');
+  const textGoogle = document.createElement('span');
+  textGoogle.setAttribute('class', 'text-google');
 
   img.src = 'imagen/logo-gr.png';
   imgReturn.src = 'imagen/return.png';
@@ -42,6 +46,7 @@ export function register(navigateTo) {
   inputPass.placeholder = 'Contraseña';
   buttonRegister.textContent = 'Registrate';
   connectWith.textContent = 'O conéctate con';
+  textGoogle.textContent = 'Google';
   buttonReturn.addEventListener('click', () => {
     navigateTo('/');
   });
@@ -75,7 +80,8 @@ export function register(navigateTo) {
   openGoogle.addEventListener('click', () => {
     signGoogle().then((rest) => navigateTo('/dashboard'));
   });
-
+  
+  openGoogle.append(iconGoogle, textGoogle);
   form.append(inputName, inputEmail, inputPass);
   nameSocialContainer.append(img);
   buttonReturn.append(imgReturn);

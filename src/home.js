@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
 // file home.js
 import { auth, signGoogle } from './lib/index.js';
 
@@ -28,11 +30,16 @@ export function home(navigateTo) {
   connectWith.setAttribute('class', 'connect-with');
   const openGoogle = document.createElement('button');
   openGoogle.setAttribute('class', 'openGoogle');
+  const iconGoogle = document.createElement('span');
+  iconGoogle.setAttribute('class', 'icon-google');
+  const textGoogle = document.createElement('span');
+  textGoogle.setAttribute('class', 'text-google');
 
   img.src = 'imagen/logo-gr.png';
   welcome.textContent = 'Bienvenido';
   descriptionSocial.textContent = '¡Tu red social de viajes favorita!';
   connectWith.textContent = 'O conectate con';
+  textGoogle.textContent = 'Google';
   buttonSignIn.textContent = 'Iniciar sesión';
   buttonSignIn.addEventListener('click', () => {
     navigateTo('/login');
@@ -45,7 +52,7 @@ export function home(navigateTo) {
   openGoogle.addEventListener('click', () => {
     signGoogle().then((rest) => navigateTo('/dashboard'));
   });
-
+  openGoogle.append(iconGoogle, textGoogle);
   nameSocialContainer.append(img);
   sectionHome.append(
     welcome,
