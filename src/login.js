@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
@@ -37,6 +38,10 @@ function login(navigateTo) {
   connectWith.setAttribute('class', 'connect-with');
   const openGoogle = document.createElement('button');
   openGoogle.setAttribute('class', 'openGoogle');
+  const iconGoogle = document.createElement('span');
+  iconGoogle.setAttribute('class', 'icon-google');
+  const textGoogle = document.createElement('span');
+  textGoogle.setAttribute('class', 'text-google');
 
   img.src = 'imagen/LogoEnRutados.png';
   nameSocial.textContent = ' EnRutados';
@@ -44,6 +49,7 @@ function login(navigateTo) {
   inputPass.placeholder = 'Contraseña';
   buttonSignIn.textContent = 'Iniciar sesión';
   connectWith.textContent = 'O conéctate con';
+  textGoogle.textContent = 'Google';
 
   buttonReturn.textContent = 'Return';
   buttonReturn.addEventListener('click', () => {
@@ -75,21 +81,21 @@ function login(navigateTo) {
   });
 
   // Agrega un evento de click para el botón de inicio de sesión con Google
-  openGoogle.addEventListener("click", () =>{
-    signGoogle().then((rest) => navigateTo('/dashboard'))
+  openGoogle.addEventListener('click', () => {
+    signGoogle().then((rest) => navigateTo('/dashboard'));
   });
 
   const user = auth.currentUser;
   if (user !== null) {
     user.providerData.forEach((profile) => {
-      //console.log(`Sign-in provider: ${profile.providerId}`);
-      //console.log(`  Provider-specific UID: ${profile.uid}`);
-      //console.log(`  Name: ${profile.displayName}`);
-      //console.log(`  Email: ${profile.email}`);
-      //console.log(`  Photo URL: ${profile.photoURL}`);
+      // console.log(`Sign-in provider: ${profile.providerId}`);
+      // console.log(`  Provider-specific UID: ${profile.uid}`);
+      // console.log(`  Name: ${profile.displayName}`);
+      // console.log(`  Email: ${profile.email}`);
+      // console.log(`  Photo URL: ${profile.photoURL}`);
     });
   }
-
+  openGoogle.append(iconGoogle, textGoogle);
   form.append(inputEmail, inputPass);
   containerName.append(img, nameSocial);
   containerSingIn.append(form, buttonSignIn, connectWith, openGoogle);

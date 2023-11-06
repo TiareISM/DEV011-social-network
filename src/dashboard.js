@@ -33,19 +33,17 @@ export function dashboard() {
   const postSection = document.createElement('article');
   postSection.setAttribute('class', 'post');
   postSection.setAttribute('id', 'post-section');
-  //----- Contenedor de li------
+  // ----- Contenedor de li------
   const navigationBar = document.createElement('nav');
   navigationBar.setAttribute('class', 'navigation-bar');
   const listNavigation = document.createElement('ul');
   listNavigation.setAttribute('class', 'list-navigation');
   const liSearch = document.createElement('li');
   liSearch.setAttribute('class', 'li-search');
-  liSearch.textContent = 'Búsqueda';
   const liHome = document.createElement('li');
   liHome.setAttribute('class', 'li-home');
-  liHome.textContent = 'Inicio';
   const liUpload = document.createElement('li');
-  liUpload.textContent = 'Subir';
+  liUpload.setAttribute('class', 'li-upload');
   // -----Para subir publicaciones-----
   const form = document.createElement('form');
   form.setAttribute('id', 'postForm');
@@ -56,11 +54,8 @@ export function dashboard() {
   buttonSend.setAttribute('class', 'enviar-comentario');
   buttonSend.setAttribute('id', 'buttonSend');
   buttonSend.setAttribute('type', 'submit');
-  liUpload.setAttribute('class', 'li-upload');
-
   const liProfile = document.createElement('li');
   liProfile.setAttribute('class', 'li-profile');
-  liProfile.textContent = 'Perfil';
   // Botón para cerrar sesión
   const logoutButton = document.createElement('button');
   logoutButton.setAttribute('class', 'logout-button');
@@ -118,9 +113,9 @@ export function dashboard() {
       buttonComment.setAttribute('class', 'comment');
       postNew.value = doc.data().post;
       buttonLike.value = doc.data().like;
-      buttonComment.value = doc.data().comment
+      buttonComment.value = doc.data().comment;
 
-      postSection.append(postNew,buttonLike,buttonComment);
+      postSection.append(postNew, buttonLike, buttonComment);
     });
   });
 
