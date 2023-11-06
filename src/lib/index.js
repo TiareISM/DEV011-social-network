@@ -1,5 +1,5 @@
-import firebase from "firebase/compat/app";
-import { initializeApp } from "firebase/app";
+import firebase from 'firebase/compat/app';
+import { initializeApp } from 'firebase/app';
 import {
   getFirestore,
   addDoc,
@@ -7,7 +7,11 @@ import {
   getDocs,
   onSnapshot,
   getDoc,
-} from "firebase/firestore";
+  doc,
+  arrayRemove,
+  arrayUnion,
+  updateDoc,
+} from 'firebase/firestore';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -16,19 +20,21 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signOut,
-} from "firebase/auth";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+} from 'firebase/auth';
+import {
+  getStorage, ref, uploadBytes, getDownloadURL,
+} from 'firebase/storage';
 
 // -----Configuración de Firebase-----
 const firebaseConfig = {
-  apiKey: "AIzaSyCjGsgPgUBt6lk3jxRAuYbyG4DGVxcdesY",
-  authDomain: "enrutados-da685.firebaseapp.com",
-  databaseURL: "https://enrutados-da685.firebaseio.com",
-  projectId: "enrutados-da685",
-  storageBucket: "enrutados-da685.appspot.com",
-  messagingSenderId: "50191944291",
-  appId: "1:50191944291:web:85693ee8aa28735369c656",
-  measurementId: "G-TT84JFJXC9",
+  apiKey: 'AIzaSyCjGsgPgUBt6lk3jxRAuYbyG4DGVxcdesY',
+  authDomain: 'enrutados-da685.firebaseapp.com',
+  databaseURL: 'https://enrutados-da685.firebaseio.com',
+  projectId: 'enrutados-da685',
+  storageBucket: 'enrutados-da685.appspot.com',
+  messagingSenderId: '50191944291',
+  appId: '1:50191944291:web:85693ee8aa28735369c656',
+  measurementId: 'G-TT84JFJXC9',
 };
 
 // Initialize Firebase
@@ -37,7 +43,6 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 // Agrega la configuración de Firebase Auth
 export const auth = getAuth(app);
-
 
 // ----- Funcion de registro de Usuario -----
 export const registerUser = (email, password, name) => {
@@ -55,32 +60,31 @@ export const registerUser = (email, password, name) => {
     .catch((error) => {
       // const errorCode = error.code;
       // console.log(errorCode);
-      //const errorMessage = error.message;
+      // const errorMessage = error.message;
       // console.log(errorMessage);
       console.error('error durante el registro', error);
     });
 };
-
 
 // -----Funcion de Ingreso con Google----
 export const signGoogle = () => {
   const provider = new GoogleAuthProvider();
   return signInWithPopup(auth, provider)
     .then((result) => {
-       // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
       // Inicio de sesión exitoso, puedes acceder a la información del usuario aquí.
       const user = result.user;
       console.log(user);
       return user;
       // console.log('Usuario autenticado:', user);
-      //window.location.hash = '/dashboard';
+      // window.location.hash = '/dashboard';
     })
     .catch((error) => {
       // Manejo de errores en caso de que el inicio de sesión falle.
-      //const errorCode = error.code;
-      //const errorMessage = error.message;
+      // const errorCode = error.code;
+      // const errorMessage = error.message;
       console.error('Error de inicio de sesión:', error);
       return error;
     });
@@ -106,7 +110,7 @@ export const signIn = (email, password) => new Promise((resolve, reject) => {
 
 // Función para agregar una publicación a Firebase
 const storage = getStorage();
-const postCollections = collection(db, "post");
+const postCollections = collection(db, 'post');
 
 // Función para agregar una publicación a Firebase con el URL de la imagen
 export const addPost2 = (title, imageFile, description) => {
@@ -114,7 +118,7 @@ export const addPost2 = (title, imageFile, description) => {
   const userEmail = user.email;
 
   // Subir el archivo a Firebase Storage
-  const storageRef = ref(storage, 'publicaciones/' + imageFile.name);
+  const storageRef = ref(storage, `publicaciones/${imageFile.name}`);
   const uploadTask = uploadBytes(storageRef, imageFile);
 
   // Subir el archivo y guardar la publicación con la URL de descarga
@@ -126,20 +130,20 @@ export const addPost2 = (title, imageFile, description) => {
         description,
         email: userEmail,
       }).then(() => {
-        console.log("Publicación agregada con la URL de la imagen");
+        console.log('Publicación agregada con la URL de la imagen');
       }).catch((error) => {
-        console.error("Error al agregar la publicación:", error);
+        console.error('Error al agregar la publicación:', error);
       });
     }).catch((error) => {
-      console.error("Error al obtener la URL de descarga:", error);
+      console.error('Error al obtener la URL de descarga:', error);
     });
   }).catch((error) => {
-    console.error("Error al subir el archivo al almacenamiento:", error);
+    console.error('Error al subir el archivo al almacenamiento:', error);
   });
 };
 
 // -----Agregar Publicación-----
-const postCollection = collection(db, "posts");
+const postCollection = collection(db, 'posts');
 export const addPost = (post) => {
   addDoc(postCollection, {
     post,
@@ -151,8 +155,6 @@ export const paintReal = (callback) => onSnapshot(postCollections, callback);
 
 // -----Función para cerrar sesión-----
 export const logout = () => {
-  const auth = getAuth();
-  
   auth.signOut().then(() => {
     // Limpiar los datos del usuario al cerrar sesión
     auth.currentUser = null;
@@ -164,7 +166,8 @@ export const logout = () => {
     window.location.href = '/';
   });
 };
-//-----Función para Dar like-----
+// -----Función para Dar like-----
+
 export const giveLike = async (postId) => {
   const docRef = doc(db, 'post', postId);
   const docSnap = await getDoc(docRef);
