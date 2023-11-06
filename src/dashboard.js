@@ -1,5 +1,5 @@
 import {
-  addPost, logout, paintRealTime, giveLike,
+  addPost, logout, paintRealTime, giveLike, auth, unGiveLike,
 } from './lib';
 
 export function dashboard() {
@@ -105,6 +105,7 @@ export function dashboard() {
   imgHostal.src = 'imagen/alojamientoBl.png';
   imgFood.src = 'imagen/food.png';
   buttonSend.textContent = 'Publicar';
+
   // -----Crear Publicación-----
   paintRealTime((querySnapshot) => {
     postSection.textContent = ' ';
@@ -115,21 +116,39 @@ export function dashboard() {
       buttonLike.setAttribute('class', 'like');
       const imgLike = document.createElement('img');
       imgLike.setAttribute('class', 'img-like');
+      const buttonDelete = document.createElement('button');
+      const imgDelete = document.createElement('img');
+      imgDelete.setAttribute('class', 'img-like');
+      const counter = document.createElement('p');
       const buttonComment = document.createElement('button');
       buttonComment.setAttribute('class', 'comment');
       imgLike.src = 'imagen/like.png';
+      imgDelete.src = 'imagen/delete.png';
       postNew.value = doc.data().post;
-      buttonLike.value = doc.data().like;
       buttonComment.value = doc.data().comment;
+      buttonDelete.value = doc.data().comment;
+
+      console.log('id email de usuarix: ', auth.currentUser.email);
 
       // ----- Llamar función Like-----
       buttonLike.addEventListener('click', () => {
-        const postId = '123456';
-        giveLike(postId);
+        const postId = doc.id;
+        if (!doc.data().counterLikes.includes(auth.currentUser.email)) {
+          giveLike(postId, auth.currentUser.email);
+        } else {
+          unGiveLike();
+        }
+        console.log('data del documento: ', doc.data());
+        counter.textContent = doc.data().counterLikes.length;
+      });
+      // ----- Borrar publicación -----
+      buttonDelete.addEventListener('click', () => {
+
       });
 
-      postSection.append(postNew, buttonLike, buttonComment);
+      postSection.append(postNew, buttonLike, counter, buttonComment, buttonDelete);
       buttonLike.append(imgLike);
+      buttonDelete.append(imgDelete);
     });
   });
   filterContainer.append(

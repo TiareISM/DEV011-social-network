@@ -15,6 +15,7 @@ import {
   arrayRemove,
   arrayUnion,
   updateDoc,
+  deleteDoc,
 } from 'firebase/firestore';
 import {
   getAuth,
@@ -151,6 +152,7 @@ const postCollection = collection(db, 'posts');
 export const addPost = (post) => {
   addDoc(postCollection, {
     post,
+    counterLikes: [],
   });
 };
 export const querySnapshot = getDocs(postCollection, postCollections);
@@ -172,23 +174,42 @@ export const logout = () => {
 };
 // -----Función para Dar like-----
 
-export const giveLike = async (postId) => {
-  const docRef = doc(db, 'post', postId);
-  const docSnap = await getDoc(docRef);
-  if (docSnap.exists()) {
-    const userId = auth.currentUser.uid;
-    const countLikes = docSnap.data().like;
-    const likesArray = docSnap.data().likesCounter || [];
-    if (likesArray.includes(userId)) {
-      await updateDoc(docRef, {
-        like: countLikes - 1,
-        likesCounter: arrayRemove(userId),
-      });
-    } else {
-      await updateDoc(docRef, {
-        like: countLikes + 1,
-        likesCounter: arrayUnion(userId),
-      });
-    }
-  }
+export const giveLike = (postId, idUser) => {
+  updateDoc(doc(db, 'posts', postId), {
+    counterLikes: arrayUnion(idUser),
+  });
+};
+
+export const unGiveLike = (postId, idUser) => {
+  updateDoc(doc(db, 'posts', postId), {
+    counterLikes: arrayRemove(idUser),
+  });
+};
+
+// export const giveLike = async (postId) => {
+//   console.log('Botón de "like" clicado');
+//   console.log('ID de la publicación:', postId);
+//   const docRef = doc(db, 'post', postId);
+//   const docSnap = await getDoc(docRef);
+//   if (docSnap.exists()) {
+//     const userId = auth.currentUser.uid;
+//     const countLikes = docSnap.data().like;
+//     const likesArray = docSnap.data().likesCounter || [];
+//     if (likesArray.includes(userId)) {
+//       await updateDoc(docRef, {
+//         like: countLikes - 1,
+//         likesCounter: arrayRemove(userId),
+//       });
+//     } else {
+//       await updateDoc(docRef, {
+//         like: countLikes + 1,
+//         likesCounter: arrayUnion(userId),
+//       });
+//     }
+//   }
+// };
+// Borrar datos
+export const deletePost = async (id) => {
+  await deleteDoc(doc(db, 'posts', id));
+  console.log(await deleteDoc);
 };
