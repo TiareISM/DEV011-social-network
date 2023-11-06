@@ -1,14 +1,15 @@
-import { addPost, logout, paintRealTime, giveLike } from './lib';
+import {
+  addPost, logout, paintRealTime, giveLike,
+} from './lib';
 
 export function dashboard() {
   // ----- contenedor del nombre red social -----
   const containerDashbord = document.createElement('section');
-  const nameSocialContainer = document.createElement('header');
-  nameSocialContainer.setAttribute('class', 'name-social-container');
+  containerDashbord.setAttribute('class', 'container-dashbord');
+  const nameSocial = document.createElement('header');
+  nameSocial.setAttribute('class', 'name-social');
   const img = document.createElement('img');
   img.setAttribute('class', 'logo');
-  const nameSocial = document.createElement('h1');
-  nameSocial.setAttribute('class', 'nameSocial');
   const welcomeUser = document.createElement('p');
   welcomeUser.setAttribute('class', 'welcome-user');
   // ----- contenedor filtros-----
@@ -17,14 +18,20 @@ export function dashboard() {
   const ulFilter = document.createElement('ul');
   ulFilter.setAttribute('class', 'ul-filter');
   const filterTransport = document.createElement('li');
-  filterTransport.setAttribute('class', 'filter-wall');
+  filterTransport.setAttribute('class', 'filter transport');
   filterTransport.setAttribute('id', 'filter-transport');
+  const imgTransport = document.createElement('img');
+  imgTransport.setAttribute('class', 'transport');
   const filterHostal = document.createElement('li');
-  filterHostal.setAttribute('class', 'filter-hostal');
+  filterHostal.setAttribute('class', 'filter hostal');
   filterHostal.setAttribute('id', 'filter-hostal');
+  const imgHostal = document.createElement('img');
+  imgHostal.setAttribute('class', 'hostal');
   const filterRestaurant = document.createElement('li');
-  filterRestaurant.setAttribute('class', 'filter-wall');
+  filterRestaurant.setAttribute('class', 'filter food');
   filterRestaurant.setAttribute('id', 'filter-restaurant');
+  const imgFood = document.createElement('img');
+  imgFood.setAttribute('class', 'food');
   // ----- contenedor publicaciones----
   const wallContainer = document.createElement('section');
   wallContainer.setAttribute('class', 'wall-container');
@@ -33,7 +40,7 @@ export function dashboard() {
   const postSection = document.createElement('article');
   postSection.setAttribute('class', 'post');
   postSection.setAttribute('id', 'post-section');
-  // ----- Contenedor de li------
+  // ----- Contenedor de menu------
   const navigationBar = document.createElement('nav');
   navigationBar.setAttribute('class', 'navigation-bar');
   const listNavigation = document.createElement('ul');
@@ -46,6 +53,10 @@ export function dashboard() {
   liHome.textContent = 'Inicio';
   const liUpload = document.createElement('li');
   liUpload.textContent = 'Subir';
+  // Botón para cerrar sesión
+  const logoutButton = document.createElement('button');
+  logoutButton.setAttribute('class', 'logout-button');
+  logoutButton.textContent = 'Cerrar Sesión';
   // -----Para subir publicaciones-----
   const form = document.createElement('form');
   form.setAttribute('id', 'postForm');
@@ -61,11 +72,6 @@ export function dashboard() {
   const liProfile = document.createElement('li');
   liProfile.setAttribute('class', 'li-profile');
   liProfile.textContent = 'Perfil';
-  // Botón para cerrar sesión
-  const logoutButton = document.createElement('button');
-  logoutButton.setAttribute('class', 'logout-button');
-  logoutButton.textContent = 'Cerrar Sesión';
-
   // para modal de form
   liUpload.addEventListener('click', () => {
     // Crear un div para el modal
@@ -94,19 +100,12 @@ export function dashboard() {
     logout();
   });
 
-  img.src = 'imagen/LogoEnRutados.png';
-  nameSocial.textContent = 'EnRutados';
+  img.src = 'imagen/EnRutados-logo-pq.png';
+  imgTransport.src = 'imagen/transporteBl.png';
+  imgHostal.src = 'imagen/alojamientoBl.png';
+  imgFood.src = 'imagen/food.png';
   buttonSend.textContent = 'Publicar';
-
-  filterContainer.append(
-    ulFilter,
-    filterTransport,
-    filterHostal,
-    filterRestaurant,
-  );
-  nameSocialContainer.append(img, nameSocial, filterContainer);
-  wallPost.append(postSection);
-
+  // -----Crear Publicación-----
   paintRealTime((querySnapshot) => {
     postSection.textContent = ' ';
     querySnapshot.forEach((doc) => {
@@ -114,35 +113,49 @@ export function dashboard() {
       postNew.setAttribute('class', 'post');
       const buttonLike = document.createElement('button');
       buttonLike.setAttribute('class', 'like');
+      const imgLike = document.createElement('img');
+      imgLike.setAttribute('class', 'img-like');
       const buttonComment = document.createElement('button');
       buttonComment.setAttribute('class', 'comment');
+      imgLike.src = 'imagen/like.png';
       postNew.value = doc.data().post;
       buttonLike.value = doc.data().like;
       buttonComment.value = doc.data().comment;
+
       // ----- Llamar función Like-----
       buttonLike.addEventListener('click', () => {
-        giveLike();
+        const postId = '123456';
+        giveLike(postId);
       });
 
       postSection.append(postNew, buttonLike, buttonComment);
+      buttonLike.append(imgLike);
     });
   });
-
-  wallContainer.append(
-    wallPost,
+  filterContainer.append(
+    ulFilter,
+    filterTransport,
+    filterHostal,
+    filterRestaurant,
   );
+  filterTransport.append(imgTransport);
+  filterHostal.append(imgHostal);
+  filterRestaurant.append(imgFood);
+  nameSocial.append(img, filterContainer);
+  wallPost.append(postSection);
+  wallContainer.append(wallPost);
   navigationBar.append(
     listNavigation,
     liSearch,
     liHome,
     liUpload,
     liProfile,
+    logoutButton,
   );
   containerDashbord.append(
-    nameSocialContainer,
+    nameSocial,
     wallContainer,
     navigationBar,
-    logoutButton,
   );
 
   return containerDashbord;
