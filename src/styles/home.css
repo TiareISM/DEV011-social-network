@@ -251,3 +251,8 @@ body {
 .wall-Container {
   grid-area: wall;
 }
+.counter-like{
+  width: 40px;
+  height: 40px;
+  background-color: aqua;
+}
