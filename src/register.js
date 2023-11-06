@@ -1,7 +1,3 @@
-/* eslint-disable no-alert */
-/* eslint-disable max-len */
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 import { registerUser, signGoogle } from './lib';
 
 export function register(navigateTo) {
@@ -10,13 +6,13 @@ export function register(navigateTo) {
   const buttonReturn = document.createElement('button');
   buttonReturn.setAttribute('class', 'return');
   buttonReturn.setAttribute('id', 'return');
+  const imgReturn = document.createElement('img');
+  imgReturn.setAttribute('class', 'return');
   const nameSocialContainer = document.createElement('section');
   nameSocialContainer.setAttribute('class', 'name-social-container');
   const img = document.createElement('img');
   img.setAttribute('class', 'logo');
-  const nameSocial = document.createElement('h1');
-  nameSocial.setAttribute('class', 'nameSocial');
-
+  // -----Sesión de datos Registro-----
   const registerContainer = document.createElement('section');
   registerContainer.setAttribute('class', 'containerInfo');
   const form = document.createElement('form');
@@ -43,15 +39,14 @@ export function register(navigateTo) {
   const textGoogle = document.createElement('span');
   textGoogle.setAttribute('class', 'text-google');
 
-  img.src = 'imagen/LogoEnRutados.png';
-  nameSocial.textContent = 'EnRutados';
+  img.src = 'imagen/logo-gr.png';
+  imgReturn.src = 'imagen/return.png';
   inputName.placeholder = 'Nombre Usuario';
   inputEmail.placeholder = 'Correo electrónico';
   inputPass.placeholder = 'Contraseña';
   buttonRegister.textContent = 'Registrate';
   connectWith.textContent = 'O conéctate con';
   textGoogle.textContent = 'Google';
-  buttonReturn.textContent = 'Return';
   buttonReturn.addEventListener('click', () => {
     navigateTo('/');
   });
@@ -77,16 +72,19 @@ export function register(navigateTo) {
     } catch (error) {
     // Manejar el error, por ejemplo, mostrar un mensaje al usuario
       console.error('Error durante el inicio de sesión:', error);
-    // Aquí puedes mostrar un mensaje al usuario indicando que ha habido un problema con el inicio de sesión.
+    // Aquí puedes mostrar un mensaje al usuario indicando que//
+    //ha habido un problema con el inicio de sesión.//
     }
   });
   // Agrega un evento de click para el botón de inicio de sesión con Google
   openGoogle.addEventListener('click', () => {
     signGoogle().then((rest) => navigateTo('/dashboard'));
   });
+  
   openGoogle.append(iconGoogle, textGoogle);
   form.append(inputName, inputEmail, inputPass);
-  nameSocialContainer.append(img, nameSocial);
+  nameSocialContainer.append(img);
+  buttonReturn.append(imgReturn);
   registerContainer.append(form, buttonRegister, connectWith, openGoogle);
   principalContainer.append(buttonReturn, nameSocialContainer, registerContainer);
   // console.log('este es el registro');

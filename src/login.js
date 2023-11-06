@@ -11,13 +11,13 @@ function login(navigateTo) {
   principalContainer.setAttribute('class', 'principal-container');
   const buttonReturn = document.createElement('button');
   buttonReturn.setAttribute('class', 'return');
+  const imgReturn = document.createElement('img');
+  imgReturn.setAttribute('class', 'return');
   // ----- contenedor nombre red social ----
   const containerName = document.createElement('section');
   containerName.setAttribute('class', 'containerName');
   const img = document.createElement('img');
   img.setAttribute('class', 'logo');
-  const nameSocial = document.createElement('h1');
-  nameSocial.setAttribute('class', 'nameSocial');
   // ----- contenedor login -----
   const containerSingIn = document.createElement('section');
   containerSingIn.setAttribute('class', 'containerInfo');
@@ -43,15 +43,14 @@ function login(navigateTo) {
   const textGoogle = document.createElement('span');
   textGoogle.setAttribute('class', 'text-google');
 
-  img.src = 'imagen/LogoEnRutados.png';
-  nameSocial.textContent = ' EnRutados';
+  img.src = 'imagen/logo-gr.png';
+  imgReturn.src = 'imagen/return.png';
   inputEmail.placeholder = 'Correo electrónico';
   inputPass.placeholder = 'Contraseña';
   buttonSignIn.textContent = 'Iniciar sesión';
   connectWith.textContent = 'O conéctate con';
   textGoogle.textContent = 'Google';
 
-  buttonReturn.textContent = 'Return';
   buttonReturn.addEventListener('click', () => {
     navigateTo('/');
   });
@@ -75,8 +74,8 @@ function login(navigateTo) {
       // Manejar el error, por ejemplo, mostrar un mensaje al usuario
       // eslint-disable-next-line no-console
       console.error('Error durante el inicio de sesión:', error);
-      // Aquí puedes mostrar un mensaje al usuario indicando que ha
-      // habido un problema con el inicio de sesión.
+      // Aquí puedes mostrar un mensaje al usuario indicando que ha habido
+      // un problema con el inicio de sesión.
     }
   });
 
@@ -97,7 +96,8 @@ function login(navigateTo) {
   }
   openGoogle.append(iconGoogle, textGoogle);
   form.append(inputEmail, inputPass);
-  containerName.append(img, nameSocial);
+  containerName.append(img);
+  buttonReturn.append(imgReturn);
   containerSingIn.append(form, buttonSignIn, connectWith, openGoogle);
   principalContainer.append(buttonReturn, containerName, containerSingIn);
 

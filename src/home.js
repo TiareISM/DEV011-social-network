@@ -15,8 +15,6 @@ export function home(navigateTo) {
   nameSocialContainer.setAttribute('class', 'name-social-container');
   const img = document.createElement('img');
   img.setAttribute('class', 'logo');
-  const nameSocial = document.createElement('h1');
-  nameSocial.setAttribute('class', 'nameSocial');
   // ----- contenedor sección home -----
   const sectionHome = document.createElement('section');
   sectionHome.setAttribute('class', 'containerInfo');
@@ -37,10 +35,9 @@ export function home(navigateTo) {
   const textGoogle = document.createElement('span');
   textGoogle.setAttribute('class', 'text-google');
 
-  img.src = 'imagen/LogoEnRutados.png';
-  nameSocial.textContent = 'EnRutados';
+  img.src = 'imagen/logo-gr.png';
   welcome.textContent = 'Bienvenido';
-  descriptionSocial.textContent = '¡Tu red social de viajes favoritas!';
+  descriptionSocial.textContent = '¡Tu red social de viajes favorita!';
   connectWith.textContent = 'O conectate con';
   textGoogle.textContent = 'Google';
   buttonSignIn.textContent = 'Iniciar sesión';
@@ -56,7 +53,7 @@ export function home(navigateTo) {
     signGoogle().then((rest) => navigateTo('/dashboard'));
   });
   openGoogle.append(iconGoogle, textGoogle);
-  nameSocialContainer.append(img, nameSocial);
+  nameSocialContainer.append(img);
   sectionHome.append(
     welcome,
     descriptionSocial,

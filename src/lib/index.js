@@ -11,7 +11,11 @@ import {
   getDocs,
   onSnapshot,
   getDoc,
-} from "firebase/firestore";
+  doc,
+  arrayRemove,
+  arrayUnion,
+  updateDoc,
+} from 'firebase/firestore';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -60,7 +64,7 @@ export const registerUser = (email, password, name) => {
     .catch((error) => {
       // const errorCode = error.code;
       // console.log(errorCode);
-      //const errorMessage = error.message;
+      // const errorMessage = error.message;
       // console.log(errorMessage);
       console.error('error durante el registro', error);
     });
@@ -71,20 +75,20 @@ export const signGoogle = () => {
   const provider = new GoogleAuthProvider();
   return signInWithPopup(auth, provider)
     .then((result) => {
-       // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
       // Inicio de sesión exitoso, puedes acceder a la información del usuario aquí.
       const user = result.user;
       console.log(user);
       return user;
       // console.log('Usuario autenticado:', user);
-      //window.location.hash = '/dashboard';
+      // window.location.hash = '/dashboard';
     })
     .catch((error) => {
       // Manejo de errores en caso de que el inicio de sesión falle.
-      //const errorCode = error.code;
-      //const errorMessage = error.message;
+      // const errorCode = error.code;
+      // const errorMessage = error.message;
       console.error('Error de inicio de sesión:', error);
       return error;
     });
@@ -143,7 +147,7 @@ export const addPost2 = (title, imageFile, description) => {
 };
 
 // -----Agregar Publicación-----
-const postCollection = collection(db, "posts");
+const postCollection = collection(db, 'posts');
 export const addPost = (post) => {
   addDoc(postCollection, {
     post,
@@ -155,8 +159,6 @@ export const paintReal = (callback) => onSnapshot(postCollections, callback);
 
 // -----Función para cerrar sesión-----
 export const logout = () => {
-  const auth = getAuth();
-
   auth.signOut().then(() => {
     // Limpiar los datos del usuario al cerrar sesión
     auth.currentUser = null;
@@ -168,7 +170,8 @@ export const logout = () => {
     window.location.href = '/';
   });
 };
-//-----Función para Dar like-----
+// -----Función para Dar like-----
+
 export const giveLike = async (postId) => {
   const docRef = doc(db, 'post', postId);
   const docSnap = await getDoc(docRef);
