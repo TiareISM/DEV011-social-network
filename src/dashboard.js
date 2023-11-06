@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-console */
 import {
   addPost, logout, paintRealTime, giveLike, auth, unGiveLike, deletePost,
