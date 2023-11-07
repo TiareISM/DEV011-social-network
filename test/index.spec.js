@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // importamos la funcion que vamos a testear
 import { signIn } from '../src/lib/index.js';
 import { register } from '../src/register.js';
@@ -18,12 +19,12 @@ describe('register', () => {
     const haveAButton = DOM.querySelector('#return');
     expect(haveAButton).not.toBe(undefined);
   });
-  test('', ()=> {
+  test('', () => {
     const DOM = document.createElement('div');
     const navegateTo = jest.fn();
     DOM.append(singup(navigateTo));
     const buttonBack = DOM.querySelector('#return');
-    buttonBack. click();
+    buttonBack.click();
     expect(navegateTo).toHaveBeenCalled();
   });
 });

@@ -193,3 +193,17 @@ export const deletePost = (postId) => {
   deleteDoc(doc(db, 'posts', postId));
   console.log(deleteDoc);
 };
+
+// Función para editar una publicación
+export const editPost = (postId, newPostContent) => {
+  const postRef = doc(db, 'posts', postId); // Referencia al documento específico en la colección 'posts'
+
+  try {
+    updateDoc(postRef, {
+      post: newPostContent, // Actualiza el campo 'post' con el nuevo contenido
+    });
+    console.log('Publicación editada correctamente.');
+  } catch (error) {
+    console.error('Error al editar la publicación:', error);
+  }
+};

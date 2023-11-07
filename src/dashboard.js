@@ -1,7 +1,10 @@
+/* eslint-disable max-len */
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/named */
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
 import {
-  addPost, logout, paintRealTime, giveLike, auth, unGiveLike, deletePost,
+  addPost, logout, paintRealTime, giveLike, auth, unGiveLike, deletePost, editPost,
 } from './lib';
 
 export function dashboard() {
@@ -11,7 +14,7 @@ export function dashboard() {
   const nameSocial = document.createElement('header');
   nameSocial.setAttribute('class', 'name-social');
   const img = document.createElement('img');
-  img.setAttribute('class', 'logo');
+  img.setAttribute('class', 'logo-dash');
   const welcomeUser = document.createElement('p');
   welcomeUser.setAttribute('class', 'welcome-user');
   // ----- contenedor filtros-----
@@ -40,7 +43,7 @@ export function dashboard() {
   const wallPost = document.createElement('section');
   wallContainer.setAttribute('class', 'wall-post');
   const postSection = document.createElement('article');
-  postSection.setAttribute('class', 'post');
+  postSection.setAttribute('class', 'section-post');
   postSection.setAttribute('id', 'post-section');
   //  ----- Contenedor de menu------
   const navigationBar = document.createElement('nav');
@@ -112,12 +115,17 @@ export function dashboard() {
   paintRealTime((querySnapshot) => {
     postSection.textContent = ' ';
     querySnapshot.forEach((doc) => {
-      const postNew = document.createElement('input');
+      const postNew = document.createElement('div');
       postNew.setAttribute('class', 'post');
+      const reaccion = document.createElement('section');
+      reaccion.setAttribute('class', 'reaccion');
       const buttonLike = document.createElement('button');
       buttonLike.setAttribute('class', 'like');
       const imgLike = document.createElement('img');
       imgLike.setAttribute('class', 'img-like');
+      const buttonEdit = document.createElement('button');
+      const imgEdit = document.createElement('img');
+      imgEdit.setAttribute('class', 'img-edit');
       const buttonDelete = document.createElement('button');
       const imgDelete = document.createElement('img');
       imgDelete.setAttribute('class', 'img-like');
@@ -128,7 +136,7 @@ export function dashboard() {
       buttonComment.setAttribute('class', 'comment');
       imgLike.src = 'imagen/like.png';
       imgDelete.src = 'imagen/delete.png';
-      postNew.value = doc.data().post;
+      postNew.textContent = doc.data().post;
       buttonComment.value = doc.data().comment;
       buttonDelete.value = doc.data().comment;
       console.log('id email de usuarix: ', auth.currentUser.email);
@@ -155,10 +163,46 @@ export function dashboard() {
           alert('No puedes eliminar esta publicación');
         }
       });
+      const closeModalButton = document.createElement('button');
+      const editModal = document.createElement('div');
+      editModal.classList.add('modal');
+      const editPostContent = document.createElement('input');
+      editPostContent.setAttribute('type', 'text');
+      const saveEditButton = document.createElement('button');
+      saveEditButton.textContent = 'Guardar cambios';
+      // Abre el modal cuando se hace clic en el botón "Editar Publicación"
+      buttonEdit.addEventListener('click', () => {
+        editModal.style.display = 'block';
+        editPostContent.value = ''; // Puedes establecer el contenido actual aquí
+      });
+      // Cierra el modal cuando se hace clic en la "X" o en el fondo oscuro
+      closeModalButton.addEventListener('click', () => {
+        editModal.style.display = 'none';
+      });
 
-      postSection.append(postNew, buttonLike, counter, buttonComment, buttonDelete);
+      editModal.addEventListener('click', (event) => {
+        if (event.target === editModal) {
+          editModal.style.display = 'none';
+        }
+      });
+
+      // Guarda los cambios y cierra el modal
+      saveEditButton.addEventListener('click', () => {
+        const newContent = editPostContent.value;
+        const postId = doc.id;
+        if (doc.data().email === auth.currentUser.email) {
+          editPost(postId, newContent);
+        } else {
+          alert('No puedes editar esta publicación');
+        }
+        editModal.style.display = 'none';
+      });
+      reaccion.append(buttonLike, counter, buttonComment, buttonEdit, buttonDelete);
+      postSection.append(postNew, reaccion);
       buttonLike.append(imgLike);
       buttonDelete.append(imgDelete);
+      buttonEdit.append(imgEdit);
+      editModal.append(editPostContent, saveEditButton, closeModalButton);
     });
   });
   filterContainer.append(
