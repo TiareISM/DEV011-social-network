@@ -199,17 +199,17 @@ body {
 }*/
 
  .comment {
-  width: 20px;
-  height: 20px;
+  width: 2rem;
+  height: 2rem;
   border: 2px;
   background-color: #29e55599;
  }
  .post {
-  width: 13rem;
-  height: 3rem;
+  width: 20rem;
+  height: 5rem;
   border-radius: 10px;
-  border-color: #6459d8;
-  padding: 5rem;
+  border: 1px solid #6459d8; /* Cambiado a 'border' para establecer el estilo y el color del borde */
+  padding: 5px;
  }
 
  .container-dashbord {
@@ -226,6 +226,8 @@ body {
   position: fixed;
   top: 0;
   left: 0;
+  width: 100%;
+  height: auto;
 }
 .filter-container {
   grid-area: filter;
@@ -240,8 +242,13 @@ body {
 .navigation-bar {
   grid-area: menu;
   background-color: #6459d8;
-  display: flex;
-  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  margin-top: 7%;
+  width: auto;
+  height: 80%;
 }
 
 .navigation-bar li {
@@ -252,7 +259,40 @@ body {
   grid-area: wall;
 }
 .counter-like{
-  width: 40px;
-  height: 40px;
-  background-color: aqua;
+  width: 2rem;
+  height: 2rem;
+  background-color:#6459d8;
+}
+.list-navigation {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+}
+.reaccion{
+  display: flex;
+  flex-direction: row;
+  width: 10rem;
+  height: 2rem;
+}
+.wall-post {
+  width: auto;
+  height: auto;
+  margin:50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+.logo-dash{
+  width: 30%;
+  height: auto;
+  margin: 0px;
+}
+
+.img-edit {
+  width: 2rem;
+  height: 2rem;
+  background-color:#888;
 }
