@@ -8,6 +8,18 @@ describe('signIn', () => {
     expect(typeof signIn).toBe('function');
   });
 });
+it('tiene un botón para crear cuenta', () => {
+  const DOM = document.createElement('div');
+  DOM.append(signIn());
+  const haveCreateButton = DOM.querySelector('#login');
+  expect(haveCreateButton).not.toBe(undefined);
+});
+it('cuando se hace click en el botón llama a la función navigateTo', () => {
+  const DOM = document.createElement('div');
+  DOM.append(renderLogin());
+  const createAccountButton = DOM.querySelector('#account');
+  createAccountButton.click();
+});
 
 describe('register', () => {
   it('debería ser una función', () => {
