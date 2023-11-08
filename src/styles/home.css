@@ -148,28 +148,38 @@ body {
   font-size: 14px;
 }
 .li-search {
+  width: 7rem;
+  height: 2rem;
+  text-align: right;
   background-image: url('../../src/imagen/search.png');
   background-size: contain; /* Ajusta el tamaño del fondo */
   background-repeat: no-repeat; /* No se repite */
-  background-position: center; /* Alinea el logo a la izquierda */
+  background-position: left; /* Alinea el logo a la izquierda */
  }
  .li-profile {
+  width: 7rem;
+  height: 2rem;
   background-image: url('../../src/imagen/profile.png');
   background-size: contain; /* Ajusta el tamaño del fondo */
   background-repeat: no-repeat; /* No se repite */
-  background-position: center; /* Alinea el logo a la izquierda */
+  background-position: left; /* Alinea el logo a la izquierda */
  }
  .li-upload {
+  width: 7rem;
+  height: 2rem;
   background-image: url('../../src/imagen/upload.png');
   background-size: contain; /* Ajusta el tamaño del fondo */
   background-repeat: no-repeat; /* No se repite */
-  background-position: center; /* Alinea el logo a la izquierda */
+  background-position: left; /* Alinea el logo a la izquierda */
+  cursor: default;
  }
  .li-home {
+  width: 7rem;
+  height: 2rem;
   background-image: url('../../src/imagen/home.png');
   background-size: contain; /* Ajusta el tamaño del fondo */
   background-repeat: no-repeat; /* No se repite */
-  background-position: center; /* Alinea el logo a la izquierda */
+  background-position: left; /* Alinea el logo a la izquierda */
  }
 
 /*.navigation-bar {
@@ -202,7 +212,6 @@ body {
   width: 2rem;
   height: 2rem;
   border: 2px;
-  background-color: #29e55599;
  }
  .post {
   width: 20rem;
@@ -210,6 +219,7 @@ body {
   border-radius: 10px;
   border: 1px solid #6459d8; /* Cambiado a 'border' para establecer el estilo y el color del borde */
   padding: 5px;
+  text-align: center;
  }
 
  .container-dashbord {
@@ -222,68 +232,60 @@ body {
 
 .name-social {
   grid-area: header;
-  background-color: rgb(17, 89, 106);
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: auto;
+  height: 20%;
 }
 .filter-container {
   grid-area: filter;
-  background-color: rgb(17, 89, 106);
   display: flex;
   justify-content: flex-end;
   position: fixed;
-  top: 0;
-  left: 50%;
+  top: 5%;
+  right: 5%;
 }
 
 .navigation-bar {
   grid-area: menu;
-  background-color: #6459d8;
   position: fixed;
   top: 0;
   left: 0;
   padding: 20px;
-  margin-top: 7%;
-  width: auto;
-  height: 80%;
+  width: 15%;
+  height: 100%;
+  border-right: 2px solid #6459d8;
+  background-image: url('../../src/imagen/logotipo.png');
+  background-size: contain; /* Ajusta el tamaño del fondo */
+  background-repeat: no-repeat; /* No se repite */
+  background-position: top; /* Alinea el logo a la izquierda */
 }
 
 .navigation-bar li {
   margin-bottom: 10px;
 }
-
-.wall-Container {
-  grid-area: wall;
-}
 .counter-like{
   width: 2rem;
   height: 2rem;
-  background-color:#6459d8;
 }
 .list-navigation {
   list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: row;
+ margin-top: 7rem; 
 }
 .reaccion{
   display: flex;
   flex-direction: row;
   width: 10rem;
   height: 2rem;
+  margin-top: 5px;
+  margin-bottom: 15px;
 }
-.wall-post {
-  width: auto;
-  height: auto;
-  margin:50%;
+.section-post {
+  margin-left:130%;
+  margin-top: 40%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  flex-wrap: nowrap;
 }
 .logo-dash{
   width: 30%;
@@ -291,8 +293,61 @@ body {
   margin: 0px;
 }
 
-.img-edit {
-  width: 2rem;
-  height: 2rem;
-  background-color:#888;
+.welcome-message {
+  font-family: sans-serif;
+  font-size: 20px; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
+  color: black; /* Color de texto (puedes cambiarlo) */
+  margin-top: 20px; /* Margen superior */
+}
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 5%;
+  left: calc(50% - 32.6vw / 2);
+  width: 30%;
+  height: 80%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  padding: 10px;
+  display: none;
+}
+
+/* Estilos para el botón de "Guardar cambios" */
+.save-edit-button {
+  background-color: #0077b6;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 10%;
+  left: 35%;
+}
+
+/* Estilos para el botón de "Cerrar" */
+.close-modal-button {
+  width: 10%;
+  height: 10%;
+  font-size: 38px;
+  background-color: #ccc;
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute; 
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+}
+/* Estilos para el text de editar */
+.text-input{
+  width: 80%;
+  height: 70%;
+  border: 2px solid #007bff; 
+  padding: 10px;
 }

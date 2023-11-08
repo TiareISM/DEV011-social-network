@@ -17,8 +17,13 @@ export function dashboard() {
   img.setAttribute('class', 'logo-dash');
   const welcomeUser = document.createElement('p');
   welcomeUser.setAttribute('class', 'welcome-user');
+  const user = auth.currentUser;
+  const userEmail = user ? user.displayName || user.email : '';
+  const welcomeMessage = document.createElement('p');
+  welcomeMessage.setAttribute('class', 'welcome-message');
+  welcomeMessage.textContent = `Bienvenido, ${userEmail} <3!`;
   // ----- contenedor filtros-----
-  const filterContainer = document.createElement('nav');
+  /* const filterContainer = document.createElement('nav');
   filterContainer.setAttribute('class', 'filter-container');
   const ulFilter = document.createElement('ul');
   ulFilter.setAttribute('class', 'ul-filter');
@@ -36,12 +41,10 @@ export function dashboard() {
   filterRestaurant.setAttribute('class', 'filter food');
   filterRestaurant.setAttribute('id', 'filter-restaurant');
   const imgFood = document.createElement('img');
-  imgFood.setAttribute('class', 'food');
+  imgFood.setAttribute('class', 'food'); */
   // ----- contenedor publicaciones----
   const wallContainer = document.createElement('section');
   wallContainer.setAttribute('class', 'wall-container');
-  const wallPost = document.createElement('section');
-  wallContainer.setAttribute('class', 'wall-post');
   const postSection = document.createElement('article');
   postSection.setAttribute('class', 'section-post');
   postSection.setAttribute('id', 'post-section');
@@ -50,9 +53,9 @@ export function dashboard() {
   navigationBar.setAttribute('class', 'navigation-bar');
   const listNavigation = document.createElement('ul');
   listNavigation.setAttribute('class', 'list-navigation');
-  const liSearch = document.createElement('li');
+  /* const liSearch = document.createElement('li');
   liSearch.setAttribute('class', 'li-search');
-  liSearch.textContent = 'Búsqueda';
+  liSearch.textContent = 'Búsqueda'; */
   const liHome = document.createElement('li');
   liHome.setAttribute('class', 'li-home');
   liHome.textContent = 'Inicio';
@@ -69,6 +72,9 @@ export function dashboard() {
   buttonSend.setAttribute('class', 'enviar-comentario');
   buttonSend.setAttribute('id', 'buttonSend');
   buttonSend.setAttribute('type', 'submit');
+  const buttonClose = document.createElement('button');
+  buttonClose.setAttribute('class', 'cerrar-modal');
+  buttonClose.textContent = 'Cerrar';
   const liProfile = document.createElement('li');
   liProfile.setAttribute('class', 'li-profile');
   liProfile.textContent = 'Perfil';
@@ -76,39 +82,43 @@ export function dashboard() {
   const logoutButton = document.createElement('button');
   logoutButton.setAttribute('class', 'logout-button');
   logoutButton.textContent = 'Cerrar Sesión';
-
+  // Crear un div para el modal
+  const modal = document.createElement('div');
+  modal.classList.add('modal');
+  form.appendChild(sendComment);
+  form.appendChild(buttonSend);
+  form.appendChild(buttonClose);
+  // Agregar el formulario al modal
+  modal.appendChild(form);
+  // para cerrar el modal de subir publicación
+  buttonClose.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+  // Escuchar evento de envío del formulario
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const inputPost = form.querySelector('#sendComment');
+    const post = inputPost.value;
+    // Llamar a la función para agregar publicación y subir imagen a Firebase
+    addPost(post, auth.currentUser.email);
+    inputPost.value = '';
+    // Cerrar el modal después de enviar la publicación
+    modal.style.display = 'none';
+  });
   // para modal de form
   liUpload.addEventListener('click', () => {
-    // Crear un div para el modal
-    const modal = document.createElement('div');
-    modal.classList.add('modal');
-    form.appendChild(sendComment);
-    form.appendChild(buttonSend);
-    // Agregar el formulario al modal
-    modal.appendChild(form);
-    // Mostrar el modal en la página
+    modal.style.display = 'block';
     document.body.appendChild(modal);
-    // Escuchar evento de envío del formulario
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const inputPost = form.querySelector('#sendComment');
-      const post = inputPost.value;
-      // Llamar a la función para agregar publicación y subir imagen a Firebase
-      addPost(post, auth.currentUser.email);
-      inputPost.value = '';
-      // Cerrar el modal después de enviar la publicación
-      modal.style.display = 'none';
-    });
   });
   // Función para el botón
   logoutButton.addEventListener('click', () => {
     logout();
   });
 
-  img.src = 'imagen/EnRutados-logo-pq.png';
-  imgTransport.src = 'imagen/transporteBl.png';
+  // img.src = 'imagen/EnRutados-logo-pq.png';
+  /* imgTransport.src = 'imagen/transporteBl.png';
   imgHostal.src = 'imagen/alojamientoBl.png';
-  imgFood.src = 'imagen/food.png';
+  imgFood.src = 'imagen/food.png'; */
   buttonSend.textContent = 'Publicar';
 
   // -----Crear Publicación-----
@@ -132,12 +142,16 @@ export function dashboard() {
       const counter = document.createElement('p');
       counter.setAttribute('class', 'counter-like');
       counter.textContent = doc.data().counterLikes.length;
-      const buttonComment = document.createElement('button');
+      /* const buttonComment = document.createElement('button');
       buttonComment.setAttribute('class', 'comment');
+      const imgComment = document.createElement('img');
+      imgComment.setAttribute('class', 'img-comment'); */
       imgLike.src = 'imagen/like.png';
-      imgDelete.src = 'imagen/delete.png';
+      imgDelete.src = 'imagen/eliminar.png';
+      // imgComment.src = 'imagen/comentario.png';
+      imgEdit.src = 'imagen/edit.png';
       postNew.textContent = doc.data().post;
-      buttonComment.value = doc.data().comment;
+      // buttonComment.value = doc.data().comment;
       buttonDelete.value = doc.data().comment;
       console.log('id email de usuarix: ', auth.currentUser.email);
 
@@ -164,15 +178,20 @@ export function dashboard() {
         }
       });
       const closeModalButton = document.createElement('button');
+      closeModalButton.textContent = 'x';
+      closeModalButton.setAttribute('class', 'close-modal-button');
       const editModal = document.createElement('div');
       editModal.classList.add('modal');
       const editPostContent = document.createElement('input');
       editPostContent.setAttribute('type', 'text');
+      editPostContent.setAttribute('class', 'text-input');
       const saveEditButton = document.createElement('button');
       saveEditButton.textContent = 'Guardar cambios';
+      saveEditButton.setAttribute('class', 'save-edit-button');
       // Abre el modal cuando se hace clic en el botón "Editar Publicación"
       buttonEdit.addEventListener('click', () => {
         editModal.style.display = 'block';
+        document.body.appendChild(editModal);
         editPostContent.value = ''; // Puedes establecer el contenido actual aquí
       });
       // Cierra el modal cuando se hace clic en la "X" o en el fondo oscuro
@@ -197,7 +216,7 @@ export function dashboard() {
         }
         editModal.style.display = 'none';
       });
-      reaccion.append(buttonLike, counter, buttonComment, buttonEdit, buttonDelete);
+      reaccion.append(buttonLike, counter, buttonEdit, buttonDelete);
       postSection.append(postNew, reaccion);
       buttonLike.append(imgLike);
       buttonDelete.append(imgDelete);
@@ -205,7 +224,7 @@ export function dashboard() {
       editModal.append(editPostContent, saveEditButton, closeModalButton);
     });
   });
-  filterContainer.append(
+  /* filterContainer.append(
     ulFilter,
     filterTransport,
     filterHostal,
@@ -214,17 +233,17 @@ export function dashboard() {
   filterTransport.append(imgTransport);
   filterHostal.append(imgHostal);
   filterRestaurant.append(imgFood);
-  nameSocial.append(img, filterContainer);
-  wallPost.append(postSection);
-  wallContainer.append(wallPost);
-  navigationBar.append(
-    listNavigation,
-    liSearch,
+  nameSocial.append(filterContainer); */
+  nameSocial.append(welcomeMessage);
+  wallContainer.append(postSection);
+  navigationBar.append(listNavigation);
+  listNavigation.append(
     liHome,
     liUpload,
     liProfile,
     logoutButton,
   );
+
   containerDashbord.append(
     nameSocial,
     wallContainer,
