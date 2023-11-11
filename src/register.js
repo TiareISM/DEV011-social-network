@@ -30,6 +30,7 @@ export function register(navigateTo) {
   inputPass.setAttribute('id', 'idInputPass');
   const buttonRegister = document.createElement('button');
   buttonRegister.setAttribute('class', 'buttonInfo');
+  // -----Sesión Ingresar con Google-----
   const connectWith = document.createElement('h4');
   connectWith.setAttribute('class', 'connect-with');
   const openGoogle = document.createElement('button');
@@ -60,27 +61,21 @@ export function register(navigateTo) {
     registerUser(email, password, name);
 
     if (!email || !password || !name) {
-    // Manejar el caso de campos vacíos, por ejemplo, mostrar un mensaje al usuario
-      console.error('Por favor, completa todos los campos.');
       alert('Por favor, completa todos los campos.');
-      // Aquí puedes mostrar un mensaje al usuario indicando que ambos campos son obligatorios.
       return; // Detiene la ejecución si hay campos vacíos
     }
     try {
       registerUser(email, password, name);
       navigateTo('/dashboard');
     } catch (error) {
-    // Manejar el error, por ejemplo, mostrar un mensaje al usuario
-      console.error('Error durante el inicio de sesión:', error);
-    // Aquí puedes mostrar un mensaje al usuario indicando que//
-    //ha habido un problema con el inicio de sesión.//
+      alert('Error durante el inicio de sesión');
     }
   });
   // Agrega un evento de click para el botón de inicio de sesión con Google
   openGoogle.addEventListener('click', () => {
     signGoogle().then((rest) => navigateTo('/dashboard'));
   });
-  
+
   openGoogle.append(iconGoogle, textGoogle);
   form.append(inputName, inputEmail, inputPass);
   nameSocialContainer.append(img);
