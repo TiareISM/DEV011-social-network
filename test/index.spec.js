@@ -8,14 +8,9 @@ import { signIn, registerUser } from '../src/lib/index.js';
 import { register } from '../src/register.js';
 import login from '../src/login.js';
 import { dashboard } from '../src/dashboard.js';
-import * as firebase from '../src/lib/index.js';
+import * as index from '../src/lib/index.js';
 import { home } from '../src/home.js';
 
-describe('signIn', () => {
-  it('Should be a function', () => {
-    expect(typeof signIn).toBe('function');
-  });
-});
 // -----test funcionalidad  register-----
 describe('register', () => {
   it('Should be a function', () => {
@@ -27,37 +22,40 @@ describe('register', () => {
     const haveAButton = DOM.querySelector('#return');
     expect(haveAButton).not.toBe(undefined);
   });
-
+  it('Snapshot of register', () => {
+    const DOM = document.createElement('section');
+    DOM.append(register());
+    expect(DOM).toMatchSnapshot();
+  });
   it('Have a button to register with Google', () => {
     const DOM = document.createElement('section');
     DOM.append(register());
     const haveAbuttonGoogle = DOM.querySelector('.openGoogle');
     expect(haveAbuttonGoogle).not.toBe(undefined);
   });
-  describe('have a button signUp to register the user', () => {
-    it('test of click button register', () => {
-      const DOM = document.createElement('section');
-      document.body.appendChild(DOM);
-      DOM.append(registerUser());
-      jest.spyOn(firebase, 'user').mockImplementation(() => Promise.resolve({
-        message: 'success',
-        email: 'hola@enrutados.com',
-      }));
+});
+// -----Test registro de usuario con Spy.Mock-----
+describe('have a button signUp to register the user', () => {
+  it('test of click button register', () => {
+    const DOM = document.createElement('section');
+    document.body.appendChild(DOM);
+    DOM.append(register());
+    jest.spyOn(index, 'registerUser').mockImplementation(() => Promise.resolve({
+      message: 'success',
+      email: 'hola@enrutados.com',
+    }));
 
-      // jest.spyOn(auth, 'login').mockImplementation(() => Promise.resolve({
-      // message: 'success', email: 'hola@holaenrutados.com' }))
-      const buttonRegister = DOM.querySelector('.buttonInfo');
-      const email = DOM.querySelector('#idInputEmail');
-      email.value = 'hola@holaenrutados.com';
-      const password = DOM.querySelector('#idInputPass');
-      password.value = '123456';
-      // await Promise.resolve();
-      buttonRegister.click();
-      expect(firebase.createUserWithEmailAndPassword).toHaveBeenCalledTimes(1);
-      // loginSpy.mockRestore();
-    });
+    const buttonRegister = DOM.querySelector('.buttonInfo');
+    const email = DOM.querySelector('#idInputEmail');
+    email.value = 'hola@enrutados.com';
+    const password = DOM.querySelector('#idInputPass');
+    password.value = '123456';
+    buttonRegister.click();
+    expect(index.registerUser).toHaveBeenCalledTimes(1);
+    // loginSpy.mockRestore();
   });
 });
+
 // -----test ruteo funcion registerUser-----//
 describe('registerUser', () => {
   it('Should be a function', () => {
@@ -103,6 +101,12 @@ describe('login', () => {
     expect(haveAbuttonGoogle).not.toBe(undefined);
   });
 });
+describe('signIn', () => {
+  it('Should be a function', () => {
+    expect(typeof signIn).toBe('function');
+  });
+});
+
 // ----- test post -----
 describe('dashboard', () => {
   it('Should be a function', () => {
@@ -162,5 +166,10 @@ describe('home', () => {
     const haveAbuttonSignUp = DOM.querySelector('.signUp');
     haveAbuttonSignUp.click();
     expect(navigateTo).toHaveBeenLastCalledWith('/register');
+  });
+  it('Snapshot of home', () => {
+    const DOM = document.createElement('section');
+    DOM.append(home());
+    expect(DOM).toMatchSnapshot();
   });
 });
