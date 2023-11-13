@@ -1,6 +1,9 @@
 // file error.js
-export function error() {
-  const title = document.createElement('h2');
-  title.textContent = 'Error 404 page not found, please go home';
-  return title;
-}
+function error() {
+    const title = document.createElement('h2');
+    title.textContent = 'Error 404 page no found, please go home';
+    console.log("soy la vista del error");
+    return title;
+  }
+  
+  export default error;
