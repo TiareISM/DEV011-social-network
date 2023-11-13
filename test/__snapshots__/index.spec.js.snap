@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`login Snapshot of login 1`] = `
+<section>
+  <section
+    class="principal-container"
+  >
+    <button
+      class="return"
+    >
+      <img
+        class="return"
+        src="imagen/return.png"
+      />
+    </button>
+    <section
+      class="containerName"
+    >
+      <img
+        class="logo"
+        src="imagen/logo-gr.png"
+      />
+    </section>
+    <section
+      class="containerInfo"
+    >
+      <form>
+        <input
+          autocomplete="current-password"
+          class="inputInfo"
+          id="idInputEmail"
+          placeholder="Correo electrónico"
+        />
+        <input
+          autocomplete="current-password"
+          class="inputInfo"
+          id="idInputPass"
+          placeholder="Contraseña"
+          type="password"
+        />
+      </form>
+      <button
+        class="signIn"
+        id="signIn-button"
+      >
+        Iniciar sesión
+      </button>
+      <h4
+        class="connect-with"
+      >
+        O conéctate con
+      </h4>
+      <button
+        class="openGoogle"
+      >
+        <span
+          class="icon-google"
+        />
+        <span
+          class="text-google"
+        >
+          Google
+        </span>
+      </button>
+    </section>
+  </section>
+</section>
+`;
+
+exports[`register Snapshot of register 1`] = `
+<section>
+  undefined
+</section>
+`;
