@@ -74,7 +74,7 @@ export function dashboard() {
   buttonSend.setAttribute('type', 'submit');
   const buttonClose = document.createElement('button');
   buttonClose.setAttribute('class', 'cerrar-modal');
-  buttonClose.textContent = 'Cerrar';
+  buttonClose.textContent = 'x';
   const liProfile = document.createElement('li');
   liProfile.setAttribute('class', 'li-profile');
   liProfile.textContent = 'Perfil';
@@ -84,7 +84,7 @@ export function dashboard() {
   logoutButton.textContent = 'Cerrar Sesión';
   // Crear un div para el modal
   const modal = document.createElement('div');
-  modal.classList.add('modal');
+  modal.classList.add('modal-post');
   form.appendChild(sendComment);
   form.appendChild(buttonSend);
   form.appendChild(buttonClose);
@@ -125,6 +125,8 @@ export function dashboard() {
   paintRealTime((querySnapshot) => {
     postSection.textContent = ' ';
     querySnapshot.forEach((doc) => {
+      const postContainer = document.createElement('div');
+      postContainer.setAttribute('class', 'post-container');
       const postNew = document.createElement('div');
       postNew.setAttribute('class', 'post');
       const reaccion = document.createElement('section');
@@ -135,10 +137,12 @@ export function dashboard() {
       imgLike.setAttribute('class', 'img-like');
       const buttonEdit = document.createElement('button');
       buttonEdit.setAttribute('class', 'button-border');
+      buttonEdit.setAttribute('id', 'edit');
       const imgEdit = document.createElement('img');
       imgEdit.setAttribute('class', 'img-edit');
       const buttonDelete = document.createElement('button');
       buttonDelete.setAttribute('class', 'button-border');
+      buttonDelete.setAttribute('id', 'delete');
       const imgDelete = document.createElement('img');
       imgDelete.setAttribute('class', 'img-like');
       const counter = document.createElement('p');
@@ -219,7 +223,8 @@ export function dashboard() {
         editModal.style.display = 'none';
       });
       reaccion.append(buttonLike, counter, buttonEdit, buttonDelete);
-      postSection.append(postNew, reaccion);
+      postContainer.append(postNew, reaccion);
+      postSection.append(postContainer);
       buttonLike.append(imgLike);
       buttonDelete.append(imgDelete);
       buttonEdit.append(imgEdit);

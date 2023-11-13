@@ -16,6 +16,8 @@ import {
   arrayUnion,
   updateDoc,
   deleteDoc,
+  orderBy,
+  query,
 } from 'firebase/firestore';
 import {
   getAuth,
@@ -54,7 +56,6 @@ export const registerUser = (email, password, name) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      // console.log(user);
       updateProfile(auth.currentUser, {
         displayName: name,
         userEmail: email,
@@ -154,11 +155,13 @@ export const addPost = (post, email) => {
     post,
     counterLikes: [],
     email,
+    date: Date.now(),
   });
 };
 export const querySnapshot = getDocs(postCollection, postCollections);
-export const paintRealTime = (callback) => onSnapshot(postCollection, callback);
-export const paintReal = (callback) => onSnapshot(postCollections, callback);
+const orderPost = query(postCollection, orderBy('date', 'desc'));
+export const paintRealTime = (callback) => onSnapshot(orderPost, callback);
+// export const paintReal = (callback) => onSnapshot(postCollections, callback);
 
 // -----Función para cerrar sesión-----
 export const logout = () => {
@@ -173,8 +176,8 @@ export const logout = () => {
     window.location.href = '/';
   });
 };
-// -----Función para Dar like-----
 
+// -----Función para Dar like-----
 export const giveLike = (postId, idUser) => {
   updateDoc(doc(db, 'posts', postId), {
     counterLikes: arrayUnion(idUser),

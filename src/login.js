@@ -33,6 +33,7 @@ function login(navigateTo) {
   inputPass.setAttribute('autocomplete', 'current-password');
   const buttonSignIn = document.createElement('button');
   buttonSignIn.setAttribute('class', 'signIn');
+  buttonSignIn.setAttribute('id', 'signIn-button');
   // const forgetPassword = document.createElement('input');
   const connectWith = document.createElement('h4');
   connectWith.setAttribute('class', 'connect-with');
