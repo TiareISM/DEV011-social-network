@@ -4,17 +4,18 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 body {
-  background-color: #e7ecd7;
+  background: rgba(146, 175, 90, 0.58);
   text-align: center;
   list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-rows: auto 1fr; /* Parte superior para el menú, resto para el contenido */
+  min-height: 100vh;
 }
 #root {
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  margin: 0 auto;
-}
+  margin: 10%;
+ }
 .principal-container {
   display: flex;
   flex-direction: column;
@@ -131,6 +132,7 @@ body {
   border: thin solid #888;
   box-shadow: 1px 1px 1px grey;
   white-space: nowrap;
+  border: none;
 }
 .icon-google{
   width: 40px; /* Tamaño del logotipo (aprox. 18dp) */
@@ -140,6 +142,7 @@ body {
   background-repeat: no-repeat; /* No se repite */
   background-position: center; /* Alinea el logo a la izquierda */
   margin-right: 16px;
+  border: none;
 }
 .text-google{
   font-family: Roboto-Medium;
@@ -147,15 +150,6 @@ body {
   padding-right: 24px;
   font-size: 14px;
 }
-.li-search {
-  width: 7rem;
-  height: 2rem;
-  text-align: right;
-  background-image: url('../../src/imagen/search.png');
-  background-size: contain; /* Ajusta el tamaño del fondo */
-  background-repeat: no-repeat; /* No se repite */
-  background-position: left; /* Alinea el logo a la izquierda */
- }
  .li-profile {
   width: 7rem;
   height: 2rem;
@@ -181,40 +175,13 @@ body {
   background-repeat: no-repeat; /* No se repite */
   background-position: left; /* Alinea el logo a la izquierda */
  }
-
-/*.navigation-bar {
-  background-color: #4D3EFC;; /* Color de fondo 
-  padding: 10px;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  margin: 0 auto;
-  text-align: center;   
-  background: rgb(53, 116, 122);
-  height: 50px; /* altura de la caja */
-  /*line-height: 50px;  centra vertical, medida alto caja */
-  /*text-align: center; /centra texto horizontal 
-}*/
-/*.filter-wall {
-  align-items: none;
-}
-.wall-post {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 100px;
-  gap: 20px;
-  border-color: #6459d8;
-  padding: 5px;
-  /*justify-content: end;
-}*/
-
  .comment {
   width: 2rem;
   height: 2rem;
   border: 2px;
  }
  .post {
-  width: 20rem;
+  width: 18rem;
   height: 5rem;
   border-radius: 10px;
   border: 1px solid #6459d8; /* Cambiado a 'border' para establecer el estilo y el color del borde */
@@ -223,55 +190,41 @@ body {
  }
 
  .container-dashbord {
-  display: grid;
-  grid-template-areas: 'header filter'
-                       'menu wall';
-  grid-template-columns: 30% 70%;
   text-align: center
 }
 
 .name-social {
-  grid-area: header;
   position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
   height: 20%;
+  /* background-image: url('../../src/imagen/logotipo.png');
+  background-size: contain; Ajusta el tamaño del fondo
+  background-repeat: no-repeat; No se repite 
+  background-position: left; Alinea el logo */
 }
-.filter-container {
-  grid-area: filter;
-  display: flex;
-  justify-content: flex-end;
-  position: fixed;
-  top: 5%;
-  right: 5%;
-}
-
 .navigation-bar {
-  grid-area: menu;
   position: fixed;
-  top: 0;
   left: 0;
+  bottom: 0;
   padding: 20px;
-  width: 15%;
-  height: 100%;
-  border-right: 2px solid #6459d8;
-  background-image: url('../../src/imagen/logotipo.png');
-  background-size: contain; /* Ajusta el tamaño del fondo */
-  background-repeat: no-repeat; /* No se repite */
-  background-position: top; /* Alinea el logo a la izquierda */
-}
+  width: 100%;
+  border-top: 2px solid #6459d8;
+  display:flex;
+  justify-content: center;
 
-.navigation-bar li {
-  margin-bottom: 10px;
 }
 .counter-like{
   width: 2rem;
   height: 2rem;
 }
 .list-navigation {
+  width: 80%;
   list-style: none;
- margin-top: 7rem; 
+ padding: 0;
+ margin: 0;
+ display: flex;
+ flex-direction: row;
 }
 .reaccion{
   display: flex;
@@ -282,15 +235,16 @@ body {
   margin-bottom: 15px;
 }
 .section-post {
-  margin-left:130%;
-  margin-top: 40%;
+  width: 19rem;
+  margin-top: 100%;
   display: flex;
   flex-direction: column;
+  background: white;
+  border-radius: 10px;
 }
 .logo-dash{
-  width: 30%;
-  height: auto;
-  margin: 0px;
+  width: 40%;
+  margin-left: 0px;
 }
 
 .welcome-message {
@@ -350,4 +304,12 @@ body {
   height: 70%;
   border: 2px solid #007bff; 
   padding: 10px;
+}
+
+.button-border {
+  border: none;
+}
+
+.wall-container{
+width: 4rem;
 }

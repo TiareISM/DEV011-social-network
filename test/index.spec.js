@@ -1,4 +1,8 @@
 /* eslint-disable no-undef */
+/**
+ * @jest-environment jsdom
+*/
+
 // importamos la funcion que vamos a testear
 import { signIn } from '../src/lib/index.js';
 import { register } from '../src/register.js';
@@ -16,7 +20,7 @@ it('tiene un botón para crear cuenta', () => {
 });
 it('cuando se hace click en el botón llama a la función navigateTo', () => {
   const DOM = document.createElement('div');
-  DOM.append(renderLogin());
+  DOM.append(signIn());
   const createAccountButton = DOM.querySelector('#account');
   createAccountButton.click();
 });
