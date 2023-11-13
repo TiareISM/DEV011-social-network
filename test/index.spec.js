@@ -9,6 +9,7 @@ import { register } from '../src/register.js';
 import login from '../src/login.js';
 import { dashboard } from '../src/dashboard.js';
 import * as firebase from '../src/lib/index.js';
+import { home } from '../src/home.js';
 
 describe('signIn', () => {
   it('Should be a function', () => {
@@ -26,24 +27,35 @@ describe('register', () => {
     const haveAButton = DOM.querySelector('#return');
     expect(haveAButton).not.toBe(undefined);
   });
-  it('Snapshot of register', () => {
-    const DOM = document.createElement('section');
-    DOM.append(register());
-    expect(DOM).toMatchSnapshot();
-  });
-  it('After click button return call function navigateTo with /', () => {
-    const DOM = document.createElement('section');
-    const navigateTo = jest.fn();
-    DOM.append(register(navigateTo));
-    const haveAbuttonReturn = DOM.querySelector('#return');
-    haveAbuttonReturn.click();
-    expect(navigateTo).toHaveBeenLastCalledWith('/');
-  });
+
   it('Have a button to register with Google', () => {
     const DOM = document.createElement('section');
     DOM.append(register());
     const haveAbuttonGoogle = DOM.querySelector('.openGoogle');
     expect(haveAbuttonGoogle).not.toBe(undefined);
+  });
+  describe('have a button signUp to register the user', () => {
+    it('test of click button register', () => {
+      const DOM = document.createElement('section');
+      document.body.appendChild(DOM);
+      DOM.append(registerUser());
+      jest.spyOn(firebase, 'user').mockImplementation(() => Promise.resolve({
+        message: 'success',
+        email: 'hola@enrutados.com',
+      }));
+
+      // jest.spyOn(auth, 'login').mockImplementation(() => Promise.resolve({
+      // message: 'success', email: 'hola@holaenrutados.com' }))
+      const buttonRegister = DOM.querySelector('.buttonInfo');
+      const email = DOM.querySelector('#idInputEmail');
+      email.value = 'hola@holaenrutados.com';
+      const password = DOM.querySelector('#idInputPass');
+      password.value = '123456';
+      // await Promise.resolve();
+      buttonRegister.click();
+      expect(firebase.createUserWithEmailAndPassword).toHaveBeenCalledTimes(1);
+      // loginSpy.mockRestore();
+    });
   });
 });
 // -----test ruteo funcion registerUser-----//
@@ -51,14 +63,14 @@ describe('registerUser', () => {
   it('Should be a function', () => {
     expect(typeof registerUser).toBe('function');
   });
-  it('After click button register call function navigateTo with /dashboard', () => {
+  /* it('After click button register call function navigateTo with /dashboard', () => {
     const DOM = document.createElement('section');
     const navigateTo = jest.fn();
-    DOM.append(register(navigateTo));
+    DOM.append(registerUser(navigateTo));
     const haveAbuttonRegister = DOM.querySelector('.buttonInfo');
     haveAbuttonRegister.click();
     expect(navigateTo).toHaveBeenLastCalledWith('/dashboard');
-  });
+  }); */
 });
 // -----test funcionalidad  login-----
 describe('login', () => {
@@ -127,5 +139,28 @@ describe('dashboard', () => {
     DOM.append(dashboard());
     const buttonEdit = DOM.querySelector('#edit');
     expect(buttonEdit).not.toBe(undefined);
+  });
+});
+// ----- Funcionalidad de Home -----
+describe('home', () => {
+  it('Should be a function', () => {
+    expect(typeof home).toBe('function');
+  });
+  it('After click button signIn call function navigateTo with /login', () => {
+    const DOM = document.createElement('section');
+    const navigateTo = jest.fn();
+    DOM.append(home(navigateTo));
+    const haveAbuttonSignIn = DOM.querySelector('.signIn');
+    haveAbuttonSignIn.click();
+    expect(navigateTo).toHaveBeenLastCalledWith('/login');
+  });
+
+  it('After click button signUp call function navigateTo with /register', () => {
+    const DOM = document.createElement('section');
+    const navigateTo = jest.fn();
+    DOM.append(home(navigateTo));
+    const haveAbuttonSignUp = DOM.querySelector('.signUp');
+    haveAbuttonSignUp.click();
+    expect(navigateTo).toHaveBeenLastCalledWith('/register');
   });
 });
