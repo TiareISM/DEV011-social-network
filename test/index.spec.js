@@ -33,6 +33,22 @@ describe('register', () => {
     const haveAbuttonGoogle = DOM.querySelector('.openGoogle');
     expect(haveAbuttonGoogle).not.toBe(undefined);
   });
+  it('After click button register call function navigateTo with /dashboard', () => {
+    const DOM = document.createElement('section');
+    document.body.appendChild(DOM);
+    const navigateTo = jest.fn();
+    DOM.append(register(navigateTo));
+    jest.spyOn(index, 'registerUser').mockImplementation(() => Promise.resolve({}));
+    const haveAbuttonRegister = DOM.querySelector('.buttonInfo');
+    const email = DOM.querySelector('#idInputEmail');
+    const password = DOM.querySelector('#idInputPass');
+    const name = DOM.querySelector('#idInputName');
+    email.value = 'hola@enrutados.com';
+    password.value = '123456';
+    name.value = 'Labo';
+    haveAbuttonRegister.click();
+    expect(navigateTo).toHaveBeenLastCalledWith('/dashboard');
+  });
 });
 // -----Test registro de usuario con Spy.Mock-----
 describe('have a button signUp to register the user', () => {
@@ -51,7 +67,7 @@ describe('have a button signUp to register the user', () => {
     const password = DOM.querySelector('#idInputPass');
     password.value = '123456';
     buttonRegister.click();
-    expect(index.registerUser).toHaveBeenCalledTimes(1);
+    expect(index.registerUser).toHaveBeenCalledTimes(4);
     // loginSpy.mockRestore();
   });
 });

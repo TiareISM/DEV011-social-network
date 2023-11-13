@@ -129,6 +129,7 @@ export function dashboard() {
       postContainer.setAttribute('class', 'post-container');
       const postNew = document.createElement('div');
       postNew.setAttribute('class', 'post');
+      postNew.setAttribute('id', 'post');
       const reaccion = document.createElement('section');
       reaccion.setAttribute('class', 'reaccion');
       const buttonLike = document.createElement('button');
@@ -157,8 +158,6 @@ export function dashboard() {
       // imgComment.src = 'imagen/comentario.png';
       imgEdit.src = 'imagen/edit.png';
       postNew.textContent = doc.data().post;
-      // buttonComment.value = doc.data().comment;
-      buttonDelete.value = doc.data().comment;
       console.log('id email de usuarix: ', auth.currentUser.email);
 
       // ----- Llamar función Like-----
@@ -198,7 +197,7 @@ export function dashboard() {
       buttonEdit.addEventListener('click', () => {
         editModal.style.display = 'block';
         document.body.appendChild(editModal);
-        editPostContent.value = ''; // Puedes establecer el contenido actual aquí
+        editPostContent.value = document.getElementById('post').previousSibling.id;// Puedes establecer el contenido actual aquí
       });
       // Cierra el modal cuando se hace clic en la "X" o en el fondo oscuro
       closeModalButton.addEventListener('click', () => {
