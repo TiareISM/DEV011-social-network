@@ -67,8 +67,3 @@ exports[`login Snapshot of login 1`] = `
 </section>
 `;
 
-exports[`register Snapshot of register 1`] = `
-<section>
-  undefined
-</section>
-`;

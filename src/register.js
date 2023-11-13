@@ -61,7 +61,6 @@ export function register(navigateTo) {
     registerUser(email, password, name);
 
     if (!email || !password || !name) {
-      // eslint-disable-next-line no-alert
       alert('Por favor, completa todos los campos.');
       return; // Detiene la ejecución si hay campos vacíos
     }

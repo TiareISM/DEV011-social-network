@@ -113,7 +113,7 @@ export const signIn = (email, password) => new Promise((resolve, reject) => {
       reject(error); // Rechaza la promesa si hay un error en el inicio de sesión
     });
 });
-
+/*
 // Función para agregar una publicación a Firebase
 const storage = getStorage();
 const postCollections = collection(db, 'post');
@@ -147,7 +147,7 @@ export const addPost2 = (title, imageFile, description) => {
     console.error('Error al subir el archivo al almacenamiento:', error);
   });
 };
-
+*/
 // -----Agregar Publicación-----
 const postCollection = collection(db, 'posts');
 export const addPost = (post, email) => {
@@ -158,7 +158,7 @@ export const addPost = (post, email) => {
     date: Date.now(),
   });
 };
-export const querySnapshot = getDocs(postCollection, postCollections);
+export const querySnapshot = getDocs(postCollection);
 const orderPost = query(postCollection, orderBy('date', 'desc'));
 export const paintRealTime = (callback) => onSnapshot(orderPost, callback);
 // export const paintReal = (callback) => onSnapshot(postCollections, callback);
