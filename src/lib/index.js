@@ -16,6 +16,8 @@ import {
   arrayUnion,
   updateDoc,
   deleteDoc,
+  orderBy,
+  query,
 } from 'firebase/firestore';
 import {
   getAuth,
@@ -111,7 +113,7 @@ export const signIn = (email, password) => new Promise((resolve, reject) => {
       reject(error); // Rechaza la promesa si hay un error en el inicio de sesión
     });
 });
-
+/*
 // Función para agregar una publicación a Firebase
 const storage = getStorage();
 const postCollections = collection(db, 'post');
@@ -145,7 +147,7 @@ export const addPost2 = (title, imageFile, description) => {
     console.error('Error al subir el archivo al almacenamiento:', error);
   });
 };
-
+*/
 // -----Agregar Publicación-----
 const postCollection = collection(db, 'posts');
 export const addPost = (post, email) => {
@@ -153,11 +155,13 @@ export const addPost = (post, email) => {
     post,
     counterLikes: [],
     email,
+    date: Date.now(),
   });
 };
-export const querySnapshot = getDocs(postCollection, postCollections);
-export const paintRealTime = (callback) => onSnapshot(postCollection, callback);
-export const paintReal = (callback) => onSnapshot(postCollections, callback);
+export const querySnapshot = getDocs(postCollection);
+const orderPost = query(postCollection, orderBy('date', 'desc'));
+export const paintRealTime = (callback) => onSnapshot(orderPost, callback);
+// export const paintReal = (callback) => onSnapshot(postCollections, callback);
 
 // -----Función para cerrar sesión-----
 export const logout = () => {
@@ -172,8 +176,8 @@ export const logout = () => {
     window.location.href = '/';
   });
 };
-// -----Función para Dar like-----
 
+// -----Función para Dar like-----
 export const giveLike = (postId, idUser) => {
   updateDoc(doc(db, 'posts', postId), {
     counterLikes: arrayUnion(idUser),

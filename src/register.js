@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import { registerUser, signGoogle } from './lib';
 
 export function register(navigateTo) {

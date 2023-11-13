@@ -43,9 +43,9 @@ export function dashboard() {
   const imgFood = document.createElement('img');
   imgFood.setAttribute('class', 'food'); */
   // ----- contenedor publicaciones----
-  const wallContainer = document.createElement('section');
+  const wallContainer = document.createElement('main');
   wallContainer.setAttribute('class', 'wall-container');
-  const postSection = document.createElement('article');
+  const postSection = document.createElement('div');
   postSection.setAttribute('class', 'section-post');
   postSection.setAttribute('id', 'post-section');
   //  ----- Contenedor de menu------
@@ -115,7 +115,7 @@ export function dashboard() {
     logout();
   });
 
-  // img.src = 'imagen/EnRutados-logo-pq.png';
+  img.src = 'imagen/logotipo.png';
   /* imgTransport.src = 'imagen/transporteBl.png';
   imgHostal.src = 'imagen/alojamientoBl.png';
   imgFood.src = 'imagen/food.png'; */
@@ -125,19 +125,24 @@ export function dashboard() {
   paintRealTime((querySnapshot) => {
     postSection.textContent = ' ';
     querySnapshot.forEach((doc) => {
+      const postContainer = document.createElement('div');
+      postContainer.setAttribute('class', 'post-container');
       const postNew = document.createElement('div');
       postNew.setAttribute('class', 'post');
+      postNew.setAttribute('id', 'post');
       const reaccion = document.createElement('section');
       reaccion.setAttribute('class', 'reaccion');
       const buttonLike = document.createElement('button');
-      buttonLike.setAttribute('class', 'like');
+      buttonLike.setAttribute('class', 'button-border');
       const imgLike = document.createElement('img');
       imgLike.setAttribute('class', 'img-like');
       const buttonEdit = document.createElement('button');
+      buttonEdit.setAttribute('class', 'button-border');
       buttonEdit.setAttribute('id', 'edit');
       const imgEdit = document.createElement('img');
       imgEdit.setAttribute('class', 'img-edit');
       const buttonDelete = document.createElement('button');
+      buttonDelete.setAttribute('class', 'button-border');
       buttonDelete.setAttribute('id', 'delete');
       const imgDelete = document.createElement('img');
       imgDelete.setAttribute('class', 'img-like');
@@ -153,8 +158,6 @@ export function dashboard() {
       // imgComment.src = 'imagen/comentario.png';
       imgEdit.src = 'imagen/edit.png';
       postNew.textContent = doc.data().post;
-      // buttonComment.value = doc.data().comment;
-      buttonDelete.value = doc.data().comment;
       console.log('id email de usuarix: ', auth.currentUser.email);
 
       // ----- Llamar función Like-----
@@ -194,7 +197,7 @@ export function dashboard() {
       buttonEdit.addEventListener('click', () => {
         editModal.style.display = 'block';
         document.body.appendChild(editModal);
-        editPostContent.value = ''; // Puedes establecer el contenido actual aquí
+        editPostContent.value = document.getElementById('post').previousSibling.id;// Puedes establecer el contenido actual aquí
       });
       // Cierra el modal cuando se hace clic en la "X" o en el fondo oscuro
       closeModalButton.addEventListener('click', () => {
@@ -219,7 +222,8 @@ export function dashboard() {
         editModal.style.display = 'none';
       });
       reaccion.append(buttonLike, counter, buttonEdit, buttonDelete);
-      postSection.append(postNew, reaccion);
+      postContainer.append(postNew, reaccion);
+      postSection.append(postContainer);
       buttonLike.append(imgLike);
       buttonDelete.append(imgDelete);
       buttonEdit.append(imgEdit);
@@ -236,7 +240,7 @@ export function dashboard() {
   filterHostal.append(imgHostal);
   filterRestaurant.append(imgFood);
   nameSocial.append(filterContainer); */
-  nameSocial.append(welcomeMessage);
+  nameSocial.append(img, welcomeMessage);
   wallContainer.append(postSection);
   navigationBar.append(listNavigation);
   listNavigation.append(
