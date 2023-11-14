@@ -177,7 +177,16 @@ export function dashboard() {
       buttonDelete.addEventListener('click', () => {
         const postId = doc.id;
         if (doc.data().email === auth.currentUser.email) {
-          deletePost(postId, auth.currentUser.email);
+          // Pregunta al usuario si realmente quiere eliminar la publicación
+          const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar esta publicación?');
+
+          if (confirmDelete) {
+            // Si el usuario confirma, elimina la publicación
+            deletePost(postId, auth.currentUser.email);
+          } else {
+            // Si el usuario cancela, no hagas nada o puedes mostrar un mensaje de cancelación
+            console.log('Eliminación cancelada por el usuario');
+          }
         } else {
           alert('No puedes eliminar esta publicación');
         }
@@ -195,9 +204,11 @@ export function dashboard() {
       saveEditButton.setAttribute('class', 'save-edit-button');
       // Abre el modal cuando se hace clic en el botón "Editar Publicación"
       buttonEdit.addEventListener('click', () => {
+        const currentContent = doc.data().post;
         editModal.style.display = 'block';
         document.body.appendChild(editModal);
-        editPostContent.value = document.getElementById('post').previousSibling.id;// Puedes establecer el contenido actual aquí
+        editPostContent.value = currentContent;// Puedes establecer el contenido actual aquí
+        console.log(editPostContent);
       });
       // Cierra el modal cuando se hace clic en la "X" o en el fondo oscuro
       closeModalButton.addEventListener('click', () => {

@@ -5,17 +5,15 @@
 }
 body {
   background: rgba(146, 175, 90, 0.58);
-  text-align: center;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+  width: 100%;
+  height: 100%;
   display: grid;
   grid-template-columns: 1fr; /* Una columna por defecto en dispositivos móviles */
-  gap: 10px;
 }
-#root {
+/* #root {
   margin: 10%;
  }
+ */
 .principal-container {
   display: flex;
   flex-direction: column;
@@ -174,39 +172,68 @@ body {
   background-size: contain; /* Ajusta el tamaño del fondo */
   background-repeat: no-repeat; /* No se repite */
   background-position: left; /* Alinea el logo a la izquierda */
- }
+}
  .comment {
   width: 2rem;
   height: 2rem;
   border: 2px;
- }
- .post-container {
-  width: 18rem;
-  height: 5rem;
-  background: white;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  padding: 10px;
-}
- .post {
-  border-radius: 10px;
-  border: 1px solid #6459d8; /* Cambiado a 'border' para establecer el estilo y el color del borde */
-  padding: 5px;
-  text-align: center;
- }
-
- .container-dashbord {
-  text-align: center
 }
 
+.container-dashbord {
+  width: 100%;
+  height: 100%;
+}
+.wall-container{
+  width: 100%;
+}
+.post-container {
+    width: 18rem;
+    height: 5rem;
+    background: white;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+  }
+.section-post {
+    width: 19rem;
+    margin-top: 20%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+}
+.post {
+    border-radius: 10px;
+    border: 1px solid #6459d8; /* Cambiado a 'border' para establecer el estilo y el color del borde */
+    padding: 5px;
+    text-align: center;
+}
+.comment {
+    width: 2rem;
+    height: 2rem;
+    border: 2px;
+}
 .name-social {
   position: fixed;
   top: 0;
   width: 100%;
   height: 20%;
 }
+.logo-dash{
+  width: 40%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.welcome-message {
+  font-family: sans-serif;
+  font-size: 16px; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
+  color: black; /* Color de texto (puedes cambiarlo) */
+  margin-top: 20px;
+  margin-left: 10px; /* Margen superior */
+}
 .navigation-bar {
-  background: white;
+  background: rgba(146, 175, 90, 0.58);
   position: fixed;
   left: 0;
   bottom: 0;
@@ -215,6 +242,7 @@ body {
   border-top: 2px solid #6459d8;
   display:flex;
   align-items: center;
+  text-align: center;
 }
 .counter-like{
   width: 2rem;
@@ -223,8 +251,6 @@ body {
 .list-navigation {
   width: 80%;
   list-style: none;
- padding: 0;
- margin: 0;
  display: flex;
  flex-direction: row;
 }
@@ -235,28 +261,9 @@ body {
   height: 2rem;
   margin-top: 5px;
   margin-bottom: 15px;
-}
-.section-post {
-  width: 19rem;
-  margin-top: 100%;
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
-}
-.logo-dash{
-  width: 40%;
-  display: flex;
-  justify-content: flex-start;
+  text-align: center;
 }
 
-.welcome-message {
-  font-family: sans-serif;
-  font-size: 20px; /* Tamaño de fuente */
-  font-weight: bold; /* Negrita */
-  color: black; /* Color de texto (puedes cambiarlo) */
-  margin-top: 20px; /* Margen superior */
-  justify-content: flex-start;
-}
 .modal {
   display: flex;
   align-items: center;
@@ -312,10 +319,6 @@ body {
 .button-border {
   border: none;
 }
-
-.wall-container{
-width: 4rem;
-}
 /* Estilos para Publicación*/
 .modal-post{
   display: flex;
@@ -352,4 +355,29 @@ width: 4rem;
   float: right;
   font-size: 28px;
   font-weight: bold;
+}
+@media (min-width: 769px) {
+  .navigation-bar {
+  width: 10%; 
+  height: 100%;
+  border-right: 2px solid #6459d8;
+  }
+  .list-navigation{
+  flex-direction: column;
+  }
+  .wall-container {
+    margin-left: 30%;
+  }
+  .li-home,
+  .li-profile,
+  .li-upload {
+    margin-bottom: 50%;
+  }
+  .name-social{
+    width: 30%;
+    z-index: 1;
+  }
+  .section-post{
+    margin-top: 5%;
+  }
 }
