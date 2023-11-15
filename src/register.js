@@ -17,6 +17,7 @@ export function register(navigateTo) {
   const registerContainer = document.createElement('section');
   registerContainer.setAttribute('class', 'containerInfo');
   const form = document.createElement('form');
+  form.setAttribute('class', 'form-sign');
   const inputName = document.createElement('input');
   inputName.setAttribute('class', 'inputInfo');
   inputName.setAttribute('type', 'text');

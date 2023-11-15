@@ -22,6 +22,7 @@ function login(navigateTo) {
   const containerSingIn = document.createElement('section');
   containerSingIn.setAttribute('class', 'containerInfo');
   const form = document.createElement('form');
+  form.setAttribute('class', 'form-sign');
   const inputEmail = document.createElement('input');
   inputEmail.setAttribute('class', 'inputInfo');
   inputEmail.setAttribute('id', 'idInputEmail');
