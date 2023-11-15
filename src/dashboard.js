@@ -6,6 +6,11 @@
 import {
   addPost, logout, paintRealTime, giveLike, auth, unGiveLike, deletePost, editPost,
 } from './lib';
+import imagen_edit from 'imagen/edit.png';
+import eliminar from './imagen/eliminar.png';
+import like from './imagen/like.png';
+import logotipo from './imagen/logotipo.png';
+
 
 export function dashboard() {
   // ----- contenedor del nombre red social -----
@@ -138,7 +143,7 @@ export function dashboard() {
       imgComment.setAttribute('class', 'img-comment'); */
       imgLike.src = 'imagen/like.png';
       imgDelete.src = 'imagen/eliminar.png';
-      imgEdit.src = 'imagen/edit.png';
+      imgEdit.src = 'imgen_edit';
       postNew.textContent = doc.data().post;
       console.log('id email de usuarix: ', auth.currentUser.email);
 
