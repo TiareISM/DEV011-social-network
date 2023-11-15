@@ -27,6 +27,8 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signOut,
+  setPersistence,
+  browserSessionPersistence,
 } from 'firebase/auth';
 import {
   getStorage, ref, uploadBytes, getDownloadURL,
@@ -73,25 +75,25 @@ export const registerUser = (email, password, name) => {
 };
 
 // -----Funcion de Ingreso con Google----
-export const signGoogle = () => {
+export const signGoogle = (persistenceType = browserSessionPersistence) => {
   const provider = new GoogleAuthProvider();
-  return signInWithPopup(auth, provider)
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      // Inicio de sesión exitoso, puedes acceder a la información del usuario aquí.
-      const user = result.user;
-      console.log(user);
-      return user;
-      // console.log('Usuario autenticado:', user);
-      // window.location.hash = '/dashboard';
-    })
+
+  // Configurar la persistencia utilizando el tipo proporcionado o browserSessionPersistence
+  return setPersistence(auth, persistenceType)
+    .then(() => signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+        console.log(user);
+        return user;
+      })
+      .catch((error) => {
+        console.error('Error de inicio de sesión:', error);
+        return error;
+      }))
     .catch((error) => {
-      // Manejo de errores en caso de que el inicio de sesión falle.
-      // const errorCode = error.code;
-      // const errorMessage = error.message;
-      console.error('Error de inicio de sesión:', error);
+      console.error('Error al configurar la persistencia:', error);
       return error;
     });
 };
@@ -104,13 +106,20 @@ export const signIn = (email, password) => new Promise((resolve, reject) => {
     return;
   }
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      resolve(user); // Resuelve la promesa con el usuario en caso de inicio de sesión exitoso
+  // Configurar la persistencia usando browserSessionPersistence
+  setPersistence(auth, browserSessionPersistence)
+    .then(() => {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          resolve(user);
+        })
+        .catch((error) => {
+          reject(error);
+        });
     })
     .catch((error) => {
-      reject(error); // Rechaza la promesa si hay un error en el inicio de sesión
+      reject(error);
     });
 });
 /*
@@ -210,3 +219,13 @@ export const editPost = (postId, newPostContent) => {
     console.error('Error al editar la publicación:', error);
   }
 };
+// ---------------funciones para recargar pagina------------
+// ---------------------------------Persistence Function-----------------------------------
+export const stateChanged = auth.onAuthStateChanged((user) => {
+  if (user) {
+    const displayedName = user.displayName;
+    const email = user.email;
+    sessionStorage.setItem('usuarioLogeado', displayedName);
+    sessionStorage.setItem('emailUsuarioLogeado', email);
+  }
+});
