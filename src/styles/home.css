@@ -190,6 +190,11 @@ body {
     margin-bottom: 20px;
     padding: 10px;
   }
+.post-user {
+  font-size: 16px; /* Tamaño de fuente */
+  font-weight: bold;
+  padding: 10px;
+}
 .post {
     border-radius: 10px;
     border: 1px solid #6459d8; /* Cambiado a 'border' para establecer el estilo y el color del borde */
@@ -339,6 +344,7 @@ body {
 
 .button-border {
   border: none;
+  background-color: #fff;
 }
 .logout-button {
   background-color: #0077b6;
