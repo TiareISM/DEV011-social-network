@@ -2,6 +2,7 @@
 /* eslint-disable no-console */
 // file home.js
 import { auth, signGoogle } from './lib/index.js';
+import logo from './imagen/logo-gr.png';
 
 const user = auth.currentUser;
 console.log(user);
@@ -35,7 +36,7 @@ export function home(navigateTo) {
   const textGoogle = document.createElement('span');
   textGoogle.setAttribute('class', 'text-google');
 
-  img.src = 'imagen/logo-gr.png';
+  img.src = logo;
   welcome.textContent = 'Bienvenido';
   descriptionSocial.textContent = '¡Tu red social de viajes favorita!';
   connectWith.textContent = 'O conectate con';

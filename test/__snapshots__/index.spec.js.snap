@@ -1,5 +1,63 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`home Snapshot of home 1`] = `
+<section>
+  <section
+    class="principal-container"
+  >
+    <section
+      class="name-social-container"
+    >
+      <img
+        class="logo"
+        src="imagen/logo-gr.png"
+      />
+    </section>
+    <section
+      class="containerInfo"
+    >
+      <h2
+        class="welcome"
+      >
+        Bienvenido
+      </h2>
+      <p
+        class="descriptionSocial"
+      >
+        ¡Tu red social de viajes favorita!
+      </p>
+      <button
+        class="signIn"
+      >
+        Iniciar sesión
+      </button>
+      <button
+        class="signUp"
+      >
+        Registrate
+      </button>
+      <h6
+        class="connect-with"
+      >
+        O conectate con
+      </h6>
+      <button
+        class="openGoogle"
+      >
+        <span
+          class="icon-google"
+        />
+        <span
+          class="text-google"
+        >
+          Google
+        </span>
+      </button>
+    </section>
+  </section>
+</section>
+`;
+
 exports[`login Snapshot of login 1`] = `
 <section>
   <section
@@ -69,6 +127,72 @@ exports[`login Snapshot of login 1`] = `
 
 exports[`register Snapshot of register 1`] = `
 <section>
-  undefined
+  <section
+    class="principal-container"
+  >
+    <button
+      class="return"
+      id="return"
+    >
+      <img
+        class="return"
+        src="imagen/return.png"
+      />
+    </button>
+    <section
+      class="name-social-container"
+    >
+      <img
+        class="logo"
+        src="imagen/logo-gr.png"
+      />
+    </section>
+    <section
+      class="containerInfo"
+    >
+      <form>
+        <input
+          class="inputInfo"
+          id="idInputName"
+          placeholder="Nombre Usuario"
+          type="text"
+        />
+        <input
+          class="inputInfo"
+          id="idInputEmail"
+          placeholder="Correo electrónico"
+          type="email"
+        />
+        <input
+          class="inputInfo"
+          id="idInputPass"
+          placeholder="Contraseña"
+          type="password"
+        />
+      </form>
+      <button
+        class="buttonInfo"
+      >
+        Registrate
+      </button>
+      <h4
+        class="connect-with"
+      >
+        O conéctate con
+      </h4>
+      <button
+        class="openGoogle"
+      >
+        <span
+          class="icon-google"
+        />
+        <span
+          class="text-google"
+        >
+          Google
+        </span>
+      </button>
+    </section>
+  </section>
 </section>
 `;

@@ -3,9 +3,15 @@
 /* eslint-disable import/named */
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
+
 import {
   addPost, logout, paintRealTime, giveLike, auth, unGiveLike, deletePost, editPost,
 } from './lib';
+
+import edit from './imagen/edit.png';
+import eliminar from './imagen/eliminar.png';
+import like from './imagen/like.png';
+import logotipo from './imagen/logotipo.png';
 
 export function dashboard() {
   // ----- contenedor del nombre red social -----
@@ -21,31 +27,9 @@ export function dashboard() {
   const userEmail = user ? user.displayName || user.email : '';
   const welcomeMessage = document.createElement('p');
   welcomeMessage.setAttribute('class', 'welcome-message');
-  welcomeMessage.textContent = `Bienvenido, ${userEmail} <3!`;
-  // ----- contenedor filtros-----
-  /* const filterContainer = document.createElement('nav');
-  filterContainer.setAttribute('class', 'filter-container');
-  const ulFilter = document.createElement('ul');
-  ulFilter.setAttribute('class', 'ul-filter');
-  const filterTransport = document.createElement('li');
-  filterTransport.setAttribute('class', 'filter transport');
-  filterTransport.setAttribute('id', 'filter-transport');
-  const imgTransport = document.createElement('img');
-  imgTransport.setAttribute('class', 'transport');
-  const filterHostal = document.createElement('li');
-  filterHostal.setAttribute('class', 'filter hostal');
-  filterHostal.setAttribute('id', 'filter-hostal');
-  const imgHostal = document.createElement('img');
-  imgHostal.setAttribute('class', 'hostal');
-  const filterRestaurant = document.createElement('li');
-  filterRestaurant.setAttribute('class', 'filter food');
-  filterRestaurant.setAttribute('id', 'filter-restaurant');
-  const imgFood = document.createElement('img');
-  imgFood.setAttribute('class', 'food'); */
+  welcomeMessage.textContent = `Hola, ${userEmail} <3!`;
   // ----- contenedor publicaciones----
-  const wallContainer = document.createElement('section');
-  wallContainer.setAttribute('class', 'wall-container');
-  const postSection = document.createElement('article');
+  const postSection = document.createElement('div');
   postSection.setAttribute('class', 'section-post');
   postSection.setAttribute('id', 'post-section');
   //  ----- Contenedor de menu------
@@ -53,9 +37,6 @@ export function dashboard() {
   navigationBar.setAttribute('class', 'navigation-bar');
   const listNavigation = document.createElement('ul');
   listNavigation.setAttribute('class', 'list-navigation');
-  /* const liSearch = document.createElement('li');
-  liSearch.setAttribute('class', 'li-search');
-  liSearch.textContent = 'Búsqueda'; */
   const liHome = document.createElement('li');
   liHome.setAttribute('class', 'li-home');
   liHome.textContent = 'Inicio';
@@ -65,15 +46,19 @@ export function dashboard() {
   // -----Para subir publicaciones-----
   const form = document.createElement('form');
   form.setAttribute('id', 'postForm');
+  form.setAttribute('class', 'content-modal');
+  const upload = document.createElement('div');
+  upload.setAttribute('class', 'upload');
+  upload.textContent = 'Crear nueva publicación';
   const sendComment = document.createElement('input');
-  sendComment.setAttribute('class', 'comentario');
+  sendComment.setAttribute('class', 'text-input');
   sendComment.setAttribute('id', 'sendComment');
   const buttonSend = document.createElement('button');
-  buttonSend.setAttribute('class', 'enviar-comentario');
+  buttonSend.setAttribute('class', 'save-modal');
   buttonSend.setAttribute('id', 'buttonSend');
   buttonSend.setAttribute('type', 'submit');
   const buttonClose = document.createElement('button');
-  buttonClose.setAttribute('class', 'cerrar-modal');
+  buttonClose.setAttribute('class', 'close-modal');
   buttonClose.textContent = 'x';
   const liProfile = document.createElement('li');
   liProfile.setAttribute('class', 'li-profile');
@@ -84,7 +69,8 @@ export function dashboard() {
   logoutButton.textContent = 'Cerrar Sesión';
   // Crear un div para el modal
   const modal = document.createElement('div');
-  modal.classList.add('modal-post');
+  modal.classList.add('modal');
+  form.appendChild(upload);
   form.appendChild(sendComment);
   form.appendChild(buttonSend);
   form.appendChild(buttonClose);
@@ -99,9 +85,12 @@ export function dashboard() {
     event.preventDefault();
     const inputPost = form.querySelector('#sendComment');
     const post = inputPost.value;
-    // Llamar a la función para agregar publicación y subir imagen a Firebase
-    addPost(post, auth.currentUser.email);
-    inputPost.value = '';
+    // Verificar si el campo de texto no está vacío antes de agregar la publicación
+    if (post !== '') {
+      // Llamar a la función para agregar la publicación y subir a Firebase
+      addPost(post, auth.currentUser.email);
+      inputPost.value = '';
+    }
     // Cerrar el modal después de enviar la publicación
     modal.style.display = 'none';
   });
@@ -115,7 +104,7 @@ export function dashboard() {
     logout();
   });
 
-  // img.src = 'imagen/EnRutados-logo-pq.png';
+  img.src = logotipo;
   /* imgTransport.src = 'imagen/transporteBl.png';
   imgHostal.src = 'imagen/alojamientoBl.png';
   imgFood.src = 'imagen/food.png'; */
@@ -125,19 +114,24 @@ export function dashboard() {
   paintRealTime((querySnapshot) => {
     postSection.textContent = ' ';
     querySnapshot.forEach((doc) => {
+      const postContainer = document.createElement('div');
+      postContainer.setAttribute('class', 'post-container');
       const postNew = document.createElement('div');
       postNew.setAttribute('class', 'post');
+      postNew.setAttribute('id', 'post');
       const reaccion = document.createElement('section');
       reaccion.setAttribute('class', 'reaccion');
       const buttonLike = document.createElement('button');
-      buttonLike.setAttribute('class', 'like');
+      buttonLike.setAttribute('class', 'button-border');
       const imgLike = document.createElement('img');
       imgLike.setAttribute('class', 'img-like');
       const buttonEdit = document.createElement('button');
+      buttonEdit.setAttribute('class', 'button-border');
       buttonEdit.setAttribute('id', 'edit');
       const imgEdit = document.createElement('img');
       imgEdit.setAttribute('class', 'img-edit');
       const buttonDelete = document.createElement('button');
+      buttonDelete.setAttribute('class', 'button-border');
       buttonDelete.setAttribute('id', 'delete');
       const imgDelete = document.createElement('img');
       imgDelete.setAttribute('class', 'img-like');
@@ -148,13 +142,10 @@ export function dashboard() {
       buttonComment.setAttribute('class', 'comment');
       const imgComment = document.createElement('img');
       imgComment.setAttribute('class', 'img-comment'); */
-      imgLike.src = 'imagen/like.png';
-      imgDelete.src = 'imagen/eliminar.png';
-      // imgComment.src = 'imagen/comentario.png';
-      imgEdit.src = 'imagen/edit.png';
+      imgLike.src = like;
+      imgDelete.src = eliminar;
+      imgEdit.src = edit;
       postNew.textContent = doc.data().post;
-      // buttonComment.value = doc.data().comment;
-      buttonDelete.value = doc.data().comment;
       console.log('id email de usuarix: ', auth.currentUser.email);
 
       // ----- Llamar función Like-----
@@ -174,27 +165,44 @@ export function dashboard() {
       buttonDelete.addEventListener('click', () => {
         const postId = doc.id;
         if (doc.data().email === auth.currentUser.email) {
-          deletePost(postId, auth.currentUser.email);
+          // Pregunta al usuario si realmente quiere eliminar la publicación
+          const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar esta publicación?');
+
+          if (confirmDelete) {
+            // Si el usuario confirma, elimina la publicación
+            deletePost(postId, auth.currentUser.email);
+          } else {
+            // Si el usuario cancela, no hagas nada o puedes mostrar un mensaje de cancelación
+            console.log('Eliminación cancelada por el usuario');
+          }
         } else {
           alert('No puedes eliminar esta publicación');
         }
       });
+      // ----------MODAL EDITAR COMENTARIO----------
       const closeModalButton = document.createElement('button');
       closeModalButton.textContent = 'x';
-      closeModalButton.setAttribute('class', 'close-modal-button');
+      closeModalButton.setAttribute('class', 'close-modal');
       const editModal = document.createElement('div');
       editModal.classList.add('modal');
+      const uploadTextEdit = document.createElement('div');
+      uploadTextEdit.setAttribute('class', 'upload');
+      uploadTextEdit.textContent = 'Editar publicación';
+      const contentModalEdit = document.createElement('div');
+      contentModalEdit.setAttribute('class', 'content-modal');
       const editPostContent = document.createElement('input');
       editPostContent.setAttribute('type', 'text');
       editPostContent.setAttribute('class', 'text-input');
       const saveEditButton = document.createElement('button');
       saveEditButton.textContent = 'Guardar cambios';
-      saveEditButton.setAttribute('class', 'save-edit-button');
+      saveEditButton.setAttribute('class', 'save-modal');
       // Abre el modal cuando se hace clic en el botón "Editar Publicación"
       buttonEdit.addEventListener('click', () => {
+        const currentContent = doc.data().post;
         editModal.style.display = 'block';
         document.body.appendChild(editModal);
-        editPostContent.value = ''; // Puedes establecer el contenido actual aquí
+        editPostContent.value = currentContent;// Puedes establecer el contenido actual aquí
+        console.log(editPostContent);
       });
       // Cierra el modal cuando se hace clic en la "X" o en el fondo oscuro
       closeModalButton.addEventListener('click', () => {
@@ -219,11 +227,13 @@ export function dashboard() {
         editModal.style.display = 'none';
       });
       reaccion.append(buttonLike, counter, buttonEdit, buttonDelete);
-      postSection.append(postNew, reaccion);
+      postContainer.append(postNew, reaccion);
+      postSection.append(postContainer);
       buttonLike.append(imgLike);
       buttonDelete.append(imgDelete);
       buttonEdit.append(imgEdit);
-      editModal.append(editPostContent, saveEditButton, closeModalButton);
+      contentModalEdit.append(uploadTextEdit, editPostContent, saveEditButton, closeModalButton);
+      editModal.append(contentModalEdit);
     });
   });
   /* filterContainer.append(
@@ -236,8 +246,7 @@ export function dashboard() {
   filterHostal.append(imgHostal);
   filterRestaurant.append(imgFood);
   nameSocial.append(filterContainer); */
-  nameSocial.append(welcomeMessage);
-  wallContainer.append(postSection);
+  nameSocial.append(img, welcomeMessage);
   navigationBar.append(listNavigation);
   listNavigation.append(
     liHome,
@@ -248,7 +257,7 @@ export function dashboard() {
 
   containerDashbord.append(
     nameSocial,
-    wallContainer,
+    postSection,
     navigationBar,
   );
 
