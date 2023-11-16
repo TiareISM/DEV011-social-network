@@ -3,9 +3,15 @@
 /* eslint-disable import/named */
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
+
 import {
   addPost, logout, paintRealTime, giveLike, auth, unGiveLike, deletePost, editPost,
 } from './lib';
+
+import edit from './imagen/edit.png';
+import eliminar from './imagen/eliminar.png';
+import like from './imagen/like.png';
+import logotipo from './imagen/logotipo.png';
 
 export function dashboard() {
   // ----- contenedor del nombre red social -----
@@ -98,7 +104,7 @@ export function dashboard() {
     logout();
   });
 
-  img.src = 'imagen/logotipo.png';
+  img.src = logotipo;
   /* imgTransport.src = 'imagen/transporteBl.png';
   imgHostal.src = 'imagen/alojamientoBl.png';
   imgFood.src = 'imagen/food.png'; */
@@ -136,9 +142,9 @@ export function dashboard() {
       buttonComment.setAttribute('class', 'comment');
       const imgComment = document.createElement('img');
       imgComment.setAttribute('class', 'img-comment'); */
-      imgLike.src = 'imagen/like.png';
-      imgDelete.src = 'imagen/eliminar.png';
-      imgEdit.src = 'imagen/edit.png';
+      imgLike.src = like;
+      imgDelete.src = eliminar;
+      imgEdit.src = edit;
       postNew.textContent = doc.data().post;
       console.log('id email de usuarix: ', auth.currentUser.email);
 
