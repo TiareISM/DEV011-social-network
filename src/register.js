@@ -1,5 +1,7 @@
 /* eslint-disable no-alert */
 import { registerUser, signGoogle } from './lib';
+import logoReturn from './imagen/return.png';
+import logo from './imagen/logo-gr.png';
 
 export function register(navigateTo) {
   const principalContainer = document.createElement('section');
@@ -42,9 +44,9 @@ export function register(navigateTo) {
   const textGoogle = document.createElement('span');
   textGoogle.setAttribute('class', 'text-google');
 
-  img.src = 'imagen/logo-gr.png';
-  imgReturn.src = 'imagen/return.png';
-  inputName.placeholder = 'Nombre Usuario';
+  img.src = logo;
+  imgReturn.src = logoReturn;
+  inputName.placeholder = 'Nombre Usuario Enrutado';
   inputEmail.placeholder = 'Correo electrónico';
   inputPass.placeholder = 'Contraseña';
   buttonRegister.textContent = 'Registrate';

@@ -4,6 +4,8 @@
 /* eslint-disable no-unused-vars */
 // file login finished
 import { auth, signGoogle, signIn } from './lib/index.js';
+import logoReturn from './imagen/return.png';
+import logo from './imagen/logo-gr.png';
 
 function login(navigateTo) {
   // ----- contenedor principal ----
@@ -45,8 +47,8 @@ function login(navigateTo) {
   const textGoogle = document.createElement('span');
   textGoogle.setAttribute('class', 'text-google');
 
-  img.src = 'imagen/logo-gr.png';
-  imgReturn.src = 'imagen/return.png';
+  img.src = logo;
+  imgReturn.src = logoReturn;
   inputEmail.placeholder = 'Correo electrónico';
   inputPass.placeholder = 'Contraseña';
   buttonSignIn.textContent = 'Iniciar sesión';
