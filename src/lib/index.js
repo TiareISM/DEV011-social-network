@@ -29,6 +29,7 @@ import {
   signOut,
   setPersistence,
   browserSessionPersistence,
+  onAuthStateChanged,
 } from 'firebase/auth';
 import {
   getStorage, ref, uploadBytes, getDownloadURL,
@@ -160,10 +161,12 @@ export const addPost2 = (title, imageFile, description) => {
 // -----Agregar Publicación-----
 const postCollection = collection(db, 'posts');
 export const addPost = (post, email) => {
+  const username = auth.currentUser.displayName;
   addDoc(postCollection, {
     post,
     counterLikes: [],
     email,
+    username,
     date: Date.now(),
   });
 };

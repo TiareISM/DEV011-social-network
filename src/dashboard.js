@@ -116,6 +116,10 @@ export function dashboard() {
     querySnapshot.forEach((doc) => {
       const postContainer = document.createElement('div');
       postContainer.setAttribute('class', 'post-container');
+      const postUser = document.createElement('p');
+      postUser.setAttribute('class', 'post-user');
+      postUser.textContent = `${doc.data().username || ''}`;
+      console.log('name:', doc.data().username || '');
       const postNew = document.createElement('div');
       postNew.setAttribute('class', 'post');
       postNew.setAttribute('id', 'post');
@@ -145,8 +149,18 @@ export function dashboard() {
       imgLike.src = like;
       imgDelete.src = eliminar;
       imgEdit.src = edit;
+      // codigo para que los iconos salgan solo si es tu post
+      if (doc.data().email === auth.currentUser.email) {
+        imgDelete.style.display = 'block';
+      } else {
+        imgDelete.style.display = 'none';
+      }
+      if (doc.data().email === auth.currentUser.email) {
+        imgEdit.style.display = 'block';
+      } else {
+        imgEdit.style.display = 'none';
+      }
       postNew.textContent = doc.data().post;
-      console.log('id email de usuarix: ', auth.currentUser.email);
 
       // ----- Llamar función Like-----
       buttonLike.addEventListener('click', (event) => {
@@ -194,7 +208,7 @@ export function dashboard() {
       editPostContent.setAttribute('type', 'text');
       editPostContent.setAttribute('class', 'text-input');
       const saveEditButton = document.createElement('button');
-      saveEditButton.textContent = 'Guardar cambios';
+      saveEditButton.textContent = 'Guardar';
       saveEditButton.setAttribute('class', 'save-modal');
       // Abre el modal cuando se hace clic en el botón "Editar Publicación"
       buttonEdit.addEventListener('click', () => {
@@ -227,7 +241,7 @@ export function dashboard() {
         editModal.style.display = 'none';
       });
       reaccion.append(buttonLike, counter, buttonEdit, buttonDelete);
-      postContainer.append(postNew, reaccion);
+      postContainer.append(postUser, postNew, reaccion);
       postSection.append(postContainer);
       buttonLike.append(imgLike);
       buttonDelete.append(imgDelete);
